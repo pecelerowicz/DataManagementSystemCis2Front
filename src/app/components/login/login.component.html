@@ -18,6 +18,7 @@
           minlength="3"
           maxlength="20"
           email
+          (ngModelChange)="onEmailChange($event)"
         />
         <mat-error *ngIf="email.errors?.required"
           >The email is mandatory</mat-error
@@ -56,6 +57,7 @@
 
     <div>
       {{ email.errors | json }}
+      {{ email.value | json }}
     </div>
   </mat-card-content>
 </mat-card>
