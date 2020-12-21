@@ -1,4 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-toolbar {
+  position: fixed;
+  z-index: 1000;
+}
+
+.main-content {
+  margin-top: 80px;
+}
+
+.data-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.data-form mat-form-field {
+  display: block;
+  margin-top: 10px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-buttons button {
+  margin-right: 10px;
+}
+
+.form-val {
+  margin-top: 10px;
+}
+
+.field-message {
+  color: #f44336;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-size: 75%;
+  font-family: "Roboto";
+}
+
+mat-radio-button {
+  margin-right: 10px;
+}
