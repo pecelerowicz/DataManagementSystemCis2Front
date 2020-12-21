@@ -13,6 +13,7 @@
           name="email"
           placeholder="Email"
           ngModel
+          [ngModelOptions]="{ updateOn: 'blur' }"
           #email="ngModel"
           required
           minlength="3"
