@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { PasswordStrengthDirective } from './directives/password-strength.directive';
+import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { PasswordStrengthDirective } from './directives/password-strength.direct
     LoginComponent,
     RegisterComponent,
     PasswordStrengthDirective,
+    OnlyOneErrorPipe,
   ],
   imports: [
     BrowserModule,
