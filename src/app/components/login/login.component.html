@@ -21,6 +21,7 @@
           email
           (ngModelChange)="onEmailChange($event)"
         />
+        <!-- [ngModelOptions]  -> blur, change, submit -->
         <mat-error *ngIf="email.errors?.required"
           >The email is mandatory</mat-error
         >
