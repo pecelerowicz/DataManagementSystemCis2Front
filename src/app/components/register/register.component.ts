@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { RegisterRequest } from './register.request';
 
 @Component({
   selector: 'app-register',
@@ -7,11 +8,22 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  constructor() {}
+  registerRequest: RegisterRequest;
+
+  constructor() {
+    this.registerRequest = {
+      username: '',
+      email: '',
+      password: '',
+    };
+  }
 
   ngOnInit(): void {}
 
   register(registerForm: NgForm, submit) {
-    console.log(registerForm.value, registerForm.valid, submit);
+    this.registerRequest.username = registerForm.value.username;
+    this.registerRequest.email = registerForm.value.email;
+    this.registerRequest.password = registerForm.value.password;
+    console.log(this.registerRequest);
   }
 }
