@@ -16,12 +16,10 @@
           [ngModelOptions]="{ updateOn: 'blur' }"
           #email="ngModel"
           required
-          minlength="3"
-          maxlength="20"
+          minlength="5"
+          maxlength="40"
           email
-          (ngModelChange)="onEmailChange($event)"
         />
-        <!-- [ngModelOptions]  -> blur, change, submit -->
         <mat-error *ngIf="email.errors?.required"
           >The email is mandatory</mat-error
         >
@@ -78,9 +76,5 @@
         Login
       </button>
     </form>
-
-    <div>
-      {{ password.value | json }}
-    </div>
   </mat-card-content>
 </mat-card>
