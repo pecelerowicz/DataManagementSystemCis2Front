@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { PasswordStrengthDirective } from './directives/password-strength.directive';
 import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
