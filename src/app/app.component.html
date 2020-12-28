@@ -23,10 +23,22 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" [class.mat-elevation-z2]="true">
     <button mat-icon-button (click)="start.open('mouse')">
       <mat-icon>menu</mat-icon>
     </button>
+    <button mat-button>NomatenData</button>
+    <div class="flex-grow-1 float-right">
+      <button
+        routerLink="/register"
+        mat-button
+        class="float-right"
+        color="accent"
+      >
+        Register
+      </button>
+      <button routerLink="/login" mat-button class="float-right">Login</button>
+    </div>
   </mat-toolbar>
 
   <div class="main-content">
