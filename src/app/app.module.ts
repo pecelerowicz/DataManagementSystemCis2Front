@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { PasswordStrengthDirective } from './directives/password-strength.directive';
 import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     FormsModule,
     HttpClientModule,
+    NgxWebstorageModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
