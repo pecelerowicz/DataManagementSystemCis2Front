@@ -27,10 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
-      console.log('a');
-      console.log(params);
       if (params.registered !== undefined && params.registered === 'true') {
-        console.log('b');
         this._snackBar.open(
           'Registration Successful. Check your inbox for activation link.',
           '',
