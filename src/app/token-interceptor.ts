@@ -18,11 +18,18 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.authService.getJwtToken()}`,
-      },
-    });
+    console.log(req.url);
+    if (
+      req.url !== 'http://localhost:8080/api/auth/signup' &&
+      req.url != 'http://localhost:8080/api/auth/login'
+    ) {
+      console.log('tutaj');
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authService.getJwtToken()}`,
+        },
+      });
+    }
     return next.handle(req);
   }
 }
