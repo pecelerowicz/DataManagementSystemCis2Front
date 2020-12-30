@@ -46,10 +46,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginRequest).subscribe(
       () => {
-        //console.log('Login successful');
-        this._snackBar.open('Login Successful.', '', {
+        this._snackBar.open('Login successful', '', {
           duration: 6000,
         });
+        this.router.navigate(['/home']);
       },
       (err) => {
         // console.log('error');

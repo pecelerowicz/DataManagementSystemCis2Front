@@ -10,8 +10,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { PasswordStrengthDirective } from './directives/password-strength.directive';
 import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { HomeComponent } from './components/home/home.component';
+import { TokenInterceptor } from './token-interceptor';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     RegisterComponent,
     PasswordStrengthDirective,
     OnlyOneErrorPipe,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,9 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
