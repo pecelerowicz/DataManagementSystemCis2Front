@@ -14,5 +14,5 @@ export class PingService {
 }
 
 export interface PingData {
-  value: string;
+  values: string[];
 }
