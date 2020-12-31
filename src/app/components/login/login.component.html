@@ -9,27 +9,23 @@
       <mat-form-field>
         <input
           matInput
-          type="email"
-          name="email"
-          placeholder="Email"
+          type="text"
+          name="username"
+          placeholder="Username"
           ngModel
           [ngModelOptions]="{ updateOn: 'blur' }"
-          #email="ngModel"
+          #username="ngModel"
           required
           minlength="5"
           maxlength="40"
-          email
         />
-        <mat-error *ngIf="email.errors?.required"
-          >The email is mandatory</mat-error
+        <mat-error *ngIf="username.errors?.required"
+          >The username is mandatory</mat-error
         >
-        <mat-error *ngIf="email.errors?.minlength">
-          Your email must have
-          {{ email.errors?.minlength.requiredLength }} chars, but it only has
-          {{ email.errors?.minlength.actualLength }}.
-        </mat-error>
-        <mat-error *ngIf="email.errors?.email">
-          This is not a valid email.
+        <mat-error *ngIf="username.errors?.minlength">
+          Your username must have at least
+          {{ username.errors?.minlength.requiredLength }} chars, but it only has
+          {{ username.errors?.minlength.actualLength }}.
         </mat-error>
       </mat-form-field>
 
