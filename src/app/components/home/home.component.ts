@@ -8,22 +8,13 @@ import { DataSetService, DataSetModel } from '../../services/data-set.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  pingData: string[] = [];
   dataSets: DataSetModel[] = [];
 
-  constructor(pingService: PingService, dataSetService: DataSetService) {
-    pingService.getPing().subscribe((data) => {
-      this.pingData = data.values;
-    });
+  constructor(private dataSetService: DataSetService) {}
 
-    dataSetService.getMyDataSets().subscribe((data) => {
+  ngOnInit(): void {
+    this.dataSetService.getMyDataSets().subscribe((data) => {
       this.dataSets = data;
     });
-
-    setTimeout(() => {
-      console.log(this.dataSets);
-    }, 2000);
   }
-
-  ngOnInit(): void {}
 }
