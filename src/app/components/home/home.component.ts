@@ -10,11 +10,16 @@ import { DataSetService, DataSetModel } from '../../services/data-set.service';
 export class HomeComponent implements OnInit {
   dataSets: DataSetModel[] = [];
 
+  pageNumber: number = 0;
+  pageSize: number = 10;
+
   constructor(private dataSetService: DataSetService) {}
 
   ngOnInit(): void {
-    this.dataSetService.getMyDataSets().subscribe((data) => {
-      this.dataSets = data;
-    });
+    this.dataSetService
+      .getMyDataSetsPagination(this.pageNumber, this.pageSize)
+      .subscribe((data) => {
+        this.dataSets = data;
+      });
   }
 }

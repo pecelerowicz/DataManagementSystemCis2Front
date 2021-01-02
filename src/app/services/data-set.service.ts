@@ -18,6 +18,12 @@ export class DataSetService {
       'http://localhost:8080/api/dataSet/logged'
     );
   }
+
+  getMyDataSetsPagination(pageNumber: number, pageSize: number) {
+    let url =
+      'http://localhost:8080/api/dataSet/logged/' + pageNumber + '/' + pageSize;
+    return this.http.get<Array<DataSetModel>>(url);
+  }
 }
 
 export interface DataSetModel {
