@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
 
 const material = [
   MatButtonModule,
@@ -23,6 +25,8 @@ const material = [
   MatSnackBarModule,
   MatTableModule,
   MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
 ];
 
 @NgModule({
