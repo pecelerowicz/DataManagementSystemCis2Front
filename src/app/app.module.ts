@@ -15,6 +15,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './token-interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TableDataPackageComponent } from './components/home/table-data-package/table-data-package.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     PasswordStrengthDirective,
     OnlyOneErrorPipe,
     HomeComponent,
+    TableDataPackageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PingService } from '../../services/ping.service';
 import { DataSetService, DataSetModel } from '../../services/data-set.service';
 
 @Component({
