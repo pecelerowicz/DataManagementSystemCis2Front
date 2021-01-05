@@ -1,4 +1,10 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import {
   DataSetModel,
   DataSetService,
@@ -43,6 +49,8 @@ export class TableDataPackage2Component implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  @Output() exampleEvent = new EventEmitter<{ value: number }>();
+
   constructor(private dataSetService: DataSetService) {}
 
   ngAfterViewInit(): void {
@@ -86,6 +94,10 @@ export class TableDataPackage2Component implements AfterViewInit {
 
   onClickStorage(id: number) {
     console.log(id);
+  }
+
+  onExampleEventEmit() {
+    this.exampleEvent.emit({ value: 3 });
   }
 }
 

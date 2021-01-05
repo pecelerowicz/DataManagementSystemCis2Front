@@ -7,7 +7,13 @@
   class="stats-cards"
 >
   <div fxFlex="50">
-    <app-table-data-package2></app-table-data-package2>
+    <app-table-data-package2
+      (exampleEvent)="onCatchEvent($event)"
+    ></app-table-data-package2>
   </div>
-  <div fxFlex="50">TODO</div>
+  <div fxFlex="50">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+<button (click)="onInfo()">info</button>
+<button (click)="onStorage()">storage</button>

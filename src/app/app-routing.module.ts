@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from '../app/components/login/login.component';
 import { RegisterComponent } from '../app/components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { InfoComponent } from './components/home/info/info.component';
+import { StorageComponent } from './components/home/storage/storage.component';
 
 const routes: Routes = [
   {
@@ -12,6 +14,16 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    children: [
+      {
+        path: 'info',
+        component: InfoComponent,
+      },
+      {
+        path: 'storage',
+        component: StorageComponent,
+      },
+    ],
   },
   {
     path: 'login',
