@@ -8,7 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { HttpClient } from '@angular/common/http';
 import { merge, of as observableOf, Observable } from 'rxjs';
-import { startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
+import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table-data-package2',
@@ -27,10 +27,7 @@ export class TableDataPackage2Component implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    private _httpClient: HttpClient,
-    private dataSetService: DataSetService
-  ) {}
+  constructor(private dataSetService: DataSetService) {}
 
   ngAfterViewInit(): void {
     this.exampleDatabase = new ExampleHttpDatabase(this.dataSetService);
@@ -42,7 +39,7 @@ export class TableDataPackage2Component implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getRepoIssues(
+          return this.exampleDatabase!.getDataSets(
             this.sort.active,
             this.sort.direction,
             this.paginator.pageIndex
@@ -72,11 +69,11 @@ export class TableDataPackage2Component implements AfterViewInit {
 export class ExampleHttpDatabase {
   constructor(private dataSetService: DataSetService) {}
 
-  getRepoIssues(
+  getDataSets(
     sort: string,
     order: string,
-    page: number
+    pageNumber: number
   ): Observable<DataSetModelApi> {
-    return this.dataSetService.getMyDataSetsPagination(page, 12);
+    return this.dataSetService.getMyDataSetsPagination(pageNumber, 10);
   }
 }
