@@ -22,7 +22,7 @@ export class DataSetService {
   getMyDataSetsPagination(pageNumber: number, pageSize: number) {
     let url =
       'http://localhost:8080/api/dataSet/logged/' + pageNumber + '/' + pageSize;
-    return this.http.get<Array<DataSetModel>>(url);
+    return this.http.get<DataSetModelApi>(url);
   }
 }
 
@@ -30,4 +30,9 @@ export interface DataSetModel {
   id: number;
   name: string;
   description: string;
+}
+
+export interface DataSetModelApi {
+  dataSetDtoList: DataSetModel[];
+  total_count: number;
 }
