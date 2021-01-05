@@ -6,17 +6,33 @@ import {
 } from '../../../services/data-set.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { HttpClient } from '@angular/common/http';
 import { merge, of as observableOf, Observable } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-table-data-package2',
   templateUrl: './table-data-package2.component.html',
   styleUrls: ['./table-data-package2.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class TableDataPackage2Component implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'description'];
+  displayedColumns: string[] = ['id', 'name', 'description', 'test'];
   exampleDatabase: ExampleHttpDatabase | null;
   data: DataSetModel[] = [];
 
@@ -50,7 +66,6 @@ export class TableDataPackage2Component implements AfterViewInit {
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
           this.resultsLength = data.total_count;
-          console.log(data);
           return data.dataSetDtoList;
         }),
         catchError(() => {
@@ -63,6 +78,14 @@ export class TableDataPackage2Component implements AfterViewInit {
       .subscribe((data) => {
         this.data = data;
       });
+  }
+
+  onClickInfo(id: number) {
+    console.log(id);
+  }
+
+  onClickStorage(id: number) {
+    console.log(id);
   }
 }
 
