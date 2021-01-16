@@ -18,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TableDataPackage2Component } from './components/home/table-data-package2/table-data-package2.component';
 import { StorageComponent } from './components/home/storage/storage.component';
 import { InfoComponent } from './components/home/info/info.component';
+import { StorageListComponent } from './components/home/storage-list/storage-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { InfoComponent } from './components/home/info/info.component';
     TableDataPackage2Component,
     StorageComponent,
     InfoComponent,
+    StorageListComponent,
   ],
   imports: [
     BrowserModule,
