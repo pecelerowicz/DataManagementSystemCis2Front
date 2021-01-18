@@ -16,11 +16,11 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'info',
+        path: 'info/:order',
         component: InfoComponent,
       },
       {
-        path: 'storage',
+        path: 'storage/:order',
         component: StorageComponent,
       },
     ],

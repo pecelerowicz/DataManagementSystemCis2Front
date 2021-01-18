@@ -1,9 +1,10 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
+import { ActivatedRoute } from '@angular/router';
 
 interface FoodNode {
   name: string;
@@ -41,7 +42,9 @@ interface ExampleFlatNode {
   templateUrl: './storage.component.html',
   styleUrls: ['./storage.component.css'],
 })
-export class StorageComponent {
+export class StorageComponent implements OnInit {
+  order: number;
+
   private _transformer = (node: FoodNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -64,8 +67,14 @@ export class StorageComponent {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.dataSource.data = TREE_DATA;
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.order = parseInt(params.get('order'));
+    });
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;

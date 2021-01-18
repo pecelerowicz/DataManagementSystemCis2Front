@@ -19,4 +19,5 @@ export interface Packages {
 
 export interface Package {
   relative: string;
+  order: number;
 }

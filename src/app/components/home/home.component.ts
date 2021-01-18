@@ -11,12 +11,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onInfo(): void {
-    this.router.navigate(['info'], { relativeTo: this.route });
+  onInfo(val): void {
+    this.router.navigate(['info', val.order], { relativeTo: this.route });
   }
 
-  onStorage(): void {
-    this.router.navigate(['storage'], { relativeTo: this.route });
+  onStorage(val): void {
+    this.router.navigate(['storage', val.order], { relativeTo: this.route });
   }
 
   onCatchEvent($event) {
