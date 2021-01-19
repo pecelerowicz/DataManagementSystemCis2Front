@@ -14,6 +14,7 @@ export class InfoComponent implements OnInit {
   ngOnInit(): void {
     // this.order = parseInt(this.route.snapshot.paramMap.get('order'));
     this.route.paramMap.subscribe((params: ParamMap) => {
+      console.log(parseInt(params.get('order')))
       this.order = parseInt(params.get('order'));
     });
   }

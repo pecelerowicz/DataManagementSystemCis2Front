@@ -11,6 +11,10 @@ export class StorageListService {
   getChildren(): Observable<Packages> {
     return this.http.get<Packages>('http://localhost:8080/api/packages');
   }
+
+  getStorage(): Observable<Packages> {
+    return this.http.get<Packages>('http://localhost:8080/api/storage');
+  }
 }
 
 export interface Packages {

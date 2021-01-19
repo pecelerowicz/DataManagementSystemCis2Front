@@ -4,32 +4,15 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
-interface FoodNode {
-  name: string;
-  children?: FoodNode[];
+interface Node {
+  relative: string;
+  children?: Node[];
 }
 
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Fruit',
-    children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
-      },
-      {
-        name: 'Orange',
-        children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
-      },
-    ],
-  },
-];
+let TREE_DATA: Node = { relative: '', children: [] };
 
 interface ExampleFlatNode {
   expandable: boolean;
@@ -45,10 +28,10 @@ interface ExampleFlatNode {
 export class StorageComponent implements OnInit {
   order: number;
 
-  private _transformer = (node: FoodNode, level: number) => {
+  private _transformer = (node: Node, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
-      name: node.name,
+      name: node.relative,
       level: level,
     };
   };
@@ -67,15 +50,29 @@ export class StorageComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private route: ActivatedRoute) {
-    this.dataSource.data = TREE_DATA;
-  }
+  constructor(private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
+
+      this.httpClient
+        .get<Node>('http://localhost:8080/api/storage')
+        .subscribe((val) => {
+          console.log(val)
+          console.log("---")
+          console.log(this.order)
+          TREE_DATA = val.children[this.order-1];
+          console.log("-----")
+          console.log(TREE_DATA)
+
+          this.dataSource.data = TREE_DATA.children;
+        });
+
+      
     });
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  isFolder = (_: number, node: ExampleFlatNode) => node.folder;
 }
