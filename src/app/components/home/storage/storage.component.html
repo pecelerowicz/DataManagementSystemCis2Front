@@ -6,7 +6,7 @@
     <!-- This is the tree node template for leaf nodes -->
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
      
-     
+      <button mat-icon-button disabled></button>
       <button mat-icon-button>
         <mat-icon>insert_drive_file</mat-icon>
       </button>
@@ -18,15 +18,28 @@
       matTreeNodePadding
     >
     
+      <button mat-icon-button matTreeNodeToggle
+      [attr.aria-label]="'Toggle ' + node.name">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+
       <button
         mat-icon-button
-        matTreeNodeToggle
-        [attr.aria-label]="'Toggle ' + node.name"
+        [matMenuTriggerFor]="menu"
       >
         <mat-icon class="mat-icon-rtl-mirror">
           {{ treeControl.isExpanded(node) ? "folder_open" : "folder" }}
         </mat-icon>
       </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onDownload(node.name)">Download</button>
+        <button mat-menu-item (click)="onUpload(node.name)">Upload</button>
+      </mat-menu>
+
+
       {{ node.name }}
     </mat-tree-node>
   </mat-tree>

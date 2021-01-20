@@ -74,5 +74,12 @@ export class StorageComponent implements OnInit {
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-  isFolder = (_: number, node: ExampleFlatNode) => node.folder;
+
+  onDownload(val) {
+    console.log(val)
+  }
+
+  onUpload(val) {
+    console.log("upload to " + val)
+  }
 }
