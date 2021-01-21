@@ -1,11 +1,12 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface Node {
   relative: string;
@@ -50,7 +51,9 @@ export class StorageComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private route: ActivatedRoute, private httpClient: HttpClient) {}
+  constructor(private route: ActivatedRoute, 
+    private httpClient: HttpClient,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -68,18 +71,33 @@ export class StorageComponent implements OnInit {
 
           this.dataSource.data = TREE_DATA.children;
         });
-
-      
     });
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   onDownload(val) {
-    console.log(val)
+    console.log("download " + val)
   }
 
-  onUpload(val) {
-    console.log("upload to " + val)
+  onOpenDialogUpload(val) {
+    console.log("dialog upload " + val);
+    const dialogRef = this.dialog.open(DialogContentExampleDialog, {data: val});
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`);
+    // });
   }
+}
+
+@Component({
+  selector: 'dialog-content-example-dialog',
+  template: `
+  <div>
+    <h2 mat-dialog-title>Install Angular {{data}}</h2>
+  </div>
+  `,
+})
+export class DialogContentExampleDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {} 
 }

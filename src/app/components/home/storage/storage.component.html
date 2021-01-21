@@ -35,8 +35,13 @@
       </button>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onDownload(node.name)">Download</button>
-        <button mat-menu-item (click)="onUpload(node.name)">Upload</button>
+        <button mat-menu-item (click)="onDownload(node.name)">
+          <mat-icon>download</mat-icon>
+          Download
+        </button>
+        <button mat-menu-item (click)="onOpenDialogUpload(node.name)">
+          <mat-icon>upload</mat-icon>
+          Upload</button>
       </mat-menu>
 
 
