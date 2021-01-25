@@ -5,15 +5,13 @@ import {
   MatTreeFlattener,
 } from '@angular/material/tree';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface Node {
   relative: string;
   children?: Node[];
 }
-
-let TREE_DATA: Node = { relative: '', children: [] };
 
 interface ExampleFlatNode {
   expandable: boolean;
@@ -62,14 +60,7 @@ export class StorageComponent implements OnInit {
       this.httpClient
         .get<Node>('http://localhost:8080/api/storage')
         .subscribe((val) => {
-          console.log(val)
-          console.log("---")
-          console.log(this.order)
-          TREE_DATA = val.children[this.order-1];
-          console.log("-----")
-          console.log(TREE_DATA)
-
-          this.dataSource.data = TREE_DATA.children;
+          this.dataSource.data = val.children[this.order-1].children;
         });
     });
   }
@@ -81,12 +72,7 @@ export class StorageComponent implements OnInit {
   }
 
   onOpenDialogUpload(val) {
-    console.log("dialog upload " + val);
     const dialogRef = this.dialog.open(DialogContentExampleDialog, {data: val});
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(`Dialog result: ${result}`);
-    // });
   }
 }
 
@@ -94,10 +80,40 @@ export class StorageComponent implements OnInit {
   selector: 'dialog-content-example-dialog',
   template: `
   <div>
-    <h2 mat-dialog-title>Install Angular {{data}}</h2>
+    <h1>File Upload</h1>
+    <input type="file" (change)="onFileSelected($event)">
+    <button type="button" (click)="onFileUpload()">Upload</button>
   </div>
   `,
 })
 export class DialogContentExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {} 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string,
+              private httpClient: HttpClient) {} 
+
+  selectedFile: File = null;
+
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+  }
+
+  onFileUpload() {
+    const fd = new FormData();
+    fd.append('file', this.selectedFile, this.selectedFile.name);
+    fd.append('internalPath', this.data)
+    this.httpClient.post('http://localhost:8080/api/upload', fd, {
+      reportProgress: true,
+      observe: 'events'
+    })
+      .subscribe((event) => {
+        if(event.type === HttpEventType.UploadProgress) {
+          console.log('Upload Progress: ' + Math.round(event.loaded * 100 / event.total))
+        }
+        else if(event.type === HttpEventType.Response) {
+          console.log("finished (response)")
+          console.log(event)
+        }
+       
+      })
+    console.log("upload")
+  }
 }
