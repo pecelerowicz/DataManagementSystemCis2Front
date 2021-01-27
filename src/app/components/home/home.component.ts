@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,15 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private sharedCommunicationService: SharedCommunicationService) {
+
+    this.sharedCommunicationService.componentChangeEmitter.subscribe(() => {
+      this.router.navigate([sharedCommunicationService.passParam.name], { relativeTo: this.route });
+    })
+              
+  }
 
   ngOnInit(): void {}
 
@@ -19,7 +28,4 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['storage', val.order], { relativeTo: this.route });
   }
 
-  onCatchEvent($event) {
-    console.log($event);
-  }
 }

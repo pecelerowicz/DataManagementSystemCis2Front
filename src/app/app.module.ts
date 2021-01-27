@@ -19,6 +19,7 @@ import { TableDataPackage2Component } from './components/home/table-data-package
 import { StorageComponent } from './components/home/storage/storage.component';
 import { InfoComponent } from './components/home/info/info.component';
 import { StorageListComponent } from './components/home/storage-list/storage-list.component';
+import { UploadComponent } from './components/home/upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { StorageListComponent } from './components/home/storage-list/storage-lis
     StorageComponent,
     InfoComponent,
     StorageListComponent,
+    UploadComponent,
   ],
   imports: [
     BrowserModule,
