@@ -15,6 +15,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 const material = [
   MatButtonModule,
@@ -32,7 +34,8 @@ const material = [
   MatSortModule,
   MatTreeModule,
   MatMenuModule,
-  MatDialogModule
+  MatDialogModule,
+  MatProgressBarModule
 ];
 
 @NgModule({
