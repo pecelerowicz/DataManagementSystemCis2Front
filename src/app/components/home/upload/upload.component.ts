@@ -11,7 +11,7 @@ export class UploadComponent implements OnInit {
   param: {name: string, path: string};
 
   constructor(private sharedCommunicationService: SharedCommunicationService) {
-    this.param = sharedCommunicationService.passParam;
+    this.param = this.sharedCommunicationService.passParam;
   }
 
   ngOnInit(): void {
