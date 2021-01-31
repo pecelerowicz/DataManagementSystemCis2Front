@@ -1,0 +1,15 @@
+#container {
+  background-color: white;
+  width: 98%;
+  height: 40rem;
+  margin: 0 auto;
+  border: 5px solid white;
+  display: flex;
+}
+
+.box {
+  width: 50%;
+  height: 39.3rem;
+  background-color: white;
+  border: 5px solid white;
+}
