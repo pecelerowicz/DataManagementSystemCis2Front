@@ -1,4 +1,4 @@
-<!-- <div
+<div
   fxLayout="row"
   fxLayoutAlign="space-between top"
   fxLayoutGap="10px"
@@ -15,16 +15,5 @@
   <div fxFlex="50">
     <router-outlet></router-outlet>
   </div>
-</div> -->
+</div>
 
-<section id="container" >
-  <div class="box">
-    <app-storage-list
-    (info)="onInfo($event)"
-    (storage)="onStorage($event)"
-  ></app-storage-list>
-  </div>
-  <div class="box">
-    <router-outlet></router-outlet>
-  </div>
-</section>

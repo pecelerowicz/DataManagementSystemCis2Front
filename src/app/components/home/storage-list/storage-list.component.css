@@ -1,3 +1,18 @@
 table {
   width: 100%;
 }
+
+p {
+  text-align: right;
+}
+
+#father {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#son1 {
+  top: -5rem;
+  left: -2rem;
+}

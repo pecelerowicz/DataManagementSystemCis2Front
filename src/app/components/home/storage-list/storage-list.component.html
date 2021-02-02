@@ -1,4 +1,4 @@
-<div class="example-container mat-elevation-z3">
+<div class="example-container  mat-elevation-z3" >
   <h5 matSubheader>Data Packages</h5>
   <mat-divider></mat-divider>
 
@@ -44,4 +44,9 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
+<p id="father">    
+<button (click)="onOpenCreatePackageDialog()" id="son1" class="custom-button" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+  <mat-icon>plus_one</mat-icon>
+</button>
+</p>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   StorageListService,
   Package,
@@ -15,7 +16,8 @@ export class StorageListComponent implements OnInit {
 
   dataSource = [];
 
-  constructor(private storageListService: StorageListService) {}
+  constructor(private storageListService: StorageListService,
+              private dialog: MatDialog) {}
 
   ngOnInit(): void {
     let fetch: Package[] = [];
@@ -41,5 +43,20 @@ export class StorageListComponent implements OnInit {
     this.storage.emit({ order: element.order });
   }
 
+  onOpenCreatePackageDialog() {
+      this.dialog.open(CreatePackageDialog);
+  }
+
   displayedColumns: string[] = ['description', 'name', 'info', 'storage'];
 }
+
+
+@Component({
+  selector: 'dialog-content-example-dialog',
+  template: `
+    <div>
+      asdf
+    </div>
+  `,
+})
+export class CreatePackageDialog {}
