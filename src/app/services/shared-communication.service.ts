@@ -9,5 +9,7 @@ export class SharedCommunicationService {
 
   passParam: {name: string, path: string} = {name: '', path: ''};
   componentChangeEmitter = new EventEmitter();
+
+  createPackageEmitter = new EventEmitter();
   
 }

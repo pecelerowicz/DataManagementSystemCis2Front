@@ -6,6 +6,7 @@ import {
   StorageListService,
   Package,
 } from '../../../services/storage-list.service';
+import { SharedCommunicationService } from '../../../services/shared-communication.service';
 
 @Component({
   selector: 'app-storage-list',
@@ -83,11 +84,16 @@ export class CreatePackageDialog {
 
   constructor(private storageListService: StorageListService,
               private router: Router,
-              private dialogRef: MatDialogRef<CreatePackageDialog>) {}
+              private dialogRef: MatDialogRef<CreatePackageDialog>,
+              private sharedCommunicationService: SharedCommunicationService) {}
   onCreate(dialogForm: NgForm) {
     this.storageListService.createPackage(dialogForm.value.name).subscribe(() => {
       console.log("New package " + dialogForm.value.name + " created!")
-      this.router.navigate(['/home']);
+
+      this.sharedCommunicationService.createPackageEmitter.emit();
+
+
+      // this.router.navigate(['/home']);
       this.dialogRef.close();
     });
   }
