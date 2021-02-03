@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { NgForm } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import {
   StorageListService,
   Package,
@@ -54,9 +56,40 @@ export class StorageListComponent implements OnInit {
 @Component({
   selector: 'dialog-content-example-dialog',
   template: `
-    <div>
-      asdf
-    </div>
+        <form #dialogForm="ngForm" class="dialog-form">
+          <mat-form-field class="example-form-field">
+            <input ngModel matInput type="text" name="name" placeholder="Package Name">
+          </mat-form-field>
+          <button (click)="onCreate(dialogForm)" 
+                  mat-raised-button color="primary">
+            Create
+          </button>
+        </form>
+     
   `,
+  styles: [`
+  .dialog-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-form-field {
+  width: 300px
+  height: 250px;
+}
+  `]
 })
-export class CreatePackageDialog {}
+export class CreatePackageDialog {
+
+  constructor(private storageListService: StorageListService,
+              private router: Router,
+              private dialogRef: MatDialogRef<CreatePackageDialog>) {}
+  onCreate(dialogForm: NgForm) {
+    this.storageListService.createPackage(dialogForm.value.name).subscribe(() => {
+      console.log("New package " + dialogForm.value.name + " created!")
+      this.router.navigate(['/home']);
+      this.dialogRef.close();
+    });
+  }
+
+}

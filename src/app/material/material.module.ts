@@ -16,6 +16,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 const material = [
@@ -35,7 +37,8 @@ const material = [
   MatTreeModule,
   MatMenuModule,
   MatDialogModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatCheckboxModule
 ];
 
 @NgModule({

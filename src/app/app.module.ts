@@ -20,6 +20,7 @@ import { StorageComponent } from './components/home/storage/storage.component';
 import { InfoComponent } from './components/home/info/info.component';
 import { StorageListComponent } from './components/home/storage-list/storage-list.component';
 import { UploadComponent } from './components/home/upload/upload.component';
+import { CreatePackageDialog } from './components/home/storage-list/storage-list.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UploadComponent } from './components/home/upload/upload.component';
     InfoComponent,
     StorageListComponent,
     UploadComponent,
+    CreatePackageDialog
   ],
   imports: [
     BrowserModule,
