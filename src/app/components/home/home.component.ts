@@ -18,16 +18,13 @@ export class HomeComponent implements OnInit {
     });
 
     this.sharedCommunicationService.createPackageEmitter.subscribe(() => {
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = "reload";
-      this.router.navigate(['storage', 4], {relativeTo: this.route});
+      window.location.reload();    
     })
               
   }
 
-  ngOnInit(): void { // hacky...
-    this.router.routeReuseStrategy.shouldReuseRoute = () => true;
-    this.router.onSameUrlNavigation = "ignore";
+  ngOnInit(): void {
+    
   }
 
   onInfo(val): void {
