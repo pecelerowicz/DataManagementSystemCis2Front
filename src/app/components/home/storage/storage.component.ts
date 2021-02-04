@@ -7,7 +7,6 @@ import {
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
-import { ConsoleReporter } from 'jasmine';
 
 interface Node {
   relative: string;
@@ -57,8 +56,6 @@ export class StorageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
-
-      console.log("order: " + this.order)
 
       this.httpClient
         .get<Node>('http://localhost:8080/api/storage')
