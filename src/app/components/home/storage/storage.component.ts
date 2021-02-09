@@ -5,14 +5,9 @@ import {
   MatTreeFlattener,
 } from '@angular/material/tree';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
-
-interface Node {
-  relative: string;
-  folder: boolean;
-  children?: Node[];
-}
+import { StorageService } from '../../../services/storage.service';
+import { Node } from '../../../dto/storage';
 
 interface ExampleFlatNode {
   expandable: boolean;
@@ -53,18 +48,16 @@ export class StorageComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private route: ActivatedRoute, 
-              private httpClient: HttpClient,
+              private storageService: StorageService,
               private sharedCommunicationService: SharedCommunicationService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
 
-      this.httpClient
-        .get<Node>('http://localhost:8080/api/storage')
-        .subscribe((val) => {
+      this.storageService.getStorage().subscribe((val) => {
           this.dataSource.data = val.children[this.order-1].children;
-        });
+      });
     });
   }
 

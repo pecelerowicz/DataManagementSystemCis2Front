@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CreatePackageRequest, CreatePackageResponse, PackagesResponse } from '../dto/storage-list';
 
 @Injectable({
   providedIn: 'root',
@@ -8,29 +9,16 @@ import { Observable } from 'rxjs';
 export class StorageListService {
   constructor(private http: HttpClient) {}
 
-  getChildren(): Observable<PackagesNames> {
-    //return this.http.get<Packages>('http://localhost:8080/api/packages');
-    return this.http.get<PackagesNames>('http://localhost:8080/api2/packages');
+  getPackagesNames(): Observable<PackagesResponse> {
+    return this.http.get<PackagesResponse>('http://localhost:8080/api2/packages');
   }
 
-  getStorage(): Observable<Packages> {
-    return this.http.get<Packages>('http://localhost:8080/api/storage');
+  createPackage(name: string): Observable<CreatePackageResponse> {
+    let payload: CreatePackageRequest = {packageName: name};
+    return this.http.post<CreatePackageRequest>('http://localhost:8080/api2/packages', payload);
   }
 
-  createPackage(name: string): Observable<any> {
-    return this.http.post<string>('http://localhost:8080/api/packages', name);
-  }
 }
 
-export interface PackagesNames {
-  packagesNames: string[];
-}
 
-export interface Packages {
-  children: Package[];
-}
 
-export interface Package {
-  relative: string;
-  order: number;
-}

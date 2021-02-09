@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
   StorageListService,
-  Package,
 } from '../../../services/storage-list.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 
@@ -16,33 +15,29 @@ export class StorageListComponent implements OnInit {
   @Output() info = new EventEmitter<{ order: number }>();
   @Output() storage = new EventEmitter<{ order: number }>();
 
-  dataSource = [];
+  dataSource: {name: string, position: number}[] = [];
 
   constructor(private storageListService: StorageListService,
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    let fetch: Package[] = [];
-    this.storageListService.getChildren().subscribe((val) => {
-      console.log(val);
-
+    let fetch: {name: string, position: number}[] = [];
+    this.storageListService.getPackagesNames().subscribe((val) => {
       let counter: number = 1;
-      for (let name of val.packagesNames) {
-        fetch.push({ relative: name, order: counter });
+      for (let packageName of val.packagesNames) {
+        fetch.push({ name: packageName, position: counter });
         counter++;
       }
-      console.log(fetch);
-
       this.dataSource = fetch;
     });
   }
 
   onInfo(element) {
-    this.info.emit({ order: element.order });
+    this.info.emit({ order: element.position });
   }
 
   onStorage(element) {
-    this.storage.emit({ order: element.order });
+    this.storage.emit({ order: element.position });
   }
 
   onOpenCreatePackageDialog() {
@@ -80,16 +75,12 @@ export class StorageListComponent implements OnInit {
   `]
 })
 export class CreatePackageDialog {
-
   constructor(private storageListService: StorageListService,
               private dialogRef: MatDialogRef<CreatePackageDialog>,
               private sharedCommunicationService: SharedCommunicationService) {}
   onCreate(dialogForm: NgForm) {
     this.storageListService.createPackage(dialogForm.value.name).subscribe(
       (val) => {
-        console.log("---");
-        console.log(val);
-        console.log("---")
         this.sharedCommunicationService.createPackageEmitter.emit();
         this.dialogRef.close();
       },
@@ -100,5 +91,4 @@ export class CreatePackageDialog {
       }
     );
   }
-
 }
