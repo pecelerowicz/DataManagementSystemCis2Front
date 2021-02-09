@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import {
   StorageListService,
   Package,
@@ -28,8 +27,8 @@ export class StorageListComponent implements OnInit {
       console.log(val);
 
       let counter: number = 1;
-      for (let a of val.children) {
-        fetch.push({ relative: a.relative, order: counter });
+      for (let name of val.packagesNames) {
+        fetch.push({ relative: name, order: counter });
         counter++;
       }
       console.log(fetch);
@@ -83,19 +82,23 @@ export class StorageListComponent implements OnInit {
 export class CreatePackageDialog {
 
   constructor(private storageListService: StorageListService,
-              private router: Router,
               private dialogRef: MatDialogRef<CreatePackageDialog>,
               private sharedCommunicationService: SharedCommunicationService) {}
   onCreate(dialogForm: NgForm) {
-    this.storageListService.createPackage(dialogForm.value.name).subscribe(() => {
-      console.log("New package " + dialogForm.value.name + " created!")
-
-      this.sharedCommunicationService.createPackageEmitter.emit();
-
-
-      // this.router.navigate(['/home']);
-      this.dialogRef.close();
-    });
+    this.storageListService.createPackage(dialogForm.value.name).subscribe(
+      (val) => {
+        console.log("---");
+        console.log(val);
+        console.log("---")
+        this.sharedCommunicationService.createPackageEmitter.emit();
+        this.dialogRef.close();
+      },
+      (err) => {
+        console.log("---");
+        console.log(err);
+        console.log("---");
+      }
+    );
   }
 
 }

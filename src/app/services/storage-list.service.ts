@@ -8,8 +8,9 @@ import { Observable } from 'rxjs';
 export class StorageListService {
   constructor(private http: HttpClient) {}
 
-  getChildren(): Observable<Packages> {
-    return this.http.get<Packages>('http://localhost:8080/api/packages');
+  getChildren(): Observable<PackagesNames> {
+    //return this.http.get<Packages>('http://localhost:8080/api/packages');
+    return this.http.get<PackagesNames>('http://localhost:8080/api2/packages');
   }
 
   getStorage(): Observable<Packages> {
@@ -17,8 +18,12 @@ export class StorageListService {
   }
 
   createPackage(name: string): Observable<any> {
-    return this.http.post<string>('http://localhost:8080/api/createPackage', name);
+    return this.http.post<string>('http://localhost:8080/api/packages', name);
   }
+}
+
+export interface PackagesNames {
+  packagesNames: string[];
 }
 
 export interface Packages {

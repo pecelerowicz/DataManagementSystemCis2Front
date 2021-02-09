@@ -10,6 +10,7 @@ import { SharedCommunicationService } from '../../../services/shared-communicati
 
 interface Node {
   relative: string;
+  folder: boolean;
   children?: Node[];
 }
 
@@ -17,6 +18,7 @@ interface ExampleFlatNode {
   expandable: boolean;
   name: string;
   level: number;
+  folder: boolean;
 }
 
 @Component({
@@ -32,6 +34,7 @@ export class StorageComponent implements OnInit {
       expandable: !!node.children && node.children.length > 0,
       name: node.relative,
       level: level,
+      folder: node.folder
     };
   };
 
@@ -66,6 +69,8 @@ export class StorageComponent implements OnInit {
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+  isEmptyFolder = (_: number, node: ExampleFlatNode) => node.folder && !node.expandable;
 
   onDownload(val) {
     console.log("download " + val);

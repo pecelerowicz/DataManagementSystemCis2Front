@@ -3,7 +3,7 @@
   <mat-divider></mat-divider>
 
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <!-- This is the tree node template for leaf nodes -->
+    <!-- 1 -->
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
      
       <button mat-icon-button disabled></button>
@@ -12,7 +12,25 @@
       </button>
       {{ node.name }}
     </mat-tree-node>
-    <!-- This is the tree node template for expandable nodes -->
+
+    <!-- 2 -->
+    <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder " matTreeNodePadding >
+     
+      <button mat-icon-button disabled></button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>folder</mat-icon>
+      </button>
+      {{ node.name }}
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onUpload(node.name)">
+          <mat-icon>upload</mat-icon>
+          Upload
+        </button>
+      </mat-menu>
+
+    </mat-tree-node>
+    <!-- 3 -->
     <mat-tree-node
       *matTreeNodeDef="let node; when: hasChild"
       matTreeNodePadding
