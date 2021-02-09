@@ -5,6 +5,8 @@ import {
   StorageListService,
 } from '../../../services/storage-list.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
+import { Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-storage-list',
@@ -18,9 +20,17 @@ export class StorageListComponent implements OnInit {
   dataSource: {name: string, position: number}[] = [];
 
   constructor(private storageListService: StorageListService,
+              private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.getPackagesNames();
+    this.sharedCommunicationService.updateListOfPackages$.subscribe(() => {
+      this.getPackagesNames();
+    })
+  }
+
+  private getPackagesNames() {
     let fetch: {name: string, position: number}[] = [];
     this.storageListService.getPackagesNames().subscribe((val) => {
       let counter: number = 1;
@@ -77,18 +87,25 @@ export class StorageListComponent implements OnInit {
 export class CreatePackageDialog {
   constructor(private storageListService: StorageListService,
               private dialogRef: MatDialogRef<CreatePackageDialog>,
-              private sharedCommunicationService: SharedCommunicationService) {}
+              private sharedCommunicationService: SharedCommunicationService,
+              private _snackBar: MatSnackBar) {}
   onCreate(dialogForm: NgForm) {
     this.storageListService.createPackage(dialogForm.value.name).subscribe(
       (val) => {
-        this.sharedCommunicationService.createPackageEmitter.emit();
+        //this.sharedCommunicationService.createPackageEmitter.emit();
+        this.sharedCommunicationService.updateListOfPackages$.next()
+        this.openSnackBar('Created Package:', val.packageName);
         this.dialogRef.close();
       },
       (err) => {
-        console.log("---");
-        console.log(err);
-        console.log("---");
+        this.openSnackBar("Could not create package!", err.error.exception);
       }
     );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 6000,
+    });
   }
 }

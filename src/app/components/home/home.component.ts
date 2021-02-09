@@ -16,15 +16,10 @@ export class HomeComponent implements OnInit {
     this.sharedCommunicationService.componentChangeEmitter.subscribe(() => {
       this.router.navigate([sharedCommunicationService.passParam.name], { relativeTo: this.route });
     });
-
-    this.sharedCommunicationService.createPackageEmitter.subscribe(() => {
-      window.location.reload();    
-    })
               
   }
 
   ngOnInit(): void {
-    
   }
 
   onInfo(val): void {
