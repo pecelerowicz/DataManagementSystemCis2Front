@@ -1,4 +1,5 @@
-<div class="example-container  mat-elevation-z3" >
+<div fxLayout="column">
+<div class="example-container  mat-elevation-z3" fxFlex="84vh">
   <h5 matSubheader>Data Packages</h5>
   <mat-divider></mat-divider>
 
@@ -51,13 +52,16 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
+
+</div>
+
 <p id="father">    
-<button (click)="onOpenCreatePackageDialog()" id="son1" class="custom-button" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
-  <mat-icon>plus_one</mat-icon>
-</button>
-</p>
+  <button (click)="onOpenCreatePackageDialog()" id="son1" class="custom-button" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+    <mat-icon>plus_one</mat-icon>
+  </button>
+  </p>
 </div>
