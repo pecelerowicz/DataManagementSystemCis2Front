@@ -50,11 +50,16 @@ export class StorageListComponent implements OnInit {
     this.storage.emit({ order: element.position });
   }
 
-  onOpenCreatePackageDialog() {
-      this.dialog.open(CreatePackageDialog);
+  onOpenDeletePackageDialog(element) {
+    this.dialog.open(DeletePackageDialog);
+    // console.log("delete " + element.position)
   }
 
-  displayedColumns: string[] = ['description', 'name', 'info', 'storage'];
+  onOpenCreatePackageDialog() {
+    this.dialog.open(CreatePackageDialog);
+  }
+
+  displayedColumns: string[] = ['description', 'name', 'info', 'storage', 'delete'];
 }
 
 
@@ -70,7 +75,6 @@ export class StorageListComponent implements OnInit {
             Create
           </button>
         </form>
-     
   `,
   styles: [`
   .dialog-form {
@@ -92,7 +96,6 @@ export class CreatePackageDialog {
   onCreate(dialogForm: NgForm) {
     this.storageListService.createPackage(dialogForm.value.name).subscribe(
       (val) => {
-        //this.sharedCommunicationService.createPackageEmitter.emit();
         this.sharedCommunicationService.updateListOfPackages$.next()
         this.openSnackBar('Created Package:', val.packageName);
         this.dialogRef.close();
@@ -107,5 +110,37 @@ export class CreatePackageDialog {
     this._snackBar.open(message, action, {
       duration: 6000,
     });
+  }
+}
+
+@Component({
+  selector: 'delete-package-dialog',
+  template: `
+        <!-- <form #dialogForm="ngForm" class="dialog-form"> -->
+          <!-- <mat-form-field class="example-form-field">
+            <input ngModel matInput type="text" name="name" placeholder="Package Name">
+          </mat-form-field> -->
+          <button (click)="onDelete()" 
+                  mat-raised-button color="primary">
+            Delete
+          </button>
+        <!-- </form> -->
+  `,
+  styles: [`
+  .dialog-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-form-field {
+  width: 300px
+  height: 250px;
+}
+  `]
+})
+export class DeletePackageDialog {
+  constructor(private _snackBar: MatSnackBar) {}
+  onDelete() {
+    
   }
 }
