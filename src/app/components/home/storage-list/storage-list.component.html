@@ -1,7 +1,13 @@
 <div fxLayout="column">
 <div class="example-container  mat-elevation-z3" fxFlex="84vh">
   <h5 matSubheader>Data Packages</h5>
+  
   <mat-divider></mat-divider>
+
+<mat-form-field>
+  <mat-label><span style="padding-left: 18px;">Search</span></mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
 
 <table mat-table [dataSource]="dataSource" >
   
@@ -56,12 +62,13 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
 </div>
 
 <p id="father">    
   <button (click)="onOpenCreatePackageDialog()" id="son1" class="custom-button" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
-    <mat-icon>plus_one</mat-icon>
+    <mat-icon>add</mat-icon>
   </button>
   </p>
 </div>
