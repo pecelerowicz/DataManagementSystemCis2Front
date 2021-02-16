@@ -93,6 +93,10 @@ export class StorageComponent implements OnInit {
     this.sharedCommunicationService.componentChangeEmitter.emit();
   }
 
+  onDelete(val) {
+    console.log("delete " + val);
+  }
+
   onOpenCreateNewFolderDialog() {
     console.log("--")
     console.log(this.name)
