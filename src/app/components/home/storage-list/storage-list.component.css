@@ -23,11 +23,12 @@ p {
 
 #father {
   position: relative;
-  margin: 0;
+  margin: 1rem;
   padding: 0;
 }
 
 #son1 {
   top: -5rem;
-  left: -2rem;
+  /* left: -2rem; */
+  float: right;
 }

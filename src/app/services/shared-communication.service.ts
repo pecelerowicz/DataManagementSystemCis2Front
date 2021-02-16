@@ -14,5 +14,9 @@ export class SharedCommunicationService {
   createPackageEmitter = new EventEmitter();
 
   public updateListOfPackages$: Subject<void> = new Subject();
+
+  fromListToStorage: {name: string} = {name: ''};
+
+  public updateListOfFolders$: Subject<void> = new Subject();
   
 }

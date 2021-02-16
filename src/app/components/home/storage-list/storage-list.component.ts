@@ -59,6 +59,7 @@ export class StorageListComponent implements OnInit {
 
   onStorage(element) {
     this.storage.emit({ order: element.position });
+    this.sharedCommunicationService.fromListToStorage.name = element.name;
   }
 
   onOpenDeletePackageDialog(element) {
@@ -136,15 +137,16 @@ export class CreatePackageDialog {
 @Component({
   selector: 'delete-package-dialog',
   template: `
-        <!-- <form #dialogForm="ngForm" class="dialog-form"> -->
-          <!-- <mat-form-field class="example-form-field">
+        <!-- <form #dialogForm="ngForm" class="dialog-form">
+          <mat-form-field class="example-form-field">
             <input ngModel matInput type="text" name="name" placeholder="Package Name">
-          </mat-form-field> -->
-          <button (click)="onDelete()" 
+          </mat-form-field>
+          <button (click)="onDelete(dialogForm)" 
                   mat-raised-button color="primary">
             Delete
           </button>
-        <!-- </form> -->
+        </form> -->
+        to be done
   `,
   styles: [`
   .dialog-form {
@@ -159,8 +161,11 @@ export class CreatePackageDialog {
   `]
 })
 export class DeletePackageDialog {
-  constructor(private _snackBar: MatSnackBar) {}
-  onDelete() {
+  constructor(
+    private storageListService: StorageListService,
+              private dialogRef: MatDialogRef<DeletePackageDialog>,
+              private sharedCommunicationService: SharedCommunicationService,private _snackBar: MatSnackBar) {}
+  onDelete(dialogForm: NgForm) {
     
   }
 }

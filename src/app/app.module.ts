@@ -21,6 +21,9 @@ import { InfoComponent } from './components/home/info/info.component';
 import { StorageListComponent } from './components/home/storage-list/storage-list.component';
 import { UploadComponent } from './components/home/upload/upload.component';
 import { CreatePackageDialog } from './components/home/storage-list/storage-list.component';
+import { DeletePackageDialog } from './components/home/storage-list/storage-list.component';
+import { CreateFolderDialog } from './components/home/storage/storage.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { CreatePackageDialog } from './components/home/storage-list/storage-list
     InfoComponent,
     StorageListComponent,
     UploadComponent,
-    CreatePackageDialog
+    CreatePackageDialog,
+    DeletePackageDialog,
+    CreateFolderDialog
   ],
   imports: [
     BrowserModule,
