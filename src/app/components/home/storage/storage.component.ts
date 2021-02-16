@@ -13,6 +13,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StorageListService } from '../../../services/storage-list.service';
 
+export interface DialogData {
+  order: number;
+  name: string;
+}
+
 interface ExampleFlatNode {
   expandable: boolean;
   name: string;
