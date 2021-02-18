@@ -16,6 +16,10 @@ export class HomeComponent implements OnInit {
     this.sharedCommunicationService.componentChangeEmitter.subscribe(() => {
       this.router.navigate([sharedCommunicationService.passParam.name], { relativeTo: this.route });
     });
+
+    this.sharedCommunicationService.uploadBackEmitter.subscribe(() => {
+      this.router.navigate(['storage/'+sharedCommunicationService.passParam.order], {relativeTo: this.route});
+    })
               
   }
 
@@ -28,6 +32,10 @@ export class HomeComponent implements OnInit {
 
   onStorage(val): void {
     this.router.navigate(['storage', val.order], { relativeTo: this.route });
+  }
+
+  onUploadBack(): void {
+    console.log("frefhrio");
   }
 
 }

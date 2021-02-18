@@ -94,7 +94,7 @@ export class StorageComponent implements OnInit {
   }
 
   onUpload(val) {
-    this.sharedCommunicationService.passParam = {name: 'upload', path: val};
+    this.sharedCommunicationService.passParam = {name: 'upload', path: val, order: this.order};
     this.sharedCommunicationService.componentChangeEmitter.emit();
   }
 
