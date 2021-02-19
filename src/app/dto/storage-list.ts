@@ -18,3 +18,11 @@ export interface CreateFolderRequest {
 export interface CreateFolderResponse {
     newFolderFullName: string;
 }
+
+export interface DeletePackageRequest {
+    packageName: string;
+}
+
+export interface DeletePackageResponse {
+    deleteMessage: string;
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CreatePackageRequest, CreatePackageResponse, PackagesResponse, 
-  CreateFolderRequest, CreateFolderResponse } from '../dto/storage-list';
+  CreateFolderRequest, CreateFolderResponse, DeletePackageRequest, DeletePackageResponse } from '../dto/storage-list';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,11 @@ export class StorageListService {
   createPackage(name: string): Observable<CreatePackageResponse> {
     let payload: CreatePackageRequest = {packageName: name};
     return this.http.post<CreatePackageResponse>('http://localhost:8080/api2/packages', payload);
+  }
+
+  deletePackage(name: string): Observable<any> { //?
+    let payload: DeletePackageRequest = {packageName: name};
+    return this.http.request('delete', 'http://localhost:8080/api2/packages', {body: payload});
   }
 
   createFolder(newFolderName: string, parentFolderFullPath: string): Observable<CreateFolderResponse> {

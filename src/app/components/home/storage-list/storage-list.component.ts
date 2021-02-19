@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   StorageListService,
 } from '../../../services/storage-list.service';
@@ -9,6 +9,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+
+export interface DialogData {
+  name: string;
+}
 
 @Component({
   selector: 'app-storage-list',
@@ -63,8 +67,8 @@ export class StorageListComponent implements OnInit {
   }
 
   onOpenDeletePackageDialog(element) {
-    this.dialog.open(DeletePackageDialog);
-    // console.log("delete " + element.position)
+    this.dialog.open(DeletePackageDialog, {data: {name: element.name}});
+    // console.log("delete " + element.name)
   }
 
   onOpenCreatePackageDialog() {
@@ -146,7 +150,15 @@ export class CreatePackageDialog {
             Delete
           </button>
         </form> -->
-        to be done
+        <h1 mat-dialog-title>Are you sure you want to delete the package {{data.name}} and its content?</h1>
+        <div mat-dialog-actions align="center">
+          <button (click)="onDelete()" color="warn" mat-flat-button mat-dialog-close>Delete</button>
+        </div>
+
+        <!-- <div>
+        Are sure you want to delete the package {{data.name}} and its content?
+        <button mat-raised-button color="warn"></button>
+        </div> -->
   `,
   styles: [`
   .dialog-form {
@@ -164,8 +176,23 @@ export class DeletePackageDialog {
   constructor(
     private storageListService: StorageListService,
               private dialogRef: MatDialogRef<DeletePackageDialog>,
-              private sharedCommunicationService: SharedCommunicationService,private _snackBar: MatSnackBar) {}
+              private sharedCommunicationService: SharedCommunicationService,
+              private _snackBar: MatSnackBar,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onDelete(dialogForm: NgForm) {
-    
+    this.storageListService.deletePackage(this.data.name).subscribe((response) => {
+      this.sharedCommunicationService.updateListOfPackages$.next()
+        this.openSnackBar('Deleted Package:', this.data.name);
+        this.dialogRef.close();
+    },
+    (err) => {
+      console.error(err);
+    })
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 6000,
+    });
   }
 }
