@@ -179,7 +179,7 @@ export class DeletePackageDialog {
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-  onDelete(dialogForm: NgForm) {
+  onDelete() {
     this.storageListService.deletePackage(this.data.name).subscribe((response) => {
       this.sharedCommunicationService.updateListOfPackages$.next()
         this.openSnackBar('Deleted Package:', this.data.name);
