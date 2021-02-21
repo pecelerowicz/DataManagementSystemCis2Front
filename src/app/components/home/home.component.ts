@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PingService } from '../../services/ping.service';
-import { DataSetService, DataSetModel } from '../../services/data-set.service';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +8,34 @@ import { DataSetService, DataSetModel } from '../../services/data-set.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  dataSets: DataSetModel[] = [];
+  
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private sharedCommunicationService: SharedCommunicationService) {
 
-  constructor(private dataSetService: DataSetService) {}
+    this.sharedCommunicationService.componentChangeEmitter.subscribe(() => {
+      this.router.navigate([sharedCommunicationService.passParam.name], { relativeTo: this.route });
+    });
+
+    this.sharedCommunicationService.uploadBackEmitter.subscribe(() => {
+      this.router.navigate(['storage/'+sharedCommunicationService.passParam.order], {relativeTo: this.route});
+    })
+              
+  }
 
   ngOnInit(): void {
-    this.dataSetService.getMyDataSets().subscribe((data) => {
-      this.dataSets = data;
-    });
   }
+
+  onInfo(val): void {
+    this.router.navigate(['info', val.order], { relativeTo: this.route });
+  }
+
+  onStorage(val): void {
+    this.router.navigate(['storage', val.order], { relativeTo: this.route });
+  }
+
+  onUploadBack(): void {
+    console.log("frefhrio");
+  }
+
 }

@@ -1,0 +1,75 @@
+<div fxLayout="column">
+<div class="example-container  mat-elevation-z3" fxFlex="84vh">
+  <h5 matSubheader>Data Packages</h5>
+  
+  <mat-divider></mat-divider>
+
+<mat-form-field>
+  <mat-label><span style="padding-left: 18px;">Search</span></mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="... " #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" >
+  
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>No.</th>
+    <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="info">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        aria-label="Example icon button with a vertical three dot icon"
+        (click)="onInfo(element)"
+      >
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="storage">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        (click)="onStorage(element)"
+      >
+        <mat-icon>storage</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        (click)="onOpenDeletePackageDialog(element)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<!-- <mat-paginator style="position: absolute;
+    bottom: 0;" [pageSizeOptions]="[10, 25, 100]"></mat-paginator> -->
+
+</div>
+
+<p id="father">    
+  <button (click)="onOpenCreatePackageDialog()" id="son1"  mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+    <mat-icon>add</mat-icon>
+  </button>
+  </p>
+</div>

@@ -1,1 +1,19 @@
-<p *ngFor="let value of dataSets">{{ value.name }} | {{ value.description }}</p>
+<div
+  fxLayout="row"
+  fxLayoutAlign="space-between top"
+  fxLayoutGap="10px"
+  [style.margin-left]="'10px'"
+  [style.margin-right]="'10px'"
+  class="stats-cards"
+>
+  <div fxFlex="50">
+    <app-storage-list
+      (info)="onInfo($event)"
+      (storage)="onStorage($event)"
+    ></app-storage-list>
+  </div>
+  <div fxFlex="50">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

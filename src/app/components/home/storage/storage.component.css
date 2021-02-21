@@ -1,0 +1,11 @@
+#father2 {
+  position: relative;
+  margin: 1rem;
+  padding: 0;
+}
+
+#son2 {
+  top: -5rem;
+  /* left: 22rem; */
+  float: right;
+}
