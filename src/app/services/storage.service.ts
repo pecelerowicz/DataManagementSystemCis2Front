@@ -9,6 +9,6 @@ import { Node } from '../dto/storage';
 export class StorageService {
   constructor(private http: HttpClient) { }
   getStorage(): Observable<Node> {
-    return this.http.get<Node>('http://localhost:8080/api/storage');
+    return this.http.get<Node>('http://localhost:8080/api/folders');
   }
 }

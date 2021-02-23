@@ -11,23 +11,23 @@ export class StorageListService {
   constructor(private http: HttpClient) {}
 
   getPackagesNames(): Observable<PackagesResponse> {
-    return this.http.get<PackagesResponse>('http://localhost:8080/api2/packages');
+    return this.http.get<PackagesResponse>('http://localhost:8080/api/storage');
   }
 
   createPackage(name: string): Observable<CreatePackageResponse> {
     let payload: CreatePackageRequest = {packageName: name};
-    return this.http.post<CreatePackageResponse>('http://localhost:8080/api2/packages', payload);
+    return this.http.post<CreatePackageResponse>('http://localhost:8080/api/storage', payload);
   }
 
   deletePackage(name: string): Observable<any> { //?
     let payload: DeletePackageRequest = {packageName: name};
-    return this.http.request('delete', 'http://localhost:8080/api2/packages', {body: payload});
+    return this.http.request('delete', 'http://localhost:8080/api/storage', {body: payload});
   }
 
   createFolder(newFolderName: string, parentFolderFullPath: string): Observable<CreateFolderResponse> {
     let payload: CreateFolderRequest = 
       {newFolderName: newFolderName, parentFolderFullPath: parentFolderFullPath};
-    return this.http.post<CreateFolderResponse>('http://localhost:8080/api2/folders', payload);
+    return this.http.post<CreateFolderResponse>('http://localhost:8080/api/folders', payload);
   }
 
 }
