@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { StorageAndMetadataListResponse } from '../../../dto/storage-list';
 
 export interface DialogData {
   name: string;
@@ -28,6 +29,8 @@ export class StorageListComponent implements OnInit {
 
   dataSource: MatTableDataSource<{name: string, position: number}>;
 
+  storageAndMetadata: StorageAndMetadataListResponse;
+
   constructor(private storageListService: StorageListService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog) {}
@@ -39,9 +42,24 @@ export class StorageListComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.getPackagesNames();
+    // this.getPackagesNames();
+    this.getStorageAndMetadata();
     this.sharedCommunicationService.updateListOfPackages$.subscribe(() => {
-      this.getPackagesNames();
+      // this.getPackagesNames();
+      this.getStorageAndMetadata();
+    })
+  }
+
+  private getStorageAndMetadata() {
+    let fetch: {name: string, hasStorage: boolean, hasMetadata: boolean, position: number}[] = [];
+    this.storageListService.getStorageAndMetadata().subscribe(val => {
+      let counter: number = 1;
+      for(let sm of val.storageAndMetadataResponseList) {
+        fetch.push({name: sm.name, hasStorage: sm.hasStorage, 
+          hasMetadata: sm.hasMetadata, position: counter});
+        counter++;
+      }
+      this.dataSource.data = fetch;
     })
   }
 
@@ -62,6 +80,7 @@ export class StorageListComponent implements OnInit {
   }
 
   onStorage(element) {
+    console.log("tutaj")
     this.storage.emit({ order: element.position });
     this.sharedCommunicationService.fromListToStorage.name = element.name;
   }

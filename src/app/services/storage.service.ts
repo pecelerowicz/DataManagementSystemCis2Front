@@ -8,7 +8,12 @@ import { Node } from '../dto/storage';
 })
 export class StorageService {
   constructor(private http: HttpClient) { }
-  getStorage(): Observable<Node> {
-    return this.http.get<Node>('http://localhost:8080/api/folders');
+  getFullFolderStructure(): Observable<Node> {
+    return this.http.get<Node>('http://localhost:8080/api/full-folders');
   }
+
+  getPackageFolderStructure(packageName: string): Observable<Node> {
+    return this.http.get<Node>('http://localhost:8080/api/package-folders' + "/" + packageName);
+  }
+
 }

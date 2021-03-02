@@ -26,3 +26,13 @@ export interface DeletePackageRequest {
 export interface DeletePackageResponse {
     deleteMessage: string;
 }
+
+export interface StorageAndMetadataResponse {
+    name: string;
+    hasStorage: boolean;
+    hasMetadata: boolean;
+}
+
+export interface StorageAndMetadataListResponse {
+    storageAndMetadataResponseList: StorageAndMetadataResponse[];
+}

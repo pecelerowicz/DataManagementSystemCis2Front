@@ -65,21 +65,19 @@ export class StorageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
-      this.name = params.get('name');
-
-      this.storageService.getStorage().subscribe((val) => {
-          this.dataSource.data = val.children[this.order-1].children;
-      });
+      this.name = this.sharedCommunicationService.fromListToStorage.name;
+      this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+        this.dataSource.data = val.children;
+      })
     });
 
     this.sharedCommunicationService.updateListOfFolders$.subscribe(() => {
       this.route.paramMap.subscribe((params: ParamMap) => {
         this.order = parseInt(params.get('order'));
-        this.name = params.get('name');
-  
-        this.storageService.getStorage().subscribe((val) => {
-            this.dataSource.data = val.children[this.order-1].children;
-        });
+        this.name = this.sharedCommunicationService.fromListToStorage.name;
+        this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+          this.dataSource.data = val.children;
+        })
       });
 
     })
@@ -154,17 +152,6 @@ export class CreateFolderDialog {
           this.openSnackBar("Could not create package!", err.error.exception);
         }
       );
-    
-    // this.storageListService.createPackage(dialogForm.value.name).subscribe(
-    //   (val) => {
-    //     this.sharedCommunicationService.updateListOfPackages$.next()
-    //     this.openSnackBar('Created Package:', val.packageName);
-    //     this.dialogRef.close();
-    //   },
-    //   (err) => {
-    //     this.openSnackBar("Could not create package!", err.error.exception);
-    //   }
-    // );
   }
 
   openSnackBar(message: string, action: string) {

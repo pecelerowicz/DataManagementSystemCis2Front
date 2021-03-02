@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CreatePackageRequest, CreatePackageResponse, PackagesResponse, 
-  CreateFolderRequest, CreateFolderResponse, DeletePackageRequest, DeletePackageResponse } from '../dto/storage-list';
+  CreateFolderRequest, CreateFolderResponse, DeletePackageRequest, DeletePackageResponse, StorageAndMetadataListResponse } from '../dto/storage-list';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,10 @@ export class StorageListService {
     let payload: CreateFolderRequest = 
       {newFolderName: newFolderName, parentFolderFullPath: parentFolderFullPath};
     return this.http.post<CreateFolderResponse>('http://localhost:8080/api/folders', payload);
+  }
+
+  getStorageAndMetadata(): Observable<StorageAndMetadataListResponse> {
+    return this.http.get<StorageAndMetadataListResponse>('http://localhost:8080/api/storageMetadata');
   }
 
 }
