@@ -28,18 +28,26 @@
         *ngIf="!element.hasMetadata"
         mat-icon-button
         aria-label="Example icon button with a vertical three dot icon"
-        (click)="onInfo(element)"
+        [matMenuTriggerFor]="menuCreateMetadata"
       >
         <mat-icon>add_circle_outline</mat-icon>
       </button>
       <button
         *ngIf="element.hasMetadata"
         mat-icon-button
-      >
+        (click)="onInfo(element)"
+        >
         <mat-icon>info</mat-icon>
       </button>
     </td>
   </ng-container>
+ 
+  <mat-menu #menuCreateMetadata="matMenu">
+    <button mat-menu-item>
+      <mat-icon>info</mat-icon>
+      <span>Create metadata</span>
+    </button>
+  </mat-menu>
 
   <ng-container matColumnDef="storage">
     <th mat-header-cell *matHeaderCellDef>Storage</th>
@@ -54,12 +62,22 @@
       <button
         *ngIf="!element.hasStorage"
         mat-icon-button
-        (click)="onStorage(element)"
+        [matMenuTriggerFor]="menuCreateStorage"
+        [matMenuTriggerData]="{label: element}"
       >
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </td>
   </ng-container>
+
+  <mat-menu #menuCreateStorage="matMenu" matMenuContent>
+    <ng-template let-label="label" matMenuContent>
+      <button mat-menu-item (click)="onCreateStorage(label)">
+        <mat-icon>storage</mat-icon>
+        <span>Create storage</span>
+      </button>
+    </ng-template>
+  </mat-menu>
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef></th>

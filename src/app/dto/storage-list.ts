@@ -36,3 +36,11 @@ export interface StorageAndMetadataResponse {
 export interface StorageAndMetadataListResponse {
     storageAndMetadataResponseList: StorageAndMetadataResponse[];
 }
+
+export interface CreateStorageRequest {
+    storageName: string;
+}
+
+export interface CreateStorageResponse {
+    storageName: string;
+}
