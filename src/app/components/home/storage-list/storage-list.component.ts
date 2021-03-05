@@ -102,6 +102,25 @@ export class StorageListComponent implements OnInit {
     );
   }
 
+  onCreateMetadata(element) {
+    this.storageListService.createMetadata(element.name).subscribe(
+      (val) => {
+        this.sharedCommunicationService.updateListOfPackages$.next();
+        this._snackBar.open("Metadata created:" , val.metadataName, {
+          duration: 6000,
+        });
+
+        this.info.emit({ order: element.position });
+        this.sharedCommunicationService.fromListToMetadata.name = element.name;
+      },
+      (err) => {
+        this._snackBar.open("Storage was not created:", element.name, {
+          duration: 6000,
+        });
+      }
+    );
+  }
+
   onOpenDeletePackageDialog(element) {
     this.dialog.open(DeletePackageDialog, {data: {name: element.name}});
   }

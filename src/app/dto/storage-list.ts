@@ -44,3 +44,11 @@ export interface CreateStorageRequest {
 export interface CreateStorageResponse {
     storageName: string;
 }
+
+export interface CreateMetadataRequest {
+    metadataName: string;
+}
+
+export interface CreateMetadataResponse {
+    metadataName: string;
+}

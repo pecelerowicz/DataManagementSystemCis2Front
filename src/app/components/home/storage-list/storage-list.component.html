@@ -29,6 +29,7 @@
         mat-icon-button
         aria-label="Example icon button with a vertical three dot icon"
         [matMenuTriggerFor]="menuCreateMetadata"
+        [matMenuTriggerData]="{label: element}"
       >
         <mat-icon>add_circle_outline</mat-icon>
       </button>
@@ -42,11 +43,13 @@
     </td>
   </ng-container>
  
-  <mat-menu #menuCreateMetadata="matMenu">
-    <button mat-menu-item>
-      <mat-icon>info</mat-icon>
-      <span>Create metadata</span>
-    </button>
+  <mat-menu #menuCreateMetadata="matMenu" matMenuContent>
+    <ng-template let-label="label" matMenuContent>
+      <button mat-menu-item (click)="onCreateMetadata(label)">
+        <mat-icon>info</mat-icon>
+        <span>Create metadata</span>
+      </button>
+    </ng-template>
   </mat-menu>
 
   <ng-container matColumnDef="storage">

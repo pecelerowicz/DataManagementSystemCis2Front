@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CreatePackageRequest, CreatePackageResponse, PackagesResponse, 
   CreateFolderRequest, CreateFolderResponse, DeletePackageRequest, DeletePackageResponse, 
-  StorageAndMetadataListResponse, CreateStorageRequest, CreateStorageResponse } from '../dto/storage-list';
+  StorageAndMetadataListResponse, CreateStorageRequest, CreateStorageResponse, 
+  CreateMetadataResponse, CreateMetadataRequest } from '../dto/storage-list';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,11 @@ export class StorageListService {
   createStorage(storageName: string): Observable<CreateStorageResponse> {
     let payload: CreateStorageRequest = {storageName: storageName};
     return this.http.post<CreateStorageRequest>('http://localhost:8080/api/storage', payload);
+  }
+
+  createMetadata(metadataName: string): Observable<CreateMetadataResponse> {
+    let payload: CreateMetadataRequest = {metadataName: metadataName};
+    return this.http.post<CreateMetadataRequest>('http://localhost:8080/api/metadata', payload);
   }
 
 }

@@ -17,6 +17,8 @@ export class SharedCommunicationService {
 
   fromListToStorage: {name: string} = {name: ''};
 
+  fromListToMetadata: {name: string} = {name: ''};
+
   public updateListOfFolders$: Subject<void> = new Subject();
 
   uploadBackEmitter = new EventEmitter();
