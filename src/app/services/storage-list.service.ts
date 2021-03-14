@@ -26,9 +26,10 @@ export class StorageListService {
     return this.http.request('delete', 'http://localhost:8080/api/package', {body: payload});
   }
 
-  createFolder(newFolderName: string, parentFolderFullPath: string): Observable<CreateFolderResponse> {
+  createFolder(newFolderName: string, parentFolderRelativePath: string, packageName: string): Observable<CreateFolderResponse> {
     let payload: CreateFolderRequest = 
-      {newFolderName: newFolderName, parentFolderFullPath: parentFolderFullPath};
+      {newFolderName: newFolderName, packageName: packageName, 
+        parentFolderRelativePath: parentFolderRelativePath};
     return this.http.post<CreateFolderResponse>('http://localhost:8080/api/folders', payload);
   }
 

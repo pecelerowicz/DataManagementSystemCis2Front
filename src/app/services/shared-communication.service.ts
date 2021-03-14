@@ -8,7 +8,8 @@ export class SharedCommunicationService {
 
   constructor() { }
 
-  passParam: {name: string, path: string, order: number} = {name: '', path: '', order: 0};
+  passParam: {name: string, path: string, order: number, packageName: string, folderPath: string} = 
+  {name: '', path: '', order: 0, packageName: '', folderPath: ''};
   componentChangeEmitter = new EventEmitter();
 
   createPackageEmitter = new EventEmitter();

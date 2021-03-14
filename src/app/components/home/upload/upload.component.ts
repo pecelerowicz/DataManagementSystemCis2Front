@@ -12,7 +12,7 @@ import { UploadService } from 'src/app/services/upload.service';
 })
 export class UploadComponent implements OnInit {
  
-  param: {name: string, path: string, order: number};
+  param: {name: string, path: string, order: number, packageName: string, folderPath: string};
   selectedFiles: FileList;
   progressInfos = [];
   message = '';
@@ -51,7 +51,7 @@ export class UploadComponent implements OnInit {
   upload(idx, file) {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
   
-    this.uploadService.upload(file, this.param.path).subscribe(
+    this.uploadService.upload(file).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);

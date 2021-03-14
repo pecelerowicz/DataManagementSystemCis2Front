@@ -12,7 +12,8 @@ export interface CreatePackageResponse {
 
 export interface CreateFolderRequest {
     newFolderName: string;
-    parentFolderFullPath: string;
+    packageName: string;
+    parentFolderRelativePath: string;
 }
 
 export interface CreateFolderResponse {
@@ -51,4 +52,9 @@ export interface CreateMetadataRequest {
 
 export interface CreateMetadataResponse {
     metadataName: string;
+}
+
+export interface UploadFileRequest {
+    packageName: string;
+    folderRelativePath: string
 }

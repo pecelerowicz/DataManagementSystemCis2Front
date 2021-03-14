@@ -92,7 +92,7 @@ export class StorageComponent implements OnInit {
   }
 
   onUpload(val) {
-    this.sharedCommunicationService.passParam = {name: 'upload', path: val, order: this.order};
+    this.sharedCommunicationService.passParam = {name: 'upload', path: val, order: this.order, packageName: this.name, folderPath: val};
     this.sharedCommunicationService.componentChangeEmitter.emit();
   }
 
@@ -105,6 +105,14 @@ export class StorageComponent implements OnInit {
     console.log(this.name)
     console.log("--")
     this.dialog.open(CreateFolderDialog, {data: {order: this.order, name: this.name}});
+  }
+
+  onOpenCreateSubfolderDialog(val: string) {
+    console.log("----------------");
+    console.log(val);  // subfolderName (path)
+    console.log(this.name);  // packageName
+    console.log("----------------");
+    this.dialog.open(CreateFolderDialog, {data: {name: this.name, subfolderName: val}})
   }
 }
 
@@ -142,7 +150,7 @@ export class CreateFolderDialog {
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onCreate(dialogForm: NgForm) {
     this.storageListService.createFolder(dialogForm.value.name, 
-      this.sharedCommunicationService.fromListToStorage.name).subscribe(
+      this.sharedCommunicationService.fromListToStorage.name, "").subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
           this.openSnackBar('Created Folder', val.newFolderFullName)
