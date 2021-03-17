@@ -16,6 +16,7 @@ import { StorageListService } from '../../../services/storage-list.service';
 export interface DialogData {
   order: number;
   name: string;
+  subfolderName: string;
 }
 
 interface ExampleFlatNode {
@@ -101,17 +102,10 @@ export class StorageComponent implements OnInit {
   }
 
   onOpenCreateNewFolderDialog() {
-    console.log("--")
-    console.log(this.name)
-    console.log("--")
     this.dialog.open(CreateFolderDialog, {data: {order: this.order, name: this.name}});
   }
 
   onOpenCreateSubfolderDialog(val: string) {
-    console.log("----------------");
-    console.log(val);  // subfolderName (path)
-    console.log(this.name);  // packageName
-    console.log("----------------");
     this.dialog.open(CreateFolderDialog, {data: {name: this.name, subfolderName: val}})
   }
 }
@@ -149,8 +143,12 @@ export class CreateFolderDialog {
               private _snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onCreate(dialogForm: NgForm) {
-    this.storageListService.createFolder(dialogForm.value.name, 
-      this.sharedCommunicationService.fromListToStorage.name, "").subscribe(
+
+    let packageName = this.data.name;
+    let sourceName = this.data.subfolderName;
+    let newFolder = dialogForm.value.name;
+
+    this.storageListService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
           this.openSnackBar('Created Folder', val.newFolderFullName)
