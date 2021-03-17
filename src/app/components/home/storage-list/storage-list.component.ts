@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { StorageAndMetadataListResponse } from '../../../dto/storage-list';
 
 export interface DialogData {
   name: string;
@@ -28,9 +29,12 @@ export class StorageListComponent implements OnInit {
 
   dataSource: MatTableDataSource<{name: string, position: number}>;
 
+  storageAndMetadata: StorageAndMetadataListResponse;
+
   constructor(private storageListService: StorageListService,
               private sharedCommunicationService: SharedCommunicationService,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog,
+              private _snackBar: MatSnackBar) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -39,9 +43,22 @@ export class StorageListComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.getPackagesNames();
+    this.getStorageAndMetadata();
     this.sharedCommunicationService.updateListOfPackages$.subscribe(() => {
-      this.getPackagesNames();
+      this.getStorageAndMetadata();
+    })
+  }
+
+  private getStorageAndMetadata() {
+    let fetch: {name: string, hasStorage: boolean, hasMetadata: boolean, position: number}[] = [];
+    this.storageListService.getStorageAndMetadata().subscribe(val => {
+      let counter: number = 1;
+      for(let sm of val.storageAndMetadataResponseList) {
+        fetch.push({name: sm.name, hasStorage: sm.hasStorage, 
+          hasMetadata: sm.hasMetadata, position: counter});
+        counter++;
+      }
+      this.dataSource.data = fetch;
     })
   }
 
@@ -66,9 +83,46 @@ export class StorageListComponent implements OnInit {
     this.sharedCommunicationService.fromListToStorage.name = element.name;
   }
 
+  onCreateStorage(element) {
+    this.storageListService.createStorage(element.name).subscribe(
+      (val) => {
+        this.sharedCommunicationService.updateListOfPackages$.next();
+        this._snackBar.open("Storage created:" , element.name, {
+          duration: 6000,
+        });
+
+        this.storage.emit({ order: element.position });
+        this.sharedCommunicationService.fromListToStorage.name = element.name;
+      },
+      (err) => {
+        this._snackBar.open("Storage was not created:", element.name, {
+          duration: 6000,
+        });
+      }
+    );
+  }
+
+  onCreateMetadata(element) {
+    this.storageListService.createMetadata(element.name).subscribe(
+      (val) => {
+        this.sharedCommunicationService.updateListOfPackages$.next();
+        this._snackBar.open("Metadata created:" , val.metadataName, {
+          duration: 6000,
+        });
+
+        this.info.emit({ order: element.position });
+        this.sharedCommunicationService.fromListToMetadata.name = element.name;
+      },
+      (err) => {
+        this._snackBar.open("Storage was not created:", element.name, {
+          duration: 6000,
+        });
+      }
+    );
+  }
+
   onOpenDeletePackageDialog(element) {
     this.dialog.open(DeletePackageDialog, {data: {name: element.name}});
-    // console.log("delete " + element.name)
   }
 
   onOpenCreatePackageDialog() {
@@ -141,24 +195,10 @@ export class CreatePackageDialog {
 @Component({
   selector: 'delete-package-dialog',
   template: `
-        <!-- <form #dialogForm="ngForm" class="dialog-form">
-          <mat-form-field class="example-form-field">
-            <input ngModel matInput type="text" name="name" placeholder="Package Name">
-          </mat-form-field>
-          <button (click)="onDelete(dialogForm)" 
-                  mat-raised-button color="primary">
-            Delete
-          </button>
-        </form> -->
         <h1 mat-dialog-title>Are you sure you want to delete the package {{data.name}} and its content?</h1>
         <div mat-dialog-actions align="center">
           <button (click)="onDelete()" color="warn" mat-flat-button mat-dialog-close>Delete</button>
         </div>
-
-        <!-- <div>
-        Are sure you want to delete the package {{data.name}} and its content?
-        <button mat-raised-button color="warn"></button>
-        </div> -->
   `,
   styles: [`
   .dialog-form {

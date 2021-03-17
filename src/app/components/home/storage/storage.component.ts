@@ -16,6 +16,7 @@ import { StorageListService } from '../../../services/storage-list.service';
 export interface DialogData {
   order: number;
   name: string;
+  subfolderName: string;
 }
 
 interface ExampleFlatNode {
@@ -65,21 +66,19 @@ export class StorageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
-      this.name = params.get('name');
-
-      this.storageService.getStorage().subscribe((val) => {
-          this.dataSource.data = val.children[this.order-1].children;
-      });
+      this.name = this.sharedCommunicationService.fromListToStorage.name;
+      this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+        this.dataSource.data = val.children;
+      })
     });
 
     this.sharedCommunicationService.updateListOfFolders$.subscribe(() => {
       this.route.paramMap.subscribe((params: ParamMap) => {
         this.order = parseInt(params.get('order'));
-        this.name = params.get('name');
-  
-        this.storageService.getStorage().subscribe((val) => {
-            this.dataSource.data = val.children[this.order-1].children;
-        });
+        this.name = this.sharedCommunicationService.fromListToStorage.name;
+        this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+          this.dataSource.data = val.children;
+        })
       });
 
     })
@@ -94,7 +93,7 @@ export class StorageComponent implements OnInit {
   }
 
   onUpload(val) {
-    this.sharedCommunicationService.passParam = {name: 'upload', path: val, order: this.order};
+    this.sharedCommunicationService.passParam = {name: 'upload', path: val, order: this.order, packageName: this.name, folderPath: val};
     this.sharedCommunicationService.componentChangeEmitter.emit();
   }
 
@@ -103,10 +102,11 @@ export class StorageComponent implements OnInit {
   }
 
   onOpenCreateNewFolderDialog() {
-    console.log("--")
-    console.log(this.name)
-    console.log("--")
     this.dialog.open(CreateFolderDialog, {data: {order: this.order, name: this.name}});
+  }
+
+  onOpenCreateSubfolderDialog(val: string) {
+    this.dialog.open(CreateFolderDialog, {data: {name: this.name, subfolderName: val}})
   }
 }
 
@@ -143,8 +143,12 @@ export class CreateFolderDialog {
               private _snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onCreate(dialogForm: NgForm) {
-    this.storageListService.createFolder(dialogForm.value.name, 
-      this.sharedCommunicationService.fromListToStorage.name).subscribe(
+
+    let packageName = this.data.name;
+    let sourceName = this.data.subfolderName;
+    let newFolder = dialogForm.value.name;
+
+    this.storageListService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
           this.openSnackBar('Created Folder', val.newFolderFullName)
@@ -154,17 +158,6 @@ export class CreateFolderDialog {
           this.openSnackBar("Could not create package!", err.error.exception);
         }
       );
-    
-    // this.storageListService.createPackage(dialogForm.value.name).subscribe(
-    //   (val) => {
-    //     this.sharedCommunicationService.updateListOfPackages$.next()
-    //     this.openSnackBar('Created Package:', val.packageName);
-    //     this.dialogRef.close();
-    //   },
-    //   (err) => {
-    //     this.openSnackBar("Could not create package!", err.error.exception);
-    //   }
-    // );
   }
 
   openSnackBar(message: string, action: string) {

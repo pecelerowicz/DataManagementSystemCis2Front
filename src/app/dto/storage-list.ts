@@ -12,7 +12,8 @@ export interface CreatePackageResponse {
 
 export interface CreateFolderRequest {
     newFolderName: string;
-    parentFolderFullPath: string;
+    packageName: string;
+    parentFolderRelativePath: string;
 }
 
 export interface CreateFolderResponse {
@@ -25,4 +26,35 @@ export interface DeletePackageRequest {
 
 export interface DeletePackageResponse {
     deleteMessage: string;
+}
+
+export interface StorageAndMetadataResponse {
+    name: string;
+    hasStorage: boolean;
+    hasMetadata: boolean;
+}
+
+export interface StorageAndMetadataListResponse {
+    storageAndMetadataResponseList: StorageAndMetadataResponse[];
+}
+
+export interface CreateStorageRequest {
+    storageName: string;
+}
+
+export interface CreateStorageResponse {
+    storageName: string;
+}
+
+export interface CreateMetadataRequest {
+    metadataName: string;
+}
+
+export interface CreateMetadataResponse {
+    metadataName: string;
+}
+
+export interface UploadFileRequest {
+    packageName: string;
+    folderRelativePath: string
 }
