@@ -11,6 +11,10 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
+
+  // private address: string = "localhost";
+  private address: string = "134.122.73.65"
+
   constructor(
     private httpClient: HttpClient,
     private localStorage: LocalStorageService
@@ -19,7 +23,7 @@ export class AuthService {
   signup(registerRequest: RegisterRequest): Observable<any> {
     //any?
     return this.httpClient.post(
-      'http://localhost:8080/api/auth/signup',
+      'http://' + this.address + ':8080/api/auth/signup',
       registerRequest,
       { responseType: 'text' }
     );
@@ -27,7 +31,7 @@ export class AuthService {
 
   login(loginRequest: LoginRequest): Observable<boolean> {
     return this.httpClient
-      .post<LoginResponse>('http://localhost:8080/api/auth/login', loginRequest)
+      .post<LoginResponse>('http://' + this.address + ':8080/api/auth/signup', loginRequest)
       .pipe(
         map((data) => {
           this.localStorage.store(
