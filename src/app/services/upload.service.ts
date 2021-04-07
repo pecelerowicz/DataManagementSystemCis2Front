@@ -3,13 +3,14 @@ import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SharedCommunicationService } from './shared-communication.service';
 import { UploadFileRequest } from '../dto/storage-list';
+import { environmentCustom } from 'src/environments/environment.custom';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
 
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl =  environmentCustom.address + '/api';   //'http://localhost:8080/api';
 
   constructor(private http: HttpClient,
               private sharedCommunicationService: SharedCommunicationService) { }

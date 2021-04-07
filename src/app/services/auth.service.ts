@@ -6,11 +6,16 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { LoginRequest } from '../components/login/login-request';
 import { LoginResponse } from '../components/login/login-response';
 import { map } from 'rxjs/operators';
+import { environmentCustom } from 'src/environments/environment.custom';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
+  // private address: string = "localhost";
+  //private address: string = "134.122.73.65"
+
   constructor(
     private httpClient: HttpClient,
     private localStorage: LocalStorageService
@@ -19,7 +24,7 @@ export class AuthService {
   signup(registerRequest: RegisterRequest): Observable<any> {
     //any?
     return this.httpClient.post(
-      'http://localhost:8080/api/auth/signup',
+      environmentCustom.address + "/api/auth/signup",
       registerRequest,
       { responseType: 'text' }
     );
@@ -27,7 +32,7 @@ export class AuthService {
 
   login(loginRequest: LoginRequest): Observable<boolean> {
     return this.httpClient
-      .post<LoginResponse>('http://localhost:8080/api/auth/login', loginRequest)
+      .post<LoginResponse>(environmentCustom.address + "/api/auth/login", loginRequest)
       .pipe(
         map((data) => {
           this.localStorage.store(
