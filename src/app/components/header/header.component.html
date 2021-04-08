@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" [class.mat-elevation-z2]="true" class="navbar">
+    <div>
+    <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button>NomatenData</button>
+    </div>
+    <div>
+      <button
+        routerLink="/register"
+        mat-button
+        color="accent"
+      >Register</button>
+      <button routerLink="/login" mat-button>Login</button>
+      <button mat-button (click)="logout()">Logout</button>
+    </div>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+    <a mat-menu-item routerLink="/login">
+        <mat-icon>storage</mat-icon>
+        <span>My Data</span>
+    </a>
+    <a mat-menu-item routerLink="/register">
+        <mat-icon>task</mat-icon>
+        <span>My Projects</span>
+    </a>
+    <a mat-menu-item routerLink="/login">
+        <mat-icon>manage_search</mat-icon>
+        <span>Search</span>
+    </a>
+</mat-menu>
