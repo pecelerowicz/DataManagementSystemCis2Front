@@ -24,6 +24,7 @@ import { CreatePackageDialog } from './components/home/storage-list/storage-list
 import { DeletePackageDialog } from './components/home/storage-list/storage-list.component';
 import { CreateFolderDialog } from './components/home/storage/storage.component';
 import { ShortenPathPipe } from './pipes/shorten-path.pipe';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ShortenPathPipe } from './pipes/shorten-path.pipe';
     UploadComponent,
     CreatePackageDialog,
     DeletePackageDialog,
-    CreateFolderDialog
+    CreateFolderDialog,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

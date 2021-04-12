@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoginRequest } from './login-request';
 import { AuthService } from '../../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,52 +10,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginRequest: LoginRequest;
-
-  constructor(
-    private authService: AuthService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private _snackBar: MatSnackBar
-  ) {
-    this.loginRequest = {
-      username: '',
-      password: '',
-    };
-  }
-
+  constructor(private authService: AuthService) {}
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      if (params.registered !== undefined && params.registered === 'true') {
-        this._snackBar.open(
-          'Registration Successful. Check your inbox for activation link.',
-          '',
-          {
-            duration: 6000,
-          }
-        );
-      }
-    });
   }
 
-  login(loginForm: NgForm, submit) {
-    // console.log(loginForm.value, loginForm.valid, submit);
+  loginRequest: LoginRequest = {username: '', password: ''};
+  
+  login(loginForm: NgForm) {
     this.loginRequest.username = loginForm.value.username;
     this.loginRequest.password = loginForm.value.password;
-
-    this.authService.login(this.loginRequest).subscribe(
-      () => {
-        this._snackBar.open('Login successful', '', {
-          duration: 6000,
-        });
-        this.router.navigate(['/home']);
-      },
-      (err) => {
-        // console.log('error');
-        this._snackBar.open('Login failed. Please try again.', '', {
-          duration: 6000,
-        });
-      }
-    );
+    this.authService.login(this.loginRequest);
   }
 }
