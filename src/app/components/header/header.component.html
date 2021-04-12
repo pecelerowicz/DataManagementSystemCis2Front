@@ -1,20 +1,27 @@
 <mat-toolbar color="primary" [class.mat-elevation-z2]="true" class="navbar">
-    <div>
-    <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <button mat-button>NomatenData</button>
+    <div *ngIf="isLoggedIn">
+      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+      <button mat-button>NomatenData</button>
+    </div>
+    <div *ngIf="!isLoggedIn">
+      <button mat-icon-button disabled><mat-icon></mat-icon></button>
+      <button mat-button>NomatenData</button>
     </div>
     <div>
-      <button
-        routerLink="/register"
-        mat-button
-        color="accent"
-      >Register</button>
-      <button routerLink="/login" mat-button>Login</button>
-      <button mat-button (click)="logout()">Logout</button>
+      <button [matMenuTriggerFor]="logoutMenu" mat-button *ngIf="isLoggedIn">
+        <mat-icon>arrow_drop_down</mat-icon>
+        Hi, {{username}}
+      </button>
     </div>
 </mat-toolbar>
+
+<mat-menu #logoutMenu="matMenu">
+  <a mat-menu-item (click)="logout()">
+    <mat-icon>storage</mat-icon>
+    <span>Logout</span>
+</a>
+</mat-menu>
+
 <mat-menu #menu="matMenu">
     <a mat-menu-item routerLink="/login">
         <mat-icon>storage</mat-icon>

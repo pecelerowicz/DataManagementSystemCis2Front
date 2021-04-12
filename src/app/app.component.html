@@ -1,5 +1,5 @@
 <mat-drawer-container fullscreen>
-  <app-header></app-header> 
+  <app-header [isLoggedIn]="isLoggedIn" [username]="username"></app-header> 
   <div class="main-content">
     <router-outlet></router-outlet>
   </div>
