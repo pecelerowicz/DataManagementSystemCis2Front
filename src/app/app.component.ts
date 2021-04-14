@@ -10,8 +10,8 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  isLoggedIn: boolean = false;
-  username: string = '';
+  isLoggedIn: boolean = this.localStorage.retrieve('username')!=null;
+  username: string = this.localStorage.retrieve('username')==null ? '' : this.localStorage.retrieve('username');
 
   constructor(private router: Router, private authService: AuthService, private localStorage: LocalStorageService) {}
 
@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
     )
     this.authService.logout$.subscribe(
       value => {
-        console.log("tutaj")
         this.isLoggedIn = false;
         this.username = '';
         this.router.navigate(['/login']);

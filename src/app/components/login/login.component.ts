@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { LoginRequest } from './login-request';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router,  private localStorage: LocalStorageService) {}
   ngOnInit(): void {
+    if(this.localStorage.retrieve('username')) {
+      this.router.navigate(['/home']);
+    }
   }
 
   loginRequest: LoginRequest = {username: '', password: ''};
