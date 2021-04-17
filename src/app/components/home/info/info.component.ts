@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { createPasswordStrengthValidator } from '../../../validators/password-strength.validator';
 
 @Component({
   selector: 'app-info',
@@ -8,6 +10,25 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class InfoComponent implements OnInit {
   order: number;
+
+  name: FormControl = new FormControl(
+    {value: 'Name value taken from the backend', disabled: true}, 
+    {
+      validators: [Validators.required, Validators.minLength(10)],
+      updateOn: 'blur'
+    });
+
+  owner: FormControl = new FormControl(
+    {value: 'Owner value taken from the backend', disabled: true}, 
+    {
+      validators: [Validators.required, Validators.minLength(10)], // to be changed
+      updateOn: 'blur'
+    });
+
+  form: FormGroup = new FormGroup({
+    name: this.name,
+    owner: this.owner
+  });
 
   constructor(private route: ActivatedRoute) {}
 

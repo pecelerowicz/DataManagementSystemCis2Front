@@ -2,46 +2,21 @@
     <div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
       <h5 matSubheader>Metadata {{ order }}</h5>
       <mat-divider></mat-divider>
-          
-      
-      <p>
-        <mat-form-field class="meta" appearance="standard">
-          <mat-label>Publication DOI</mat-label>
-          <input matInput>
+      <form class="metadata-form data-form" [formGroup]="form">
+        <mat-form-field>
+          <input matInput type="text" name="name" placeholder="Name" [formControl]="name">
         </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field class="meta" appearance="standard">
-          <mat-label>Device</mat-label>
-          <input matInput>
+        <mat-form-field>
+          <input matInput type="text" name="owner" placeholder="Owner" [formControl]="owner">
         </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field class="meta" appearance="standard">
-          <mat-label>Publication DOI</mat-label>
-          <input matInput>
-        </mat-form-field>
-      </p>
-      
+      </form>
 
-      <mat-grid-list cols="2" rowHeight="2:1">
-        <mat-grid-tile>
-            <p>
-                <mat-form-field class="meta" appearance="standard">
-                  <mat-label>Full name</mat-label>
-                  <input matInput>
-                </mat-form-field>
-            </p>    
-        </mat-grid-tile>
-        <mat-grid-tile>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi laudantium, a non quas quis sit beatae quae quidem blanditiis exercitationem nostrum tenetur facilis amet voluptate, corporis consequuntur ex nemo eius!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur iure corrupti fuga rerum aperiam tempore ex sit quidem perferendis quod magnam quos, et assumenda esse placeat eius pariatur? Aut, ipsum!
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas deserunt obcaecati asperiores! Voluptas eaque accusantium dolore, quos placeat, dicta ratione qui minima harum quia cupiditate ducimus aut accusamus doloremque illo!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quisquam fugiat cupiditate accusamus aliquid assumenda, quia eos dignissimos esse necessitatibus, nisi odit, fuga nam magnam accusantium sint omnis magni suscipit.
-        </mat-grid-tile>
-        <mat-grid-tile>3</mat-grid-tile>
-        <mat-grid-tile>4</mat-grid-tile>
-      </mat-grid-list>
+      <div class="form-val">
+        {{ form.value | json }}
+      </div>
+      <div class="form-val">
+        {{ form.valid }}
+      </div>
     </div>
     
 </div>

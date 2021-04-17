@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordStrengthDirective } from './directives/password-strength.directive';
 import { OnlyOneErrorPipe } from './pipes/only-one-error.pipe';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -52,6 +52,7 @@ import { HeaderComponent } from './components/header/header.component';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     FlexLayoutModule,
