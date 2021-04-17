@@ -4,10 +4,10 @@
       <mat-divider></mat-divider>
       <form class="metadata-form data-form" [formGroup]="form">
         <mat-form-field>
-          <input matInput type="text" name="name" placeholder="Name" [formControl]="name">
+          <input matInput type="text" name="name" placeholder="Name" formControlName="name">
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="text" name="owner" placeholder="Owner" [formControl]="owner">
+          <input matInput type="text" name="owner" placeholder="Owner" formControlName="owner">
         </mat-form-field>
       </form>
 
@@ -17,7 +17,9 @@
       <div class="form-val">
         {{ form.valid }}
       </div>
+
+      <button (click)="toggleDisable()" mat-icon-button>{{disabled? 'enable' : 'disable'}}</button>
     </div>
-    
+
 </div>
 
