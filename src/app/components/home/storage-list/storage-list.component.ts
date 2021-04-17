@@ -10,6 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { StorageAndMetadataListResponse } from '../../../dto/storage-list';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   name: string;
@@ -62,18 +63,6 @@ export class StorageListComponent implements OnInit {
     })
   }
 
-  private getPackagesNames() {
-    let fetch: {name: string, position: number}[] = [];
-    this.storageListService.getPackagesNames().subscribe((val) => {
-      let counter: number = 1;
-      for (let packageName of val.packagesNames) {
-        fetch.push({ name: packageName, position: counter });
-        counter++;
-      }
-      this.dataSource.data = fetch;
-    });
-  }
-
   onInfo(element) {
     this.info.emit({ order: element.position });
   }
@@ -114,7 +103,7 @@ export class StorageListComponent implements OnInit {
         this.sharedCommunicationService.fromListToMetadata.name = element.name;
       },
       (err) => {
-        this._snackBar.open("Storage was not created:", element.name, {
+        this._snackBar.open("Metadata was not created:", element.name, {
           duration: 6000,
         });
       }
@@ -218,12 +207,14 @@ export class DeletePackageDialog {
               private dialogRef: MatDialogRef<DeletePackageDialog>,
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
+              private router: Router,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onDelete() {
     this.storageListService.deletePackage(this.data.name).subscribe((response) => {
       this.sharedCommunicationService.updateListOfPackages$.next()
         this.openSnackBar('Deleted Package:', this.data.name);
         this.dialogRef.close();
+        this.router.navigate(['/home']);
     },
     (err) => {
       console.error(err);
