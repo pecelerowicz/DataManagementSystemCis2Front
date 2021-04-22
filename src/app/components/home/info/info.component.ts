@@ -45,30 +45,4 @@ export class InfoComponent implements OnInit {
     });
   }
 
-  toggleDisable() {
-    this.disabled = !this.disabled;
-
-    this.form = this.fb.group({
-      name: [
-        {
-          value: 'Name value taken from the backend', 
-          disabled: this.disabled
-        },
-        {
-          validators: [Validators.required, Validators.minLength(10)],
-          updateOn: 'blur'
-        }
-      ],
-      owner: [
-        {
-          value: 'Owner value taken from the backend', 
-          disabled: this.disabled
-        },
-        {
-          validators: [Validators.required, Validators.minLength(8)],
-          updateOn: 'blur'
-        }
-      ]
-    });
-  }
 }
