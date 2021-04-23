@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 
@@ -40,7 +41,8 @@ const material = [
   MatDialogModule,
   MatProgressBarModule,
   MatCheckboxModule,
-  MatGridListModule 
+  MatGridListModule,
+  MatStepperModule 
 ];
 
 @NgModule({
