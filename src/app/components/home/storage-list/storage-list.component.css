@@ -32,3 +32,11 @@ p {
   /* left: -2rem; */
   float: right;
 }
+
+.mat-row:hover {
+  background-color: red;
+}
+
+.mat-row:focus {
+  background-color: green;
+}

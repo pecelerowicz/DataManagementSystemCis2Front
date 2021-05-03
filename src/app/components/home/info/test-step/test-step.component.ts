@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-test-step',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestStepComponent implements OnInit {
 
-  constructor() { }
+  // names: FormGroup = this.fb.group({
+  //   shortName: ['', Validators.required, Validators.minLength(5), Validators.maxLength(100)],
+  //   longName: ['', Validators.required, Validators.minLength(5), Validators.maxLength(200)]
+  // })
+
+  // access = this.fb.group({
+  //   access: ['private', Validators.required]
+  // })
+
+  // device = this.fb.group({
+  //   deviceName: ['', Validators.required]
+  // })
+
+  // visibility: boolean[] = [true, false, true];
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
+  // isVisible(index: number): boolean {
+  //   return this.visibility[index];
+  // }
 }

@@ -2,18 +2,62 @@
     <div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
       <h5 matSubheader>Metadata {{ order }}</h5>
       <mat-divider></mat-divider>
-      
-      <mat-horizontal-stepper class="mat-elevation-z3" labelPosition="bottom">
-        <mat-step>
-          <ng-template matStepLabel>Metadata Metadata Metadata</ng-template>
-          <app-test-step></app-test-step>
-          <div class="stepper-buttons">
-            <button mat-raised-button color="primary" matStepperNext>Continue to step 2</button>
-          </div>
-        </mat-step>
-      </mat-horizontal-stepper>
+
+      <fieldset [formGroup]="names" [class.hide]="!isVisible(0)">
+        <legend>Name</legend>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Short name" formControlName="shortName">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Long name" formControlName="longName">
+        </mat-form-field>
+      </fieldset>
+    
+      <fieldset [formGroup]="access" [class.hide]="!isVisible(1)">
+        <legend>Access</legend>
+        <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
+            <mat-radio-button >Private</mat-radio-button>
+            <mat-radio-button >Protected</mat-radio-button>
+            <mat-radio-button >Public</mat-radio-button>
+        </mat-radio-group>
+      </fieldset>
+
+      <fieldset [formGroup]="publication" [class.hide]="!isVisible(2)">
+        <legend>Publication</legend>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Title" formControlName="title">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="DOI" formControlName="doi">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Authors" formControlName="authors">
+      </mat-form-field>
+      </fieldset>
+    
+      <fieldset [formGroup]="device" [class.hide]="!isVisible(3)">
+        <legend>Device</legend>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Device name" formControlName="deviceName">
+        </mat-form-field>
+      </fieldset>
 
     </div>
 
+    <p id="father">    
+      <button disabled={{allVisible}} mat-button [matMenuTriggerFor]="menu" id="son1"  mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" yPosition="above" xPosition="before">
+        <div *ngFor="let category of categories; let i = index" [attr.data-index]="i">
+          <button (click)="selectMetadata(i)" mat-menu-item *ngIf="!visibility[i]">{{category}}</button>
+        </div>
+      </mat-menu>
+    </p>
+
+    
 </div>
+
+
+
 
