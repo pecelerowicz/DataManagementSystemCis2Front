@@ -1,9 +1,19 @@
 <div fxLayout="column">
     <div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
       <h5 matSubheader>Metadata {{ order }}</h5>
+      
       <mat-divider></mat-divider>
+      
+      <fieldset [disabled]="isDisabled" [formGroup]="access" [class.hide]="!isVisible(0)">
+        <legend>Access</legend>
+        <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
+            <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
+            <mat-radio-button value="PROTECTED">Protected</mat-radio-button>
+            <mat-radio-button value="PUBLIC">Public</mat-radio-button>
+        </mat-radio-group>
+      </fieldset>
 
-      <fieldset [formGroup]="names" [class.hide]="!isVisible(0)">
+      <fieldset [disabled]="isDisabled" [formGroup]="name" [class.hide]="!isVisible(1)">
         <legend>Name</legend>
         <mat-form-field>
             <input type="text" matInput placeholder="Short name" formControlName="shortName">
@@ -12,17 +22,8 @@
             <input type="text" matInput placeholder="Long name" formControlName="longName">
         </mat-form-field>
       </fieldset>
-    
-      <fieldset [formGroup]="access" [class.hide]="!isVisible(1)">
-        <legend>Access</legend>
-        <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
-            <mat-radio-button >Private</mat-radio-button>
-            <mat-radio-button >Protected</mat-radio-button>
-            <mat-radio-button >Public</mat-radio-button>
-        </mat-radio-group>
-      </fieldset>
 
-      <fieldset [formGroup]="publication" [class.hide]="!isVisible(2)">
+      <!-- <fieldset [disabled]="isDisabled" [formGroup]="publication" [class.hide]="!isVisible(2)">
         <legend>Publication</legend>
         <mat-form-field>
             <input type="text" matInput placeholder="Title" formControlName="title">
@@ -33,9 +34,9 @@
         <mat-form-field>
           <input type="text" matInput placeholder="Authors" formControlName="authors">
       </mat-form-field>
-      </fieldset>
+      </fieldset> -->
     
-      <fieldset [formGroup]="device" [class.hide]="!isVisible(3)">
+      <fieldset [disabled]="isDisabled" [formGroup]="device" [class.hide]="!isVisible(2)">
         <legend>Device</legend>
         <mat-form-field>
             <input type="text" matInput placeholder="Device name" formControlName="deviceName">
@@ -45,13 +46,27 @@
     </div>
 
     <p id="father">    
-      <button disabled={{allVisible}} mat-button [matMenuTriggerFor]="menu" id="son1"  mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+      <button disabled={{isAddDisabled()}} mat-button [matMenuTriggerFor]="menu" id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
         <mat-icon>add</mat-icon>
       </button>
       <mat-menu #menu="matMenu" yPosition="above" xPosition="before">
         <div *ngFor="let category of categories; let i = index" [attr.data-index]="i">
           <button (click)="selectMetadata(i)" mat-menu-item *ngIf="!visibility[i]">{{category}}</button>
         </div>
+      </mat-menu>
+      <!-- /////// -->
+      <button *ngIf="isDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
+        <mat-icon>mode</mat-icon>
+      </button>
+      <mat-menu #enableMenu="matMenu" yPosition="above" xPosition="before">
+        <button mat-menu-item (click)="toggleDisabled()">Edit</button>
+      </mat-menu>
+      <button *ngIf="!isDisabled" [matMenuTriggerFor]="disableMenu" color="warn" mat-button id="son2" mat-mini-fab>
+        <mat-icon>save</mat-icon>
+      </button>
+      <mat-menu #disableMenu="matMenu" yPosition="above" xPosition="before">
+        <button mat-menu-item (click)="saveChanges()">Save changes</button>
+        <button mat-menu-item (click)="giveUpChanges()">Give up changes</button>
       </mat-menu>
     </p>
 

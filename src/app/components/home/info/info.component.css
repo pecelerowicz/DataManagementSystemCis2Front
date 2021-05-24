@@ -28,10 +28,14 @@ h2 {
 
 #son1 {
   top: -5rem;
-  /* left: -2rem; */
   float: right;
 }
 
+#son2 {
+  top: -5rem;
+  float: right;
+  margin-right: 0.8rem;
+}
 /**********************/
 
 textarea {

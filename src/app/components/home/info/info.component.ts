@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { createPasswordStrengthValidator } from '../../../validators/password-strength.validator';
+import { InfoService } from '../../../services/info.service';
+import { createNameValidator } from '../../../validators/name.validator';
+import { InfoDto } from '../../../dto/info';
 
 @Component({
   selector: 'app-info',
@@ -10,31 +12,39 @@ import { createPasswordStrengthValidator } from '../../../validators/password-st
 })
 export class InfoComponent implements OnInit {
   order: number;
-
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
-
-  names: FormGroup = this.fb.group({
-    shortName: ['', Validators.required, Validators.minLength(5), Validators.maxLength(100)],
-    longName: ['', Validators.required, Validators.minLength(5), Validators.maxLength(200)]
-  })
+  infoName: string = "aaaa";
+  isDisabled: boolean = true;
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private infoService: InfoService) {}
 
   access = this.fb.group({
-    access: ['private', Validators.required]
+    access: ['Private', [Validators.required]]
   })
 
-  publication = this.fb.group({
-    title: ['', Validators.required],
-    doi: ['', Validators.required, Validators.minLength(5), Validators.maxLength(20)], // ?
-    authors: ['', Validators.required, Validators.minLength(4), Validators.maxLength(200)]
+  name: FormGroup = this.fb.group({
+    shortName: ['', {validators: [
+      Validators.maxLength(100),  // check size
+      createNameValidator()
+    ], updateOn: 'change'}],
+    longName: ['', {validators: [
+      Validators.maxLength(200),
+      createNameValidator()
+    ], updateOn: 'change'}] // check size
   })
+
+  // publication = this.fb.group({
+  //   title: ['', [Validators.required]],
+  //   doi: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]], // ?
+  //   authors: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]]
+  // })
 
   device = this.fb.group({
-    deviceName: ['', Validators.required]
+    deviceName: ['', [Validators.required]]
   })
 
-  categories: string[] = ["Name", "Access", "Publication", "Device"];
-  visibility: boolean[] = [false, false, false, false];
+  categories: string[] = ["Access", "Name", /*"Publication",*/ "Device"];
+  visibility: boolean[] = [true, false, /*false,*/ false];
   allVisible: boolean = false;
+  edit: boolean = true;
 
 
   isVisible(index: number): boolean {
@@ -46,10 +56,62 @@ export class InfoComponent implements OnInit {
     this.allVisible = !this.visibility.includes(false);
   }
 
+  toggleDisabled() {
+    this.isDisabled = !this.isDisabled;
+  }
+
+  isAddDisabled() {
+    return !this.isDisabled || this.allVisible;
+  }
+
+  giveUpChanges() {
+    this.pullData();
+  }
+
+  saveChanges() {
+    let payload: InfoDto = {
+      infoName: this.infoName,
+      access: this.access.get('access').value,
+      shortName: this.name.get('shortName').value, 
+      longName: this.name.get('longName').value,
+      deviceDto: {name: this.device.get('deviceName').value}
+    }
+
+    this.infoService.savePackageInfo(payload).subscribe(
+      val => {
+        console.log(val);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
     });
+
+    this.pullData();
+
+  }
+
+  pullData() {
+    this.infoService.getPackageInfo(this.infoName).subscribe(
+      val => {
+        this.access.patchValue({access: val.access});
+        this.name.patchValue({
+          shortName: val.shortName, 
+          longName: val.longName
+        });
+        this.device.patchValue({
+          deviceName: val.deviceDto.name
+        })
+      }, 
+      err => {
+        console.log(err);
+      }
+    )
   }
 
 }
