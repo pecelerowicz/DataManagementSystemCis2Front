@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { InfoService } from '../../../services/info.service';
 import { createNameValidator } from '../../../validators/name.validator';
 import { InfoDto } from '../../../dto/info';
+import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 
 @Component({
   selector: 'app-info',
@@ -11,10 +12,13 @@ import { InfoDto } from '../../../dto/info';
   styleUrls: ['./info.component.css'],
 })
 export class InfoComponent implements OnInit {
-  order: number;
-  infoName: string = "aaaa";
+  order: number = 0;
+  infoName: string = "";
   isDisabled: boolean = true;
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private infoService: InfoService) {}
+  constructor(private route: ActivatedRoute, 
+              private fb: FormBuilder,
+              private sharedCommunicationService: SharedCommunicationService, 
+              private infoService: InfoService) {}
 
   access = this.fb.group({
     access: ['Private', [Validators.required]]
@@ -90,10 +94,9 @@ export class InfoComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
+      this.infoName = this.sharedCommunicationService.fromListToMetadata.name;
+      this.pullData();
     });
-
-    this.pullData();
-
   }
 
   pullData() {

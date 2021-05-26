@@ -10,7 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { StorageAndMetadataListResponse } from '../../../dto/storage-list';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface DialogData {
   name: string;
@@ -34,6 +34,8 @@ export class StorageListComponent implements OnInit {
 
   constructor(private storageListService: StorageListService,
               private sharedCommunicationService: SharedCommunicationService,
+              private router: Router,
+              private route: ActivatedRoute,
               private dialog: MatDialog,
               private _snackBar: MatSnackBar) {}
 
@@ -65,6 +67,7 @@ export class StorageListComponent implements OnInit {
 
   onInfo(element) {
     this.info.emit({ order: element.position });
+    this.sharedCommunicationService.fromListToMetadata.name = element.name;
   }
 
   onStorage(element) {
@@ -99,7 +102,7 @@ export class StorageListComponent implements OnInit {
           duration: 6000,
         });
 
-        this.info.emit({ order: element.position });
+        //this.info.emit({ order: element.position });
         this.sharedCommunicationService.fromListToMetadata.name = element.name;
       },
       (err) => {

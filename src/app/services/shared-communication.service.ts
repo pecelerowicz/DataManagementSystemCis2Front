@@ -23,5 +23,4 @@ export class SharedCommunicationService {
   public updateListOfFolders$: Subject<void> = new Subject();
 
   uploadBackEmitter = new EventEmitter();
-  
 }
