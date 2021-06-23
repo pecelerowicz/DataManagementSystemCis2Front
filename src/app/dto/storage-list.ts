@@ -1,5 +1,11 @@
-export interface PackagesResponse {
-    packagesNames: string[];
+export interface PackageResponseX {
+    name: string;
+    hasStorage: boolean;
+    hasMetadata: boolean;
+}
+
+export interface GetPackageListResponseX {
+    packageResponseList: PackageResponseX[];
 }
 
 export interface CreatePackageRequest {
@@ -9,6 +15,23 @@ export interface CreatePackageRequest {
 export interface CreatePackageResponse {
     packageName: string;
 }
+
+export interface DeletePackageRequest {
+    packageName: string;
+}
+
+export interface DeletePackageResponse {
+    deleteMessage: string;
+}
+
+//
+export interface PackagesResponse {
+    packagesNames: string[];
+}
+
+
+
+
 
 export interface CreateFolderRequest {
     newFolderName: string;
@@ -20,13 +43,7 @@ export interface CreateFolderResponse {
     newFolderFullName: string;
 }
 
-export interface DeletePackageRequest {
-    packageName: string;
-}
 
-export interface DeletePackageResponse {
-    deleteMessage: string;
-}
 
 export interface StorageAndMetadataResponse {
     name: string;

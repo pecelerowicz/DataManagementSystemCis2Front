@@ -15,7 +15,6 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './token-interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TableDataPackage2Component } from './components/home/table-data-package2/table-data-package2.component';
 import { StorageComponent } from './components/home/storage/storage.component';
 import { InfoComponent } from './components/home/info/info.component';
 import { StorageListComponent } from './components/home/storage-list/storage-list.component';
@@ -37,7 +36,6 @@ import { TestStepComponent } from './components/home/info/test-step/test-step.co
     OnlyOneErrorPipe,
     ShortenPathPipe,
     HomeComponent,
-    TableDataPackage2Component,
     StorageComponent,
     InfoComponent,
     StorageListComponent,

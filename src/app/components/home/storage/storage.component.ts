@@ -7,7 +7,7 @@ import {
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
-import { StorageService } from '../../../services/storage.service';
+import { FolderService } from '../../../services/folder.service';
 import { Node } from '../../../dto/storage';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -59,7 +59,7 @@ export class StorageComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private route: ActivatedRoute, 
-              private storageService: StorageService,
+              private folderService: FolderService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog) {}
 
@@ -67,7 +67,7 @@ export class StorageComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
       this.name = this.sharedCommunicationService.fromListToStorage.name;
-      this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+      this.folderService.getPackageFolderStructure(this.name).subscribe((val) => {
         this.dataSource.data = val.children;
       })
     });
@@ -76,7 +76,7 @@ export class StorageComponent implements OnInit {
       this.route.paramMap.subscribe((params: ParamMap) => {
         this.order = parseInt(params.get('order'));
         this.name = this.sharedCommunicationService.fromListToStorage.name;
-        this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+        this.folderService.getPackageFolderStructure(this.name).subscribe((val) => {
           this.dataSource.data = val.children;
         })
       });

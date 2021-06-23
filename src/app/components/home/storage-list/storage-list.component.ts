@@ -1,12 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {
-  StorageListService,
-} from '../../../services/storage-list.service';
+import { StorageListService} from '../../../services/storage-list.service';
+import { PackageService } from '../../../services/package.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { StorageAndMetadataListResponse } from '../../../dto/storage-list';
@@ -33,9 +32,8 @@ export class StorageListComponent implements OnInit {
   storageAndMetadata: StorageAndMetadataListResponse;
 
   constructor(private storageListService: StorageListService,
+              private packageService: PackageService,
               private sharedCommunicationService: SharedCommunicationService,
-              private router: Router,
-              private route: ActivatedRoute,
               private dialog: MatDialog,
               private _snackBar: MatSnackBar) {}
 
@@ -54,9 +52,9 @@ export class StorageListComponent implements OnInit {
 
   private getStorageAndMetadata() {
     let fetch: {name: string, hasStorage: boolean, hasMetadata: boolean, position: number}[] = [];
-    this.storageListService.getStorageAndMetadata().subscribe(val => {
+    this.packageService.getPackageList().subscribe(val => {
       let counter: number = 1;
-      for(let sm of val.storageAndMetadataResponseList) {
+      for(let sm of val.packageResponseList) {
         fetch.push({name: sm.name, hasStorage: sm.hasStorage, 
           hasMetadata: sm.hasMetadata, position: counter});
         counter++;
@@ -165,10 +163,10 @@ export class CreatePackageDialog {
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar) {}
   onCreate(dialogForm: NgForm) {
-    this.storageListService.createPackage(dialogForm.value.name).subscribe(
+    this.storageListService.createStorage(dialogForm.value.name).subscribe(
       (val) => {
         this.sharedCommunicationService.updateListOfPackages$.next()
-        this.openSnackBar('Created Package:', val.packageName);
+        this.openSnackBar('Created Package:', val.storageName);
         this.dialogRef.close();
       },
       (err) => {
@@ -206,14 +204,14 @@ export class CreatePackageDialog {
 })
 export class DeletePackageDialog {
   constructor(
-    private storageListService: StorageListService,
+              private packageService: PackageService,
               private dialogRef: MatDialogRef<DeletePackageDialog>,
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
               private router: Router,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onDelete() {
-    this.storageListService.deletePackage(this.data.name).subscribe((response) => {
+    this.packageService.deletePackage(this.data.name).subscribe((response) => {
       this.sharedCommunicationService.updateListOfPackages$.next()
         this.openSnackBar('Deleted Package:', this.data.name);
         this.dialogRef.close();

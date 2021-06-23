@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { Node } from '../dto/storage';
@@ -7,7 +7,8 @@ import { Node } from '../dto/storage';
 @Injectable({
   providedIn: 'root'
 })
-export class StorageService {
+export class FolderService {
+
   constructor(private http: HttpClient) { }
 
   private fullFoldersAddress: string = environmentCustom.address + '/api/full-folders';
@@ -20,5 +21,4 @@ export class StorageService {
   getPackageFolderStructure(packageName: string): Observable<Node> {
     return this.http.get<Node>(this.packageFoldersAddress + "/" + packageName);
   }
-
 }
