@@ -1,15 +1,17 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { StorageListService} from '../../../services/storage-list.service';
 import { PackageService } from '../../../services/package.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { StorageAndMetadataListResponse } from '../../../dto/storage-list';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { DeletePackageRequest } from 'src/app/dto/my_package';
+import { StorageService } from 'src/app/services/storage.service';
+import { CreateStorageRequest } from 'src/app/dto/my_storage';
+import { InfoService } from 'src/app/services/info.service';
 
 export interface DialogData {
   name: string;
@@ -29,9 +31,8 @@ export class StorageListComponent implements OnInit {
 
   dataSource: MatTableDataSource<{name: string, position: number}>;
 
-  storageAndMetadata: StorageAndMetadataListResponse;
-
-  constructor(private storageListService: StorageListService,
+  constructor(private infoService: InfoService,
+              private storageService: StorageService,
               private packageService: PackageService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog,
@@ -44,13 +45,13 @@ export class StorageListComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.getStorageAndMetadata();
+    this.getPackageList();
     this.sharedCommunicationService.updateListOfPackages$.subscribe(() => {
-      this.getStorageAndMetadata();
+      this.getPackageList();
     })
   }
 
-  private getStorageAndMetadata() {
+  private getPackageList() {
     let fetch: {name: string, hasStorage: boolean, hasMetadata: boolean, position: number}[] = [];
     this.packageService.getPackageList().subscribe(val => {
       let counter: number = 1;
@@ -74,7 +75,7 @@ export class StorageListComponent implements OnInit {
   }
 
   onCreateStorage(element) {
-    this.storageListService.createStorage(element.name).subscribe(
+    this.storageService.createStorage(element.name).subscribe(
       (val) => {
         this.sharedCommunicationService.updateListOfPackages$.next();
         this._snackBar.open("Storage created:" , element.name, {
@@ -93,7 +94,7 @@ export class StorageListComponent implements OnInit {
   }
 
   onCreateMetadata(element) {
-    this.storageListService.createMetadata(element.name).subscribe(
+    this.infoService.createMetadata(element.name).subscribe(
       (val) => {
         this.sharedCommunicationService.updateListOfPackages$.next();
         this._snackBar.open("Metadata created:" , val.metadataName, {
@@ -158,15 +159,16 @@ export class StorageListComponent implements OnInit {
   `]
 })
 export class CreatePackageDialog {
-  constructor(private storageListService: StorageListService,
+  constructor(private storageService: StorageService,
               private dialogRef: MatDialogRef<CreatePackageDialog>,
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar) {}
   onCreate(dialogForm: NgForm) {
-    this.storageListService.createStorage(dialogForm.value.name).subscribe(
+    let createStorageRequest: CreateStorageRequest = {storageName: dialogForm.value.name};
+    this.storageService.createStorage(createStorageRequest).subscribe(
       (val) => {
         this.sharedCommunicationService.updateListOfPackages$.next()
-        this.openSnackBar('Created Package:', val.storageName);
+        this.openSnackBar(val.createStorageMessage, '');
         this.dialogRef.close();
       },
       (err) => {
@@ -211,9 +213,10 @@ export class DeletePackageDialog {
               private router: Router,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onDelete() {
-    this.packageService.deletePackage(this.data.name).subscribe((response) => {
+    let deletePackageRequest: DeletePackageRequest = {packageName: this.data.name};
+    this.packageService.deletePackage(deletePackageRequest).subscribe((response) => {
       this.sharedCommunicationService.updateListOfPackages$.next()
-        this.openSnackBar('Deleted Package:', this.data.name);
+        this.openSnackBar(response.deleteMessage, '');
         this.dialogRef.close();
         this.router.navigate(['/home']);
     },

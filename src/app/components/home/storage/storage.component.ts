@@ -1,9 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
-} from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
@@ -11,7 +8,6 @@ import { FolderService } from '../../../services/folder.service';
 import { Node } from '../../../dto/storage';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { StorageListService } from '../../../services/storage-list.service';
 
 export interface DialogData {
   order: number;
@@ -137,7 +133,7 @@ export class StorageComponent implements OnInit {
   `]
 })
 export class CreateFolderDialog {
-  constructor(private storageListService: StorageListService,
+  constructor(private folderService: FolderService,
               private dialogRef: MatDialogRef<CreateFolderDialog>,
               public sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
@@ -148,7 +144,7 @@ export class CreateFolderDialog {
     let sourceName = this.data.subfolderName;
     let newFolder = dialogForm.value.name;
 
-    this.storageListService.createFolder(newFolder, sourceName, packageName).subscribe(
+    this.folderService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
           this.openSnackBar('Created Folder', val.newFolderFullName)
