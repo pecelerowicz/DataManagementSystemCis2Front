@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from '../app/components/login/login.component';
 import { RegisterComponent } from '../app/components/register/register.component';
+import { FolderComponent } from './components/home/folder/folder.component';
 import { HomeComponent } from './components/home/home.component';
 import { InfoComponent } from './components/home/info/info.component';
-import { StorageComponent } from './components/home/storage/storage.component';
 import { UploadComponent } from './components/home/upload/upload.component';
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'storage/:order',
-        component: StorageComponent,
+        component: FolderComponent,
       },
       {
         path: 'upload',

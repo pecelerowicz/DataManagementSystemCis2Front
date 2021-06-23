@@ -15,16 +15,16 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './token-interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { StorageComponent } from './components/home/storage/storage.component';
 import { InfoComponent } from './components/home/info/info.component';
-import { StorageListComponent } from './components/home/storage-list/storage-list.component';
 import { UploadComponent } from './components/home/upload/upload.component';
-import { CreatePackageDialog } from './components/home/storage-list/storage-list.component';
-import { DeletePackageDialog } from './components/home/storage-list/storage-list.component';
-import { CreateFolderDialog } from './components/home/storage/storage.component';
+import { CreatePackageDialog } from './components/home/package/package.component';
+import { DeletePackageDialog } from './components/home/package/package.component';
+import { CreateFolderDialog } from './components/home/folder/folder.component';
 import { ShortenPathPipe } from './pipes/shorten-path.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { TestStepComponent } from './components/home/info/test-step/test-step.component';
+import { FolderComponent } from './components/home/folder/folder.component';
+import { PackageComponent } from './components/home/package/package.component';
 
 
 @NgModule({
@@ -36,15 +36,15 @@ import { TestStepComponent } from './components/home/info/test-step/test-step.co
     OnlyOneErrorPipe,
     ShortenPathPipe,
     HomeComponent,
-    StorageComponent,
     InfoComponent,
-    StorageListComponent,
     UploadComponent,
     CreatePackageDialog,
     DeletePackageDialog,
     CreateFolderDialog,
     HeaderComponent,
-    TestStepComponent
+    TestStepComponent,
+    FolderComponent,
+    PackageComponent
   ],
   imports: [
     BrowserModule,

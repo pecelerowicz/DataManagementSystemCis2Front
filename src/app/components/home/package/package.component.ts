@@ -18,11 +18,11 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-storage-list',
-  templateUrl: './storage-list.component.html',
-  styleUrls: ['./storage-list.component.css'],
+  selector: 'app-package',
+  templateUrl: './package.component.html',
+  styleUrls: ['./package.component.css'],
 })
-export class StorageListComponent implements OnInit {
+export class PackageComponent implements OnInit {
   @Output() info = new EventEmitter<{ order: number }>();
   @Output() storage = new EventEmitter<{ order: number }>();
 

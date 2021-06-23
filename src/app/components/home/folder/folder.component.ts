@@ -23,11 +23,11 @@ interface ExampleFlatNode {
 }
 
 @Component({
-  selector: 'app-storage',
-  templateUrl: './storage.component.html',
-  styleUrls: ['./storage.component.css'],
+  selector: 'app-folder',
+  templateUrl: './folder.component.html',
+  styleUrls: ['./folder.component.css'],
 })
-export class StorageComponent implements OnInit {
+export class FolderComponent implements OnInit {
   order: number;
   name: string;
 
