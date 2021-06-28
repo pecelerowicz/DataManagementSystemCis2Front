@@ -43,14 +43,14 @@ export interface DeleteDifrInfoResponse {
     deleteMessage: string;
 }
 
-enum Geometry {
+export enum Geometry {
     bb = "BB", pb_gm = "Pb_GM"
 }
 
-enum DetectorAbsorber {
+export enum DetectorAbsorber {
     cu01 = "CU01", cu02 = "CU02", ni01 = "NI01"
 }
 
-enum Stage {
+export enum Stage {
     spinner = "SPINNER", htk1200n = "HTK1200N"
 }

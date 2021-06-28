@@ -39,6 +39,6 @@ export interface DeleteInfoResponse {
     deleteMessage: string;
 }
 
-enum Access {
+export enum Access {
   private = "PRIVATE", protected = "PROTECTED", public = "PUBLIC"
 }

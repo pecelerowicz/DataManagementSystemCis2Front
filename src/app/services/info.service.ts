@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { CreateMetadataRequest, CreateMetadataResponse } from '../dto/storage-list';
-import { GetInfoResponse } from '../dto/info/info'
+import { GetInfoResponse, UpdateInfoRequest, UpdateInfoResponse } from '../dto/info/info'
+import { UpdateDifrInfoResponse } from '../dto/info/difr_info/difr_info';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,10 @@ export class InfoService {
     return this.httpClient.get<GetInfoResponse>(infoAddress);
   }
 
-  // savePackageInfo(infoDto: InfoDto): Observable<InfoDto> {
-  //   let infoAddress: string = this.infoAddressPrefix;
-  //   return this.httpClient.put<InfoDto>(infoAddress, infoDto);
-  // }
+  updateInfo(updateInfoRequest: UpdateInfoRequest): Observable<UpdateInfoResponse> {
+    let infoAddress: string = this.infoAddressPrefix;
+    return this.httpClient.put<UpdateInfoResponse>(infoAddress, updateInfoRequest);
+  }
 
   private metadataAddress: string = environmentCustom.address + '/api/metadata';
 

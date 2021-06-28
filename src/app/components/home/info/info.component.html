@@ -1,11 +1,11 @@
 <div fxLayout="column">
     <div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
-      <h5 matSubheader>Metadata {{ order }}</h5>
+      <h5 matSubheader>Metadata {{ infoState.order }}</h5>
       
       <mat-divider></mat-divider>
       
       <!-- general -->
-      <fieldset [disabled]="isFormDisabled" [formGroup]="general">
+      <fieldset [disabled]="infoState.isFormDisabled" [formGroup]="general">
         <legend>General</legend>
         <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
             <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
@@ -24,7 +24,7 @@
       </fieldset>
       
       <!-- difr -->
-      <fieldset *ngIf="isDifrVisible" [disabled]="isFormDisabled" [formGroup]="difr">
+      <fieldset *ngIf="infoState.isDifr" [disabled]="infoState.isFormDisabled" [formGroup]="difr">
         <legend>Diffractometer</legend>
         <mat-form-field>
           <input type="text" matInput placeholder="Geometry" formControlName="geometry">
@@ -80,7 +80,7 @@
       </fieldset>
 
       <!-- test -->
-      <fieldset *ngIf="isTestVisible" [disabled]="isFormDisabled" [formGroup]="test">
+      <fieldset *ngIf="infoState.isTest" [disabled]="infoState.isFormDisabled" [formGroup]="test">
         <legend>Test</legend>
         <mat-form-field>
           <input type="text" matInput placeholder="Test Field 1" formControlName="testField1">
@@ -102,22 +102,22 @@
     </div>
 
     <p id="father">
-      <button disabled={{!isFormDisabled}} disabled={{hasMetadata}} mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+      <button disabled={{!infoState.isFormDisabled}} disabled={{infoState.hasMetadata}} mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
         <mat-icon>add</mat-icon>
       </button>    
       
 
-      <button *ngIf="isFormDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
+      <button *ngIf="infoState.isFormDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
         <mat-icon>mode</mat-icon>
       </button>
       <mat-menu #enableMenu="matMenu" yPosition="above" xPosition="before">
         <button mat-menu-item (click)="toggleIsFormDisabled()">Edit</button>
       </mat-menu>
-      <button *ngIf="!isFormDisabled" [matMenuTriggerFor]="disableMenu" color="warn" mat-button id="son2" mat-mini-fab>
+      <button *ngIf="!infoState.isFormDisabled" [matMenuTriggerFor]="disableMenu" color="warn" mat-button id="son2" mat-mini-fab>
         <mat-icon>save</mat-icon>
       </button>
       <mat-menu #disableMenu="matMenu" yPosition="above" xPosition="before">
-        <button mat-menu-item>Save changes</button>
+        <button mat-menu-item (click)="updateChanges()">Save changes</button>
         <button mat-menu-item (click)="giveUpChanges()">Give up changes</button>
       </mat-menu>
     </p>
