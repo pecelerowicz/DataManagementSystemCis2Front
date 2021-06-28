@@ -4,68 +4,120 @@
       
       <mat-divider></mat-divider>
       
-      <fieldset [disabled]="isDisabled" [formGroup]="access" [class.hide]="!isVisible(0)">
-        <legend>Access</legend>
+      <!-- general -->
+      <fieldset [disabled]="isFormDisabled" [formGroup]="general">
+        <legend>General</legend>
         <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
             <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
             <mat-radio-button value="PROTECTED">Protected</mat-radio-button>
             <mat-radio-button value="PUBLIC">Public</mat-radio-button>
         </mat-radio-group>
-      </fieldset>
-
-      <fieldset [disabled]="isDisabled" [formGroup]="name" [class.hide]="!isVisible(1)">
-        <legend>Name</legend>
         <mat-form-field>
             <input type="text" matInput placeholder="Short name" formControlName="shortName">
         </mat-form-field>
         <mat-form-field>
             <input type="text" matInput placeholder="Long name" formControlName="longName">
         </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Description" formControlName="description">
+      </mat-form-field>
+      </fieldset>
+      
+      <!-- difr -->
+      <fieldset *ngIf="isDifrVisible" [disabled]="isFormDisabled" [formGroup]="difr">
+        <legend>Diffractometer</legend>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Geometry" formControlName="geometry">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Incident soller" formControlName="incidentSoller">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Incident slit" formControlName="incidentSlit">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector soller" formControlName="detectorSoller">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector slit" formControlName="detectorSlit">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector absorber" formControlName="detectorAbsorber">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Generator voltage" formControlName="generatorVoltage">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Generator current" formControlName="generatorCurrent">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Date range start" formControlName="dataRangeStart">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Data range end" formControlName="dataRangeEnd">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Step size" formControlName="stepSize">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Step time" formControlName="stepTime">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Stage" formControlName="stage">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Spinning rocking" formControlName="spinningRocking">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Spinning rocking velocity" formControlName="spinningRockingVelocity">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Temperature" formControlName="temperature">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Comments" formControlName="comments">
+        </mat-form-field>
       </fieldset>
 
-      <!-- <fieldset [disabled]="isDisabled" [formGroup]="publication" [class.hide]="!isVisible(2)">
-        <legend>Publication</legend>
+      <!-- test -->
+      <fieldset *ngIf="isTestVisible" [disabled]="isFormDisabled" [formGroup]="test">
+        <legend>Test</legend>
         <mat-form-field>
-            <input type="text" matInput placeholder="Title" formControlName="title">
+          <input type="text" matInput placeholder="Test Field 1" formControlName="testField1">
         </mat-form-field>
         <mat-form-field>
-            <input type="text" matInput placeholder="DOI" formControlName="doi">
+          <input type="text" matInput placeholder="Test Field 2" formControlName="testField2">
         </mat-form-field>
         <mat-form-field>
-          <input type="text" matInput placeholder="Authors" formControlName="authors">
-      </mat-form-field>
-      </fieldset> -->
-    
-      <fieldset [disabled]="isDisabled" [formGroup]="device" [class.hide]="!isVisible(2)">
-        <legend>Device</legend>
+          <input type="text" matInput placeholder="Test Field 3" formControlName="testField3">
+        </mat-form-field>
         <mat-form-field>
-            <input type="text" matInput placeholder="Device name" formControlName="deviceName">
+          <input type="text" matInput placeholder="Test Field 4" formControlName="testField4">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 5" formControlName="testField5">
         </mat-form-field>
       </fieldset>
 
     </div>
 
-    <p id="father">    
-      <button disabled={{isAddDisabled()}} mat-button [matMenuTriggerFor]="menu" id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+    <p id="father">
+      <button disabled={{!isFormDisabled}} disabled={{hasMetadata}} mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
         <mat-icon>add</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" yPosition="above" xPosition="before">
-        <div *ngFor="let category of categories; let i = index" [attr.data-index]="i">
-          <button (click)="selectMetadata(i)" mat-menu-item *ngIf="!visibility[i]">{{category}}</button>
-        </div>
-      </mat-menu>
-      <!-- /////// -->
-      <button *ngIf="isDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
+      </button>    
+      
+
+      <button *ngIf="isFormDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
         <mat-icon>mode</mat-icon>
       </button>
       <mat-menu #enableMenu="matMenu" yPosition="above" xPosition="before">
-        <button mat-menu-item (click)="toggleDisabled()">Edit</button>
+        <button mat-menu-item (click)="toggleIsFormDisabled()">Edit</button>
       </mat-menu>
-      <button *ngIf="!isDisabled" [matMenuTriggerFor]="disableMenu" color="warn" mat-button id="son2" mat-mini-fab>
+      <button *ngIf="!isFormDisabled" [matMenuTriggerFor]="disableMenu" color="warn" mat-button id="son2" mat-mini-fab>
         <mat-icon>save</mat-icon>
       </button>
       <mat-menu #disableMenu="matMenu" yPosition="above" xPosition="before">
-        <button mat-menu-item (click)="saveChanges()">Save changes</button>
+        <button mat-menu-item>Save changes</button>
         <button mat-menu-item (click)="giveUpChanges()">Give up changes</button>
       </mat-menu>
     </p>

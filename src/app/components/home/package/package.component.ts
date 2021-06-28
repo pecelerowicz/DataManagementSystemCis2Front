@@ -75,17 +75,6 @@ export class PackageComponent implements OnInit {
   }
 
   onCreateStorage(element) {
-    // let createStorageRequest: CreateStorageRequest = {storageName: dialogForm.value.name};
-    // this.storageService.createStorage(createStorageRequest).subscribe(
-    //   (val) => {
-    //     this.sharedCommunicationService.updateListOfPackages$.next()
-    //     this.openSnackBar(val.createStorageMessage, '');
-    //     this.dialogRef.close();
-    //   },
-    //   (err) => {
-    //     this.openSnackBar("Could not create package!", err.error.exception);
-    //   }
-    // );
     let createStorageRequest: CreateStorageRequest = {storageName: element.name};
     this.storageService.createStorage(createStorageRequest).subscribe(
       (val) => {
@@ -93,7 +82,6 @@ export class PackageComponent implements OnInit {
         this._snackBar.open(val.createStorageMessage, "", {
           duration: 6000,
         });
-
         this.storage.emit({ order: element.position });
         this.sharedCommunicationService.fromListToStorage.name = element.name;
       },
