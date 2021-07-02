@@ -1,7 +1,6 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InfoState } from '../components/home/info/info.component';
-import { CreateDifrInfoRequest, GetDifrInfoResponse } from '../dto/info/difr_info/difr_info';
-
+import { CreateDifrInfoRequest, DetectorAbsorber, Geometry, GetDifrInfoResponse, Stage } from '../dto/info/difr_info/difr_info';
 
 export function getInitialValueDifr(): FormGroup {
     let fb: FormBuilder = new FormBuilder();
@@ -48,7 +47,7 @@ export function mapDifrResponse(infoState: InfoState, formGroup: FormGroup, getD
     formGroup.patchValue({comments: getDifrInfoResponse.comments})
 }
 
-export function createDifrInfoRequest(infoState: InfoState, formGroup: FormGroup): CreateDifrInfoRequest {
+export function createCreateDifrInfoRequest(infoState: InfoState, formGroup: FormGroup): CreateDifrInfoRequest {
     return {
         infoName: infoState.infoName,
         geometry: formGroup.controls['geometry'].value,//Geometry.bb,
@@ -70,3 +69,12 @@ export function createDifrInfoRequest(infoState: InfoState, formGroup: FormGroup
         comments: formGroup.controls['comments'].value,
       };
 }
+
+const geometries: Geometry[] = [Geometry.bb, Geometry.pb_gm];
+export { geometries };
+
+const detectorAbsorbers: DetectorAbsorber[] = [DetectorAbsorber.cu01, DetectorAbsorber.cu02, DetectorAbsorber.ni01];
+export { detectorAbsorbers };
+
+const stages: Stage[] = [Stage.spinner, Stage.htk1200n];
+export { stages };

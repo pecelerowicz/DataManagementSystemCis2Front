@@ -6,11 +6,11 @@ import { CreateTestInfoRequest, GetTestInfoResponse } from '../dto/info/test_inf
 export function getInitialValueTest(): FormGroup {
     let fb: FormBuilder = new FormBuilder();
     return fb.group({
-        testField1: [''],
-        testField2: [''],
-        testField3: [''], 
-        testField4: [''],
-        testField5: [''],
+        testField1: ['...'],
+        testField2: ['...'],
+        testField3: ['...'], 
+        testField4: ['...'],
+        testField5: ['...'],
       })
 }
 
@@ -24,7 +24,7 @@ export function mapTestResponse(infoState: InfoState, formGroup: FormGroup, getT
     formGroup.patchValue({testField5: getTestInfoResponse.testField5})
 }
 
-export function createTestInfoRequest(infoState: InfoState, formGroup: FormGroup): CreateTestInfoRequest {
+export function createCreateTestInfoRequest(infoState: InfoState, formGroup: FormGroup): CreateTestInfoRequest {
     return {
         infoName: infoState.infoName,
         testField1: formGroup.controls['testField1'].value,

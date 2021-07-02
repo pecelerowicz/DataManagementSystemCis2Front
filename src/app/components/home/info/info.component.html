@@ -27,7 +27,12 @@
       <fieldset *ngIf="infoState.isDifr" [disabled]="infoState.isFormDisabled" [formGroup]="difr">
         <legend>Diffractometer</legend>
         <mat-form-field>
-          <input type="text" matInput placeholder="Geometry" formControlName="geometry">
+          <mat-label>Geometry</mat-label>
+          <mat-select placeholder="Geometry" [disabled]="infoState.isFormDisabled" formControlName="geometry">
+            <ng-container *ngFor="let geometry of geometries" matNativeControl >
+              <mat-option [value]="geometry">{{geometry}}</mat-option>
+            </ng-container>
+          </mat-select>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Incident soller" formControlName="incidentSoller">
@@ -41,8 +46,16 @@
         <mat-form-field>
           <input type="text" matInput placeholder="Detector slit" formControlName="detectorSlit">
         </mat-form-field>
-        <mat-form-field>
+        <!-- <mat-form-field>
           <input type="text" matInput placeholder="Detector absorber" formControlName="detectorAbsorber">
+        </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>Detector absorber</mat-label>
+          <mat-select placeholder="Detactor absorber" [disabled]="infoState.isFormDisabled" formControlName="detectorAbsorber">
+            <ng-container *ngFor="let detectorAbsorber of detectorAbsorbers" matNativeControl >
+              <mat-option [value]="detectorAbsorber">{{detectorAbsorber}}</mat-option>
+            </ng-container>
+          </mat-select>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Generator voltage" formControlName="generatorVoltage">
@@ -62,8 +75,16 @@
         <mat-form-field>
           <input type="text" matInput placeholder="Step time" formControlName="stepTime">
         </mat-form-field>
-        <mat-form-field>
+        <!-- <mat-form-field>
           <input type="text" matInput placeholder="Stage" formControlName="stage">
+        </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>Stage</mat-label>
+          <mat-select placeholder="Stage" [disabled]="infoState.isFormDisabled" formControlName="stage">
+            <ng-container *ngFor="let stage of stages" matNativeControl >
+              <mat-option [value]="stage">{{stage}}</mat-option>
+            </ng-container>
+          </mat-select>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Spinning rocking" formControlName="spinningRocking">
@@ -102,10 +123,14 @@
     </div>
 
     <p id="father">
-      <button disabled={{!infoState.isFormDisabled}} disabled={{infoState.hasMetadata}} mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+      <button [matMenuTriggerFor]="metadataMenu" [disabled]="infoState.hasMetadata || !infoState.isFormDisabled" mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
         <mat-icon>add</mat-icon>
       </button>    
-      
+      <mat-menu #metadataMenu="matMenu" yPosition="above" xPosition="before">
+        <button mat-menu-item (click)="addDiffractometer()">Diffractometer</button>
+        <button mat-menu-item (click)="addTest()">Test</button>
+      </mat-menu>
+
 
       <button *ngIf="infoState.isFormDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
         <mat-icon>mode</mat-icon>
