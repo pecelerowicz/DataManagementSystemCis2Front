@@ -8,6 +8,14 @@ export interface GetPackageListResponse {
     packageResponseList: PackageResponse[];
 }
 
+export interface CreatePackageRequest {
+    packageName: string;
+}
+
+export interface CreatePackageResponse {
+    createPackageMessage: string;
+}
+
 export interface DeletePackageRequest {
     packageName: string;
 }

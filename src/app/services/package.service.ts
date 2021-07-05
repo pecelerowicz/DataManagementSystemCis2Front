@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GetPackageListResponse } from '../dto/my_package';
+import { CreatePackageRequest, CreatePackageResponse, GetPackageListResponse } from '../dto/my_package';
 import { DeletePackageRequest, DeletePackageResponse } from '../dto/my_package';
 import { environmentCustom } from 'src/environments/environment.custom';
 
@@ -16,6 +16,10 @@ export class PackageService {
 
   getPackageList(): Observable<GetPackageListResponse> {
     return this.http.get<GetPackageListResponse>(this.packageAddress);
+  }
+
+  createPackage(createPackageRequest: CreatePackageRequest): Observable<CreatePackageResponse> {
+    return this.http.post<CreatePackageResponse>(this.packageAddress, createPackageRequest);
   }
 
   deletePackage(deletePackageRequest: DeletePackageRequest): Observable<DeletePackageResponse> {

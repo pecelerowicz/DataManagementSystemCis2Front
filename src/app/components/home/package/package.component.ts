@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { DeletePackageRequest } from 'src/app/dto/my_package';
+import { CreatePackageRequest, DeletePackageRequest } from 'src/app/dto/my_package';
 import { StorageService } from 'src/app/services/storage.service';
 import { CreateStorageRequest } from 'src/app/dto/my_storage';
 import { InfoService } from 'src/app/services/info.service';
@@ -160,15 +160,16 @@ export class PackageComponent implements OnInit {
 })
 export class CreatePackageDialog {
   constructor(private storageService: StorageService,
+              private packageService: PackageService,
               private dialogRef: MatDialogRef<CreatePackageDialog>,
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar) {}
   onCreate(dialogForm: NgForm) {
-    let createStorageRequest: CreateStorageRequest = {storageName: dialogForm.value.name};
-    this.storageService.createStorage(createStorageRequest).subscribe(
+    let createPackageRequest: CreatePackageRequest = {packageName: dialogForm.value.name};
+    this.packageService.createPackage(createPackageRequest).subscribe(
       (val) => {
         this.sharedCommunicationService.updateListOfPackages$.next()
-        this.openSnackBar(val.createStorageMessage, '');
+        this.openSnackBar(val.createPackageMessage, '');
         this.dialogRef.close();
       },
       (err) => {
