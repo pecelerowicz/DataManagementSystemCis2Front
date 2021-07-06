@@ -17,14 +17,14 @@ import { TokenInterceptor } from './token-interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { InfoComponent } from './components/home/info/info.component';
 import { UploadComponent } from './components/home/upload/upload.component';
-import { CreatePackageDialog } from './components/home/package/package.component';
-import { DeletePackageDialog } from './components/home/package/package.component';
+import { CreatePackageDialogComponent } from './components/home/package/dialogs/create-package-dialog/create-package-dialog.component';
 import { CreateFolderDialog } from './components/home/folder/folder.component';
 import { ShortenPathPipe } from './pipes/shorten-path.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { TestStepComponent } from './components/home/info/test-step/test-step.component';
 import { FolderComponent } from './components/home/folder/folder.component';
 import { PackageComponent } from './components/home/package/package.component';
+import { DeletePackageDialogComponent } from './components/home/package/dialogs/delete-package-dialog/delete-package-dialog.component';
 
 
 @NgModule({
@@ -38,13 +38,13 @@ import { PackageComponent } from './components/home/package/package.component';
     HomeComponent,
     InfoComponent,
     UploadComponent,
-    CreatePackageDialog,
-    DeletePackageDialog,
+    CreatePackageDialogComponent,
     CreateFolderDialog,
     HeaderComponent,
     TestStepComponent,
     FolderComponent,
-    PackageComponent
+    PackageComponent,
+    DeletePackageDialogComponent
   ],
   imports: [
     BrowserModule,

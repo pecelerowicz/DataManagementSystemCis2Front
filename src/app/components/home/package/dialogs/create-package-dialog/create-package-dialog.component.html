@@ -1,0 +1,9 @@
+<form #dialogForm="ngForm" class="dialog-form">
+    <mat-form-field class="example-form-field">
+      <input ngModel matInput type="text" name="name" placeholder="Package Name">
+    </mat-form-field>
+    <button (click)="onCreate(dialogForm)" 
+            mat-raised-button color="primary">
+      Create
+    </button>
+</form>
