@@ -93,8 +93,8 @@ export class PackageComponent implements OnInit {
     );
   }
 
-  onCreateMetadata(element) {
-    this.dialog.open(CreateMetadataDialogComponent);
+  onOpenCreateMetadataDialog(element) {
+    this.dialog.open(CreateMetadataDialogComponent, {data: {name: element.name}});
   }
 
   onOpenDeletePackageDialog(element) {

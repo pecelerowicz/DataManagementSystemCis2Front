@@ -1,1 +1,23 @@
-<p>create-metadata-dialog works!</p>
+<form mat-dialog-content [formGroup]="general" class="dialog-form" class="widen">
+    
+  <!-- <fieldset [formGroup]="general" class="widen"> -->
+    <!-- <legend>General</legend> -->
+    <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
+        <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
+        <mat-radio-button value="PROTECTED">Protected</mat-radio-button>
+        <mat-radio-button value="PUBLIC">Public</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field class="example-form-field2">
+        <input type="text" matInput placeholder="Short name" formControlName="shortName">
+    </mat-form-field>
+    <mat-form-field class="example-form-field2">
+        <input type="text" matInput placeholder="Long name" formControlName="longName">
+    </mat-form-field>
+    <mat-form-field class="example-form-field2" appearance="outline">
+      <textarea matInput matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows = "2" placeholder="Description" formControlName="description"></textarea>
+  </mat-form-field>
+  <!-- </fieldset> -->
+  <button (click)="onCreateMetadata()" mat-raised-button color="primary">
+      Create
+  </button>
+</form>

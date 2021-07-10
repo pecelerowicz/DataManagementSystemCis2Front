@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environmentCustom } from 'src/environments/environment.custom';
-import { CreateMetadataRequest, CreateMetadataResponse } from '../dto/storage-list';
-import { GetInfoResponse, UpdateInfoRequest, UpdateInfoResponse } from '../dto/info/info'
+// import { CreateMetadataRequest, CreateMetadataResponse } from '../dto/storage-list';
+import { CreateInfoRequest, CreateInfoResponse, GetInfoResponse, UpdateInfoRequest, UpdateInfoResponse } from '../dto/info/info'
 import { UpdateDifrInfoResponse } from '../dto/info/difr_info/difr_info';
 
 @Injectable({
@@ -25,10 +25,11 @@ export class InfoService {
     return this.httpClient.put<UpdateInfoResponse>(infoAddress, updateInfoRequest);
   }
 
-  private metadataAddress: string = environmentCustom.address + '/api/metadata';
+  // private metadataAddress: string = environmentCustom.address + '/api/info';
 
-  createMetadata(metadataName: string): Observable<CreateMetadataResponse> {
-    let payload: CreateMetadataRequest = {metadataName: metadataName};
-    return this.httpClient.post<CreateMetadataRequest>(this.metadataAddress, payload);
+  createMetadata(createInfoRequest: CreateInfoRequest): Observable<CreateInfoResponse> {
+    // let payload: CreateMetadataRequest = {metadataName: metadataName};
+    let infoAddress: string = this.infoAddressPrefix;
+    return this.httpClient.post<CreateInfoResponse>(infoAddress, /*payload*/createInfoRequest);
   }
 }
