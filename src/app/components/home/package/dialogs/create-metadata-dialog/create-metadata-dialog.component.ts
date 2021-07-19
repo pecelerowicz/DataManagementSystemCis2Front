@@ -33,17 +33,17 @@ export class CreateMetadataDialogComponent implements OnInit {
   onCreateMetadata() {
     let createInfoRequst: CreateInfoRequest = {
       infoName: this.name,
-      access: Access.private,
-      shortName: "test short name",
-      longName: "test long name",
-      description: "test description"
+      access: this.general.value.access,
+      shortName: this.general.value.shortName,
+      longName: this.general.value.longName,
+      description: this.general.value.description
     }
     this.infoService.createMetadata(createInfoRequst).subscribe(val => {
       this.sharedCommunicationService.updateListOfPackages$.next()
           this.openSnackBar("Created metadata in package " + val.infoName, '');
           this.dialogRef.close();
     }, err => {
-      console.log("err");
+      console.log(err);
     })
 
 

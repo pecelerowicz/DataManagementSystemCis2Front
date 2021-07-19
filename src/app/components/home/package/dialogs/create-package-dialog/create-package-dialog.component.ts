@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreatePackageRequest } from 'src/app/dto/my_package';
 import { PackageService } from 'src/app/services/package.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
+import { createNameValidator } from 'src/app/validators/field_validators/name.validator';
 
 @Component({
   selector: 'app-create-package-dialog',
@@ -19,8 +20,16 @@ export class CreatePackageDialogComponent {
       private sharedCommunicationService: SharedCommunicationService,
       private _snackBar: MatSnackBar) {}
   
-    onCreate(dialogForm: NgForm) {
-      let createPackageRequest: CreatePackageRequest = {packageName: dialogForm.value.name};
+    packageName: FormControl = new FormControl('', 
+      {validators: [createNameValidator()],
+      updateOn: "change"});  
+
+    form = new FormGroup({
+      packageName: this.packageName
+    })  
+
+    onCreate() {
+      let createPackageRequest: CreatePackageRequest = {packageName: this.form.value.packageName};
       this.packageService.createPackage(createPackageRequest).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfPackages$.next()

@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { createNameValidator } from 'src/app/validators/name.validator';
+// import { createNameValidator } from 'src/app/validators/name.validator';
 import { InfoState } from '../components/home/info/info.component';
 import { GetInfoResponse, UpdateInfoRequest } from '../dto/info/info';
 
@@ -8,8 +8,8 @@ export function getInitialValueGeneral(): FormGroup {
     let fb: FormBuilder = new FormBuilder();
     return fb.group({
         access: ['Private', [Validators.required]],
-        shortName: ['', {validators: [Validators.maxLength(100), createNameValidator()], updateOn: 'change'}],
-        longName: ['', {validators: [Validators.maxLength(200), createNameValidator()], updateOn: 'change'}],
+        shortName: ['', {validators: [Validators.maxLength(100)/*, createNameValidator()*/], updateOn: 'change'}],
+        longName: ['', {validators: [Validators.maxLength(200)/*, createNameValidator()*/], updateOn: 'change'}],
         description: ['', {validators: [Validators.maxLength(200), Validators.required], updateOn: 'change'}]})
 }
 
