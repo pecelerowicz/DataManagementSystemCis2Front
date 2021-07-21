@@ -14,6 +14,10 @@ export class SharedCommunicationService {
 
   createPackageEmitter = new EventEmitter();
 
+  public _createMetadataInDialogSource: Subject<{order: number, name: string}> 
+      = new Subject<{order: number, name: string}>();
+  public createMetadataInDialog$ = this._createMetadataInDialogSource.asObservable();
+
   public updateListOfPackages$: Subject<void> = new Subject();
 
   fromListToStorage: {name: string} = {name: ''};

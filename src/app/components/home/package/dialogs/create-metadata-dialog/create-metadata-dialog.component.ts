@@ -22,9 +22,11 @@ export class CreateMetadataDialogComponent implements OnInit {
     private _snackBar: MatSnackBar) { }
 
   name: string = '';
+  order: number = 0;
 
   ngOnInit(): void {
     this.name = this.data.name;
+    this.order = this.data.order;
   }
 
   general: FormGroup = getInitialValueGeneral();
@@ -39,14 +41,14 @@ export class CreateMetadataDialogComponent implements OnInit {
     }
     this.infoService.createMetadata(createInfoRequst).subscribe(val => {
       this.sharedCommunicationService.updateListOfPackages$.next()
+      this.sharedCommunicationService._createMetadataInDialogSource.next({ order: this.data.order, name: this.data.name});
       this.openSnackBar("Created metadata in package " + val.infoName, '');
-      this.dialogRef.close();
     }, err => {
       console.log(err);
-    })
-
-
+    });
+    this.dialogRef.close();
   }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {duration: 6000,});
   }

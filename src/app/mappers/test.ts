@@ -6,11 +6,11 @@ import { CreateTestInfoRequest, GetTestInfoResponse } from '../dto/info/test_inf
 export function getInitialValueTest(): FormGroup {
     let fb: FormBuilder = new FormBuilder();
     return fb.group({
-        testField1: ['...'],
-        testField2: ['...'],
-        testField3: ['...'], 
-        testField4: ['...'],
-        testField5: ['...'],
+        testField1: [''],
+        testField2: [''],
+        testField3: [''], 
+        testField4: [''],
+        testField5: [''],
       })
 }
 

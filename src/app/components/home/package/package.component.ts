@@ -15,6 +15,7 @@ import { DeletePackageDialogComponent } from './dialogs/delete-package-dialog/de
 
 export interface DialogData {
   name: string;
+  order: number;
 }
 
 @Component({
@@ -48,6 +49,10 @@ export class PackageComponent implements OnInit {
     this.getPackageList();
     this.sharedCommunicationService.updateListOfPackages$.subscribe(() => {
       this.getPackageList();
+    });
+    this.sharedCommunicationService.createMetadataInDialog$.subscribe(val => {
+      this.info.emit({ order: val.order });
+      this.sharedCommunicationService.fromListToMetadata.name = val.name;
     })
   }
 
@@ -94,7 +99,7 @@ export class PackageComponent implements OnInit {
   }
 
   onOpenCreateMetadataDialog(element) {
-    this.dialog.open(CreateMetadataDialogComponent, {data: {name: element.name}});
+    this.dialog.open(CreateMetadataDialogComponent, {data: {order: element.position, name: element.name}});
   }
 
   onOpenDeletePackageDialog(element) {

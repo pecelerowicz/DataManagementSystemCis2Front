@@ -104,12 +104,14 @@ export class InfoComponent implements OnInit {
   addDiffractometer(): void {
     this.infoState.isDifr = true;
     this.infoState.hasMetadata = true;
+    this.infoState.isFormDisabled = false;
     this.difr = getInitialValueDifr();
   }
 
   addTest(): void {
     this.infoState.isTest = true;
     this.infoState.hasMetadata = true;
+    this.infoState.isFormDisabled = false;
     this.test = getInitialValueTest();
   }
 
