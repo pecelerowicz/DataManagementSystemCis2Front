@@ -24,11 +24,10 @@ export class CreateMetadataDialogComponent implements OnInit {
   name: string = '';
 
   ngOnInit(): void {
-    this.general = getInitialValueGeneral();
     this.name = this.data.name;
   }
 
-  general: FormGroup = getInitialValueGeneral();            
+  general: FormGroup = getInitialValueGeneral();
 
   onCreateMetadata() {
     let createInfoRequst: CreateInfoRequest = {
@@ -40,8 +39,8 @@ export class CreateMetadataDialogComponent implements OnInit {
     }
     this.infoService.createMetadata(createInfoRequst).subscribe(val => {
       this.sharedCommunicationService.updateListOfPackages$.next()
-          this.openSnackBar("Created metadata in package " + val.infoName, '');
-          this.dialogRef.close();
+      this.openSnackBar("Created metadata in package " + val.infoName, '');
+      this.dialogRef.close();
     }, err => {
       console.log(err);
     })

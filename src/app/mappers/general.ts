@@ -1,16 +1,18 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { createNameValidator } from 'src/app/validators/name.validator';
 import { InfoState } from '../components/home/info/info.component';
-import { GetInfoResponse, UpdateInfoRequest } from '../dto/info/info';
-
+import { Access, GetInfoResponse, UpdateInfoRequest } from '../dto/info/info';
+import { createShortNameValidator } from 'src/app/validators/field_validators/shortName.validator';
+import { createLongNameValidator } from 'src/app/validators/field_validators/longName.validator';
+import { createDescriptionValidator } from 'src/app/validators/field_validators/description.validator';
 
 export function getInitialValueGeneral(): FormGroup {
     let fb: FormBuilder = new FormBuilder();
     return fb.group({
-        access: ['Private', [Validators.required]],
-        shortName: ['', {validators: [Validators.maxLength(100)/*, createNameValidator()*/], updateOn: 'change'}],
-        longName: ['', {validators: [Validators.maxLength(200)/*, createNameValidator()*/], updateOn: 'change'}],
-        description: ['', {validators: [Validators.maxLength(200), Validators.required], updateOn: 'change'}]})
+        access: [Access.private, [Validators.required]],
+        shortName: ['', {validators: [createShortNameValidator()/*Validators.maxLength(100)*//*, createNameValidator()*/], updateOn: 'change'}],
+        longName: ['', {validators: [createLongNameValidator()/*Validators.maxLength(200)*//*, createNameValidator()*/], updateOn: 'change'}],
+        description: ['', {validators: [createDescriptionValidator()/*Validators.maxLength(200), Validators.required*/], updateOn: 'change'}]})
 }
 
 export function mapGeneralResponse(general: FormGroup, getInfoResponse: GetInfoResponse) {
@@ -33,4 +35,3 @@ export function createUpdateInfoRequest(infoState: InfoState, general: FormGroup
     createTestInfoRequest: null
   }
 }
-
