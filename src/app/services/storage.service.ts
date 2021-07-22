@@ -1,24 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { CreateStorageRequest, CreateStorageResponse } from '../dto/my_storage';
 import { environmentCustom } from 'src/environments/environment.custom';
-import { Node } from '../dto/storage';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
+
   constructor(private http: HttpClient) { }
 
-  private fullFoldersAddress: string = environmentCustom.address + '/api/full-folders';
-  private packageFoldersAddress: string = environmentCustom.address + '/api/package-folders';
+  private storageAddress: string = environmentCustom.address + '/api/storage';
 
-  getFullFolderStructure(): Observable<Node> {
-    return this.http.get<Node>(this.fullFoldersAddress);
+  createStorage(createStorageRequest: CreateStorageRequest): Observable<CreateStorageResponse> {
+    return this.http.post<CreateStorageResponse>(this.storageAddress, createStorageRequest);
   }
-
-  getPackageFolderStructure(packageName: string): Observable<Node> {
-    return this.http.get<Node>(this.packageFoldersAddress + "/" + packageName);
-  }
-
 }

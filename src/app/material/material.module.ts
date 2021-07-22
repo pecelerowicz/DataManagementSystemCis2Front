@@ -19,7 +19,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from "@angular/material/select";
 
 
 const material = [
@@ -42,7 +43,9 @@ const material = [
   MatProgressBarModule,
   MatCheckboxModule,
   MatGridListModule,
-  MatStepperModule 
+  MatStepperModule,
+  MatRadioModule,
+  MatSelectModule
 ];
 
 @NgModule({

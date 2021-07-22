@@ -35,7 +35,6 @@ export class HomeComponent implements OnInit {
   }
 
   onUploadBack(): void {
-    console.log("frefhrio");
   }
 
 }

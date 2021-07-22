@@ -15,17 +15,17 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './token-interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TableDataPackage2Component } from './components/home/table-data-package2/table-data-package2.component';
-import { StorageComponent } from './components/home/storage/storage.component';
 import { InfoComponent } from './components/home/info/info.component';
-import { StorageListComponent } from './components/home/storage-list/storage-list.component';
 import { UploadComponent } from './components/home/upload/upload.component';
-import { CreatePackageDialog } from './components/home/storage-list/storage-list.component';
-import { DeletePackageDialog } from './components/home/storage-list/storage-list.component';
-import { CreateFolderDialog } from './components/home/storage/storage.component';
+import { CreatePackageDialogComponent } from './components/home/package/dialogs/create-package-dialog/create-package-dialog.component';
+import { CreateMetadataDialogComponent } from './components/home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
+import { CreateFolderDialog } from './components/home/folder/folder.component';
 import { ShortenPathPipe } from './pipes/shorten-path.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { TestStepComponent } from './components/home/info/test-step/test-step.component';
+import { FolderComponent } from './components/home/folder/folder.component';
+import { PackageComponent } from './components/home/package/package.component';
+import { DeletePackageDialogComponent } from './components/home/package/dialogs/delete-package-dialog/delete-package-dialog.component';
 
 
 @NgModule({
@@ -37,16 +37,16 @@ import { TestStepComponent } from './components/home/info/test-step/test-step.co
     OnlyOneErrorPipe,
     ShortenPathPipe,
     HomeComponent,
-    TableDataPackage2Component,
-    StorageComponent,
     InfoComponent,
-    StorageListComponent,
     UploadComponent,
-    CreatePackageDialog,
-    DeletePackageDialog,
+    CreatePackageDialogComponent,
+    CreateMetadataDialogComponent,
     CreateFolderDialog,
     HeaderComponent,
-    TestStepComponent
+    TestStepComponent,
+    FolderComponent,
+    PackageComponent,
+    DeletePackageDialogComponent
   ],
   imports: [
     BrowserModule,

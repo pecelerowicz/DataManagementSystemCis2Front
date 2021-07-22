@@ -57,6 +57,12 @@ export class AuthService {
   private _logoutSource = new Subject<boolean>();
   logout$ = this._logoutSource.asObservable();
   logout() {
+
+    this.refreshTokenPayload = {
+      refreshToken: this.getRefreshToken(),
+      username: this.getUserName()
+    }
+
     console.log(this.refreshTokenPayload)
     this.httpClient.post(environmentCustom.address + "/api/auth/logout", this.refreshTokenPayload,
       { responseType: 'text' })

@@ -1,0 +1,11 @@
+<form [formGroup]="form" class="dialog-form">
+  <mat-form-field class="example-form-field">
+    <input [formControl]="packageName" matInput type="text" name="name" placeholder="Package Name">
+    <mat-error *ngIf="packageName.errors && packageName.errors?.nameEmpty">Name cannot be empty</mat-error>
+    <mat-error *ngIf="packageName.errors && packageName.errors?.nameLengthExceeded">Name cannot exceed 20 characters</mat-error>
+    <mat-error *ngIf="packageName.errors && packageName.errors?.charError">Name cannot contain white characters, special characters or start with numeral</mat-error>
+  </mat-form-field>
+  <button (click)="onCreate()" mat-raised-button color="primary" [disabled]="packageName.errors">
+    Create
+  </button>
+</form>

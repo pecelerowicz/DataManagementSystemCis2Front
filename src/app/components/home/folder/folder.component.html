@@ -1,0 +1,93 @@
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
+      <h5 matSubheader>Folders {{ order }}</h5>
+      <mat-divider></mat-divider>
+    
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- 1 -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
+         
+          <button mat-icon-button disabled></button>
+          <button mat-icon-button>
+            <mat-icon>insert_drive_file</mat-icon>
+          </button>
+          {{ node.name | shorten}}
+        </mat-tree-node>
+    
+        <!-- 2 -->
+        <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder " matTreeNodePadding >
+         
+          <button mat-icon-button disabled></button>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>folder</mat-icon>
+          </button>
+          {{ node.name | shorten}}
+    
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onUpload(node.name)">
+              <mat-icon>upload</mat-icon>
+              Upload
+            </button>
+            <button mat-menu-item (click)="onDelete(node.name)">
+              <mat-icon>delete</mat-icon>
+              Delete
+            </button>
+            <button mat-menu-item (click)="onOpenCreateSubfolderDialog(node.name)">
+              <mat-icon>create_new_folder</mat-icon>
+              Subfolder</button>
+          </mat-menu>
+    
+        </mat-tree-node>
+        <!-- 3 -->
+        <mat-tree-node
+          *matTreeNodeDef="let node; when: hasChild"
+          matTreeNodePadding
+        >
+        
+          <button mat-icon-button matTreeNodeToggle
+          [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+    
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+          >
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{ treeControl.isExpanded(node) ? "folder_open" : "folder" }}
+            </mat-icon>
+          </button>
+    
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onUpload(node.name)">
+              <mat-icon>upload</mat-icon>
+              Upload
+            </button>
+            <button mat-menu-item (click)="onDownload(node.name)">
+              <mat-icon>download</mat-icon>
+              Download</button>
+            <button mat-menu-item (click)="onOpenCreateSubfolderDialog(node.name)">
+              <mat-icon>create_new_folder</mat-icon>
+              Subfolder</button>
+            <button mat-menu-item (click)="onDelete(node.name)">
+              <mat-icon>delete</mat-icon>
+              Delete
+            </button>  
+          </mat-menu>
+    
+    
+          {{ node.name | shorten}}
+        </mat-tree-node>
+      </mat-tree>
+    </div>
+    
+    <p id="father2">    
+      <button (click)="onOpenCreateNewFolderDialog()" id="son2" class="custom-button" mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+        <mat-icon>create_new_folder</mat-icon>
+      </button>
+      </p>
+    
+    </div>
+    

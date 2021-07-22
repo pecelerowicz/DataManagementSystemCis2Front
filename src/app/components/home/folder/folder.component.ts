@@ -1,17 +1,13 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
-} from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
-import { StorageService } from '../../../services/storage.service';
+import { FolderService } from '../../../services/folder.service';
 import { Node } from '../../../dto/storage';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { StorageListService } from '../../../services/storage-list.service';
 
 export interface DialogData {
   order: number;
@@ -27,11 +23,11 @@ interface ExampleFlatNode {
 }
 
 @Component({
-  selector: 'app-storage',
-  templateUrl: './storage.component.html',
-  styleUrls: ['./storage.component.css'],
+  selector: 'app-folder',
+  templateUrl: './folder.component.html',
+  styleUrls: ['./folder.component.css'],
 })
-export class StorageComponent implements OnInit {
+export class FolderComponent implements OnInit {
   order: number;
   name: string;
 
@@ -59,7 +55,7 @@ export class StorageComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private route: ActivatedRoute, 
-              private storageService: StorageService,
+              private folderService: FolderService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog) {}
 
@@ -67,7 +63,7 @@ export class StorageComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
       this.name = this.sharedCommunicationService.fromListToStorage.name;
-      this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+      this.folderService.getPackageFolderStructure(this.name).subscribe((val) => {
         this.dataSource.data = val.children;
       })
     });
@@ -76,7 +72,7 @@ export class StorageComponent implements OnInit {
       this.route.paramMap.subscribe((params: ParamMap) => {
         this.order = parseInt(params.get('order'));
         this.name = this.sharedCommunicationService.fromListToStorage.name;
-        this.storageService.getPackageFolderStructure(this.name).subscribe((val) => {
+        this.folderService.getPackageFolderStructure(this.name).subscribe((val) => {
           this.dataSource.data = val.children;
         })
       });
@@ -137,7 +133,7 @@ export class StorageComponent implements OnInit {
   `]
 })
 export class CreateFolderDialog {
-  constructor(private storageListService: StorageListService,
+  constructor(private folderService: FolderService,
               private dialogRef: MatDialogRef<CreateFolderDialog>,
               public sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
@@ -148,7 +144,7 @@ export class CreateFolderDialog {
     let sourceName = this.data.subfolderName;
     let newFolder = dialogForm.value.name;
 
-    this.storageListService.createFolder(newFolder, sourceName, packageName).subscribe(
+    this.folderService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
           this.openSnackBar('Created Folder', val.newFolderFullName)
