@@ -8,6 +8,7 @@ import { FolderService } from '../../../services/folder.service';
 import { Node } from '../../../dto/storage';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UploadService } from 'src/app/services/upload.service';
 
 export interface DialogData {
   order: number;
@@ -56,6 +57,7 @@ export class FolderComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, 
               private folderService: FolderService,
+              private uploadService: UploadService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog) {}
 
@@ -85,7 +87,7 @@ export class FolderComponent implements OnInit {
   isEmptyFolder = (_: number, node: ExampleFlatNode) => node.folder && !node.expandable;
 
   onDownload(val) {
-    console.log("download " + val);
+    this.uploadService.download(this.name, val);
   }
 
   onUpload(val) {
@@ -144,6 +146,9 @@ export class CreateFolderDialog {
     let sourceName = this.data.subfolderName;
     let newFolder = dialogForm.value.name;
 
+    console.log("packageName: " + packageName)
+    console.log("sourceName: " + sourceName)
+    console.log("newFolder: " + newFolder)
     this.folderService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();

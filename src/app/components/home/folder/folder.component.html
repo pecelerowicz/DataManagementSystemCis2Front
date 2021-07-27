@@ -4,25 +4,34 @@
       <mat-divider></mat-divider>
     
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <!-- 1 -->
+        <!-- file -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
          
           <button mat-icon-button disabled></button>
-          <button mat-icon-button>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>insert_drive_file</mat-icon>
           </button>
-          {{ node.name | shorten}}
+          {{ node.name | shorten}} 
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onDownload(node.name)">
+              <mat-icon>download</mat-icon>
+              Download
+            </button>
+          </mat-menu> 
         </mat-tree-node>
-    
-        <!-- 2 -->
+         
+
+
+        <!-- empty folder -->
         <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder " matTreeNodePadding >
          
           <button mat-icon-button disabled></button>
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>folder</mat-icon>
           </button>
-          {{ node.name | shorten}}
-    
+          {{ node.name | shorten}}   
+          
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="onUpload(node.name)">
               <mat-icon>upload</mat-icon>
@@ -38,7 +47,7 @@
           </mat-menu>
     
         </mat-tree-node>
-        <!-- 3 -->
+        <!-- folder with content -->
         <mat-tree-node
           *matTreeNodeDef="let node; when: hasChild"
           matTreeNodePadding
@@ -65,9 +74,10 @@
               <mat-icon>upload</mat-icon>
               Upload
             </button>
-            <button mat-menu-item (click)="onDownload(node.name)">
+            <!-- <button mat-menu-item (click)="onDownload(node.name)">
               <mat-icon>download</mat-icon>
-              Download</button>
+              Download
+            </button> -->
             <button mat-menu-item (click)="onOpenCreateSubfolderDialog(node.name)">
               <mat-icon>create_new_folder</mat-icon>
               Subfolder</button>
