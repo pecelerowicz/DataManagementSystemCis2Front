@@ -5,7 +5,6 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginRequest } from '../components/login/login-request';
 import { LoginResponse } from '../components/login/login-response';
-import { map } from 'rxjs/operators';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -76,6 +75,10 @@ export class AuthService {
         }, error => {
         throwError(error);
       })
+  }
+
+  getUsers(): Observable<string[]> {
+    return this.httpClient.get<string[]>(environmentCustom.address + "/api/auth/users");
   }
 
   getJwtToken() {

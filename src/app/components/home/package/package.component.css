@@ -23,21 +23,24 @@
   
   #father {
     position: relative;
-    margin: 1rem;
+    margin: 0rem;
     padding: 0;
+    border: 0;
+    height: 1px;
   }
   
   #son1 {
     top: -5rem;
+    left: -2rem;
     /* left: -2rem; */
     float: right;
   }
   
   .mat-row:hover {
-    background-color: red;
+    background-color: lightgray;
   }
   
-  .mat-row:focus {
-    background-color: green;
+  .button-focus:focus {
+    background-color: lightgray;
   }
   

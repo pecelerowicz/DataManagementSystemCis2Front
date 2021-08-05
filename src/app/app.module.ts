@@ -26,6 +26,10 @@ import { TestStepComponent } from './components/home/info/test-step/test-step.co
 import { FolderComponent } from './components/home/folder/folder.component';
 import { PackageComponent } from './components/home/package/package.component';
 import { DeletePackageDialogComponent } from './components/home/package/dialogs/delete-package-dialog/delete-package-dialog.component';
+import { SearchComponent } from './components/search/search.component';
+import { SearchPackageComponent } from './components/search/search-package/search-package.component';
+import { SearchInfoComponent } from './components/search/search-info/search-info.component';
+import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
 
 
 @NgModule({
@@ -46,7 +50,11 @@ import { DeletePackageDialogComponent } from './components/home/package/dialogs/
     TestStepComponent,
     FolderComponent,
     PackageComponent,
-    DeletePackageDialogComponent
+    DeletePackageDialogComponent,
+    SearchComponent,
+    SearchPackageComponent,
+    SearchInfoComponent,
+    SearchFolderComponent
   ],
   imports: [
     BrowserModule,

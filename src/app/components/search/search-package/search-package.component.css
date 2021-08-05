@@ -1,0 +1,62 @@
+.container {
+  height: 900px;
+  overflow: auto;
+}
+
+.elements-group {
+  /* background-color: red; */
+  /* width: 100%; */
+  /* height: 400px; */
+  display: flex;
+  justify-content: left;
+}
+
+.element {
+  width: 200px;
+  margin: 5px;
+  height: 70px;
+}
+
+.button {
+  margin-top: 13px;
+  margin-bottom: 13px;
+  margin-left: 5px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+  
+td, th {
+  width: 25%;
+}
+  
+table {
+  width: 100%;
+}
+  
+p {
+  text-align: right;
+}
+  
+#father {
+  position: relative;
+  margin: 1rem;
+  padding: 0;
+}
+  
+#son1 {
+  top: -5rem;
+  /* left: -2rem; */
+  float: right;
+}
+  
+.mat-row:hover {
+  background-color: grey;
+}
+  
+.mat-row:focus {
+  background-color: grey;
+}
+  

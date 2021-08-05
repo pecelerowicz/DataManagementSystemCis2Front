@@ -1,5 +1,5 @@
 <div fxLayout="column">
-    <div class="example-container  mat-elevation-z3" fxFlex="84vh">
+    <div class="example-container  mat-elevation-z3" fxFlex="89vh">
       <h5 matSubheader>Data Packages</h5>
       
       <mat-divider></mat-divider>
@@ -37,6 +37,7 @@
             *ngIf="element.hasMetadata"
             mat-icon-button
             (click)="onInfo(element)"
+            class="button-focus"
             >
             <mat-icon>info</mat-icon>
           </button>
@@ -59,6 +60,7 @@
             *ngIf="element.hasStorage"
             mat-icon-button
             (click)="onStorage(element)"
+            class="button-focus"
           >
             <mat-icon>storage</mat-icon>
           </button>

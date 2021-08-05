@@ -1,10 +1,10 @@
-<div fxLayout="column">
-    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+<!-- <div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
       <h5 matSubheader>Folders {{ order }}</h5>
       <mat-divider></mat-divider>
     
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <!-- file -->
+     
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
          
           <button mat-icon-button disabled></button>
@@ -21,9 +21,6 @@
           </mat-menu> 
         </mat-tree-node>
          
-
-
-        <!-- empty folder -->
         <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder " matTreeNodePadding >
          
           <button mat-icon-button disabled></button>
@@ -47,7 +44,7 @@
           </mat-menu>
     
         </mat-tree-node>
-        <!-- folder with content -->
+        
         <mat-tree-node
           *matTreeNodeDef="let node; when: hasChild"
           matTreeNodePadding
@@ -74,10 +71,7 @@
               <mat-icon>upload</mat-icon>
               Upload
             </button>
-            <!-- <button mat-menu-item (click)="onDownload(node.name)">
-              <mat-icon>download</mat-icon>
-              Download
-            </button> -->
+            
             <button mat-menu-item (click)="onOpenCreateSubfolderDialog(node.name)">
               <mat-icon>create_new_folder</mat-icon>
               Subfolder</button>
@@ -100,4 +94,4 @@
       </p>
     
     </div>
-    
+     -->
