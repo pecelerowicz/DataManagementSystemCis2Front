@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 
 @Component({
   selector: 'app-search-folder',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchFolderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sharedCommunicationService: SharedCommunicationService) { }
 
   ngOnInit(): void {
+  }
+
+  onTestDisplay() {
+    console.log(this.sharedCommunicationService.fromSearchToStorage);
   }
 
 }

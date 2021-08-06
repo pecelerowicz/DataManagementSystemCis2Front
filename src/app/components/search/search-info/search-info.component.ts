@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 
 @Component({
   selector: 'app-search-info',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sharedCommunicationService: SharedCommunicationService) { }
 
   ngOnInit(): void {
+    // console.log(this.sharedCommunicationService.fromSearchToMetadata);
+  }
+
+  onTestDisplay() {
+    console.log(this.sharedCommunicationService.fromSearchToMetadata);
   }
 
 }

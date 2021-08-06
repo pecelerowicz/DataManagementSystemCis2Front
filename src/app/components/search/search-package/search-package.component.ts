@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GetSearchListRequest, SearchResponse } from 'src/app/dto/my_search';
 import { AuthService } from 'src/app/services/auth.service';
 import { SearchService } from 'src/app/services/search.service';
-import { SearchComponent } from '../search.component';
+import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 
 @Component({
   selector: 'app-search-package',
@@ -11,6 +11,9 @@ import { SearchComponent } from '../search.component';
   styleUrls: ['./search-package.component.css']
 })
 export class SearchPackageComponent implements OnInit {
+  @Output() info = new EventEmitter<{order: number, username: string, name: string }>();
+  @Output() storage = new EventEmitter<{order: number, username: string, name: string}>();
+
   users: string[];
   types: string[];
   search: FormGroup = getSearch();
@@ -19,7 +22,9 @@ export class SearchPackageComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'username', 'metadata', 'storage'];
   dataSource: SearchRow[] = [];// = ELEMENT_DATA;
 
-  constructor(private authService: AuthService, private searchService: SearchService) { }
+  constructor(private authService: AuthService, 
+              private searchService: SearchService,
+              private sharedCommuncationService: SharedCommunicationService) { }
 
   ngOnInit(): void {
     this.authService.getUsers().subscribe(
@@ -79,6 +84,18 @@ export class SearchPackageComponent implements OnInit {
     err => {
       console.log(err);
     })
+  }
+
+  onInfo(element) {
+    this.info.emit({order: element.position, username: element.username, name: element.name});
+    this.sharedCommuncationService.fromSearchToMetadata = 
+      {position: element.position, name: element.name, username: element.username};
+  }
+
+  onStorage(element) {
+    this.storage.emit({order: element.position, username: element.username, name: element.name});
+    this.sharedCommuncationService.fromSearchToStorage =
+      {position: element.position, name: element.name, username: element.username};
   }
 
 }
