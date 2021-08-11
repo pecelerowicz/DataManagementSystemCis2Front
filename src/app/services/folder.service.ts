@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { Node } from '../dto/storage';
-import { CreateFolderRequest, CreateFolderResponse } from '../dto/my_folder';
+import { CreateFolderRequest, CreateFolderResponse, DeleteItemRequest, DeleteItemResponse } from '../dto/my_folder';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +14,12 @@ export class FolderService {
 
   private foldersAddress: string = environmentCustom.address + "/api/folders";
 
-  private fullFoldersAddress: string = environmentCustom.address + '/api/full-folders';
-  private packageFoldersAddress: string = environmentCustom.address + '/api/package-folders';
-
-  getFullFolderStructure(): Observable<Node> {
-    return this.http.get<Node>(this.fullFoldersAddress);
+  getPackageFolderStructure(packageName: string): Observable<Node> {
+    return this.http.get<Node>(this.foldersAddress + "/" + packageName);
   }
 
-  getPackageFolderStructure(packageName: string): Observable<Node> {
-    return this.http.get<Node>(this.packageFoldersAddress + "/" + packageName);
+  getPackageFolderStructureOfUser(userName: string, packageName: string): Observable<Node> {
+    return this.http.get<Node>(this.foldersAddress + "/" + userName + "/" + packageName);
   }
 
   createFolder(newFolderName: string, parentFolderRelativePath: string, packageName: string): Observable<CreateFolderResponse> {
@@ -30,5 +27,9 @@ export class FolderService {
       {newFolderName: newFolderName, packageName: packageName, 
         parentFolderRelativePath: parentFolderRelativePath};
     return this.http.post<CreateFolderResponse>(this.foldersAddress, payload);
+  }
+
+  deleteFolder(deleteFolderRequest: DeleteFolderRequest): Observable<DeleteFolderResponse> {
+    return this.http.request<DeleteFolderResponse>('delete', this.foldersAddress, {body: deleteFolderRequest});
   }
 }

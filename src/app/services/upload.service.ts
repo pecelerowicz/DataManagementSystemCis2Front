@@ -64,4 +64,34 @@ export class UploadService {
     );
   }
 
+  downloadFileOfUser(userName: string, packageName: string, fileNameWithPath: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    let params = new HttpParams();
+    params = params.append('userName', userName);
+    params = params.append('packageName', packageName);
+    //params = params.append('folderPath', folderPath);
+    params = params.append('fileNameWithPath', fileNameWithPath)
+   
+    this.http.get(this.baseUrl + "/download/user", { 
+        reportProgress: true,
+        observe: 'events',
+        responseType: 'blob',
+        headers: headers, 
+        params: params 
+      })
+      .subscribe(
+      val => {
+        if(val.type == HttpEventType.Response) {
+          let contentDisposition = val.headers.get('content-disposition');
+          let filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
+          fileSaver.saveAs(new File([val.body], filename));
+        }
+
+      }
+    );
+  }
+
+
+
 }

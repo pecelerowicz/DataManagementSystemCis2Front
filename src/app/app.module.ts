@@ -20,6 +20,7 @@ import { UploadComponent } from './components/home/upload/upload.component';
 import { CreatePackageDialogComponent } from './components/home/package/dialogs/create-package-dialog/create-package-dialog.component';
 import { CreateMetadataDialogComponent } from './components/home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
 import { CreateFolderDialog } from './components/home/folder/folder.component';
+import { DeleteFolderDialog } from './components/home/folder/folder.component';
 import { ShortenPathPipe } from './pipes/shorten-path.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { TestStepComponent } from './components/home/info/test-step/test-step.component';
@@ -46,6 +47,7 @@ import { SearchFolderComponent } from './components/search/search-folder/search-
     CreatePackageDialogComponent,
     CreateMetadataDialogComponent,
     CreateFolderDialog,
+    DeleteFolderDialog,
     HeaderComponent,
     TestStepComponent,
     FolderComponent,

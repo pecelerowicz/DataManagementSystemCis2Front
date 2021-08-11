@@ -2,13 +2,14 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Data, ParamMap } from '@angular/router';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { FolderService } from '../../../services/folder.service';
 import { Node } from '../../../dto/storage';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadService } from 'src/app/services/upload.service';
+import { DeleteFolderRequest } from 'src/app/dto/my_folder';
 
 export interface DialogData {
   order: number;
@@ -95,19 +96,18 @@ export class FolderComponent implements OnInit {
     this.sharedCommunicationService.componentChangeEmitter.emit();
   }
 
-  onDelete(val) {
-    console.log("delete " + val);
-  }
-
   onOpenCreateNewFolderDialog() {
-    this.dialog.open(CreateFolderDialog, {data: {order: this.order, name: this.name}});
+    this.dialog.open(CreateFolderDialog, {data: {order: this.order, name: this.name, subfolderName: ""}});
   }
 
   onOpenCreateSubfolderDialog(val: string) {
     this.dialog.open(CreateFolderDialog, {data: {name: this.name, subfolderName: val}})
   }
-}
 
+  onOpenDeleteFolderDialog(val: string) {
+    this.dialog.open(DeleteFolderDialog, {data: {name: this.name, subfolderName: val}})
+  }
+}
 
 @Component({
   selector: 'create-folder-dialog',
@@ -146,9 +146,6 @@ export class CreateFolderDialog {
     let sourceName = this.data.subfolderName;
     let newFolder = dialogForm.value.name;
 
-    console.log("packageName: " + packageName)
-    console.log("sourceName: " + sourceName)
-    console.log("newFolder: " + newFolder)
     this.folderService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
@@ -168,3 +165,52 @@ export class CreateFolderDialog {
   }
 }
 
+@Component({
+  selector: 'delete-folder-dialog',
+  template: `
+  <h1 mat-dialog-title>Are you sure you want to delete the folder and its content?</h1>
+    <div mat-dialog-actions align="center">
+    <button (click)="onDelete()" color="warn" mat-flat-button mat-dialog-close>Delete</button>
+  </div>
+
+  `,
+  styles: [`
+  .dialog-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-form-field {
+  width: 300px
+  height: 250px;
+}
+  `]
+})
+export class DeleteFolderDialog {
+  constructor(private folderService: FolderService,
+              private dialogRef: MatDialogRef<DeleteFolderDialog>,
+              public sharedCommunicationService: SharedCommunicationService,
+              private _snackBar: MatSnackBar,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  onDelete() {
+    
+    let deleteFolderRequest: DeleteFolderRequest = {packageName: this.data.name, itemPathString: this.data.subfolderName};
+    
+    this.folderService.deleteFolder(deleteFolderRequest).subscribe(
+      val => {
+        this.sharedCommunicationService.updateListOfFolders$.next();
+        this.openSnackBar(val.deleteFolderMessage, '');
+        this.dialogRef.close();
+      }, 
+      err => {
+        this.openSnackBar("Could not delete package!", err.error.exception);
+      }
+    )
+  }
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 6000,
+    });
+  }
+}
