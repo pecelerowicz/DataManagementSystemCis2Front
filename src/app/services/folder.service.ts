@@ -29,7 +29,7 @@ export class FolderService {
     return this.http.post<CreateFolderResponse>(this.foldersAddress, payload);
   }
 
-  deleteFolder(deleteFolderRequest: DeleteFolderRequest): Observable<DeleteFolderResponse> {
-    return this.http.request<DeleteFolderResponse>('delete', this.foldersAddress, {body: deleteFolderRequest});
+  deleteFolder(deleteFolderRequest: DeleteItemRequest): Observable<DeleteItemResponse> {
+    return this.http.request<DeleteItemResponse>('delete', this.foldersAddress, {body: deleteFolderRequest});
   }
 }
