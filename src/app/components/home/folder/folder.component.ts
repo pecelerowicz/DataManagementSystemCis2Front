@@ -9,7 +9,7 @@ import { Node } from '../../../dto/storage';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadService } from 'src/app/services/upload.service';
-import { DeleteFolderRequest } from 'src/app/dto/my_folder';
+import { DeleteItemRequest } from 'src/app/dto/my_folder';
 
 export interface DialogData {
   order: number;
@@ -194,9 +194,9 @@ export class DeleteFolderDialog {
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
   onDelete() {
     
-    let deleteFolderRequest: DeleteFolderRequest = {packageName: this.data.name, itemPathString: this.data.subfolderName};
+    let deleteItemRequest: DeleteItemRequest = {packageName: this.data.name, itemPathString: this.data.subfolderName};
     
-    this.folderService.deleteFolder(deleteFolderRequest).subscribe(
+    this.folderService.deleteFolder(deleteItemRequest).subscribe(
       val => {
         this.sharedCommunicationService.updateListOfFolders$.next();
         this.openSnackBar(val.deleteFolderMessage, '');

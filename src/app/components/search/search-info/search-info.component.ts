@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { GetInfoResponse } from 'src/app/dto/info/info';
+import { getInitialValueDifr, mapDifrResponse } from 'src/app/mappers/difr';
+import { getInitialValueGeneral, mapGeneralResponse } from 'src/app/mappers/general';
+import { getInitialValueTest, mapTestResponse } from 'src/app/mappers/test';
+import { InfoService } from 'src/app/services/info.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
+import { InfoState } from '../../home/info/info.component';
 
 @Component({
   selector: 'app-search-info',
@@ -8,14 +15,61 @@ import { SharedCommunicationService } from 'src/app/services/shared-communicatio
 })
 export class SearchInfoComponent implements OnInit {
 
-  constructor(private sharedCommunicationService: SharedCommunicationService) { }
+  constructor(private route: ActivatedRoute,
+              private sharedCommunicationService: SharedCommunicationService,
+              private infoService: InfoService) { }
+
+  userName: string = '';
+  infoState: InfoState = {
+    order: 0,
+    infoName: '',
+    isFormDisabled: true,
+    hasMetadata: false,
+    isDifr: false,
+    isTest: false
+  }
+            
+  general = getInitialValueGeneral();            
+  difr = getInitialValueDifr();
+  test = getInitialValueTest();  
 
   ngOnInit(): void {
-    // console.log(this.sharedCommunicationService.fromSearchToMetadata);
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.userName = this.sharedCommunicationService.fromSearchToMetadata.username;
+      this.infoState.infoName = this.sharedCommunicationService.fromSearchToMetadata.name;
+      this.infoState.order = this.sharedCommunicationService.fromSearchToMetadata.position;
+      this.pullData();
+    });
+
   }
 
-  onTestDisplay() {
-    console.log(this.sharedCommunicationService.fromSearchToMetadata);
+  pullData() {
+    this.infoService.getInfoOfUser(this.userName, this.infoState.infoName).subscribe(val => {
+      //console.log(val);
+      this.mapResponse(val);
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  mapResponse(getInfoResponse: GetInfoResponse) {
+    mapGeneralResponse(this.general, getInfoResponse)
+    this.resetInfoState();
+    if(getInfoResponse.getDifrInfoResponse != null) {
+      mapDifrResponse(this.infoState, this.difr, getInfoResponse.getDifrInfoResponse);
+    }
+    if(getInfoResponse.getTestInfoResponse != null) {
+      mapTestResponse(this.infoState, this.test, getInfoResponse.getTestInfoResponse);
+    }
+  }
+
+  resetInfoState() {
+    this.infoState.isFormDisabled = true;
+    this.infoState.hasMetadata = false;
+    this.infoState.isDifr = false;
+    this.infoState.isTest = false ; 
+    this.infoState.isDifr = false;
+    this.infoState.isTest = false;
   }
 
 }

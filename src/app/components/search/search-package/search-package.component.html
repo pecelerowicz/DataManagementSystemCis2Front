@@ -2,7 +2,7 @@
   <div class="container mat-elevation-z3" fxFlex="89vh">
     <div class="elements-group" [formGroup]="search">
       <div class="element">
-        <mat-form-field appearance="fill">
+        <mat-form-field >
           <mat-label>Owner</mat-label>
           <mat-select formControlName="user">
             <ng-container *ngFor="let name of users" matNativeControl>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="element">
-        <mat-form-field appearance="fill">
+        <mat-form-field>
           <mat-label>Data type</mat-label>
           <mat-select formControlName="type">
             <ng-container *ngFor="let type of types" matNativeControl>
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <mat-divider></mat-divider>
+    <!-- <mat-divider></mat-divider> -->
     
     <table mat-table [dataSource]="dataSource">
 

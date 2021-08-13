@@ -1,2 +1,127 @@
-<p>search-info works!</p>
-<button (click)="onTestDisplay()">test display</button>
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>metadata: {{ infoState.infoName }}</h4>
+      
+      <mat-divider></mat-divider>
+      
+      <!-- general -->
+      <fieldset [disabled]="infoState.isFormDisabled" [formGroup]="general">
+        <legend>General</legend>
+        <!-- <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
+            <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
+            <mat-radio-button value="PROTECTED">Protected</mat-radio-button>
+            <mat-radio-button value="PUBLIC">Public</mat-radio-button>
+        </mat-radio-group> -->
+        <mat-form-field>
+            <input type="text" matInput placeholder="Short name" formControlName="shortName">
+            <mat-error>Short name cannot be empty or exceed 30 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Long name" formControlName="longName">
+            <mat-error>Long name cannot be empty or exceed 50 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows = "8" placeholder="Description" formControlName="description"></textarea>
+          <mat-error>Description cannot be empty or exceed 500 characters</mat-error>
+        </mat-form-field>
+      </fieldset>
+      
+      <!-- difr -->
+      <fieldset *ngIf="infoState.isDifr" [disabled]="infoState.isFormDisabled" [formGroup]="difr">
+        <legend>Diffractometer</legend>
+        <mat-form-field>
+          <mat-label>Geometry</mat-label>
+          <mat-select placeholder="Geometry" [disabled]="infoState.isFormDisabled" formControlName="geometry">
+            <ng-container *ngFor="let geometry of geometries" matNativeControl >
+              <mat-option [value]="geometry">{{geometry}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Incident soller" formControlName="incidentSoller">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Incident slit" formControlName="incidentSlit">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector soller" formControlName="detectorSoller">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector slit" formControlName="detectorSlit">
+        </mat-form-field>
+        <!-- <mat-form-field>
+          <input type="text" matInput placeholder="Detector absorber" formControlName="detectorAbsorber">
+        </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>Detector absorber</mat-label>
+          <mat-select placeholder="Detactor absorber" [disabled]="infoState.isFormDisabled" formControlName="detectorAbsorber">
+            <ng-container *ngFor="let detectorAbsorber of detectorAbsorbers" matNativeControl >
+              <mat-option [value]="detectorAbsorber">{{detectorAbsorber}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Generator voltage" formControlName="generatorVoltage">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Generator current" formControlName="generatorCurrent">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Date range start" formControlName="dataRangeStart">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Data range end" formControlName="dataRangeEnd">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Step size" formControlName="stepSize">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Step time" formControlName="stepTime">
+        </mat-form-field>
+        <!-- <mat-form-field>
+          <input type="text" matInput placeholder="Stage" formControlName="stage">
+        </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>Stage</mat-label>
+          <mat-select placeholder="Stage" [disabled]="infoState.isFormDisabled" formControlName="stage">
+            <ng-container *ngFor="let stage of stages" matNativeControl >
+              <mat-option [value]="stage">{{stage}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Spinning rocking" formControlName="spinningRocking">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Spinning rocking velocity" formControlName="spinningRockingVelocity">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Temperature" formControlName="temperature">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Comments" formControlName="comments">
+        </mat-form-field>
+      </fieldset>
+
+      <!-- test -->
+      <fieldset *ngIf="infoState.isTest" [disabled]="infoState.isFormDisabled" [formGroup]="test">
+        <legend>Test</legend>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 1" formControlName="testField1">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 2" formControlName="testField2">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 3" formControlName="testField3">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 4" formControlName="testField4">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 5" formControlName="testField5">
+        </mat-form-field>
+      </fieldset>
+
+    </div> 
+</div>

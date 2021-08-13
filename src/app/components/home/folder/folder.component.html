@@ -1,9 +1,9 @@
 <div fxLayout="column">
-    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
-      <h5 matSubheader>Folders {{ order }}</h5>
+    <div class="mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>storage: {{ name }}</h4>
       <mat-divider></mat-divider>
     
-      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree class="internal-container" [dataSource]="dataSource" [treeControl]="treeControl">
         <!-- file -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
          

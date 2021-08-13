@@ -1,15 +1,16 @@
 <div fxLayout="column">
     <div class="example-container  mat-elevation-z3" fxFlex="89vh">
-      <h5 matSubheader>Data Packages</h5>
-      
-      <mat-divider></mat-divider>
-    
+    <!-- <h5 matSubheader>Data Packages</h5>  
+    <mat-divider></mat-divider> -->
+  
     <mat-form-field>
-      <mat-label><span style="padding-left: 18px;">Search</span></mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder=" ... " #input>
+      <mat-label>
+        <span>search</span>
+      </mat-label>
+      <input matInput (keyup)="applyFilter($event)" #input>
     </mat-form-field>
     
-    <table mat-table [dataSource]="dataSource" >
+      <table mat-table [dataSource]="dataSource" >
       
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>No.</th>

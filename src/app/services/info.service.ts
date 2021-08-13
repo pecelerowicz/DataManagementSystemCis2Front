@@ -32,4 +32,9 @@ export class InfoService {
     let infoAddress: string = this.infoAddressPrefix;
     return this.httpClient.post<CreateInfoResponse>(infoAddress, /*payload*/createInfoRequest);
   }
+
+  getInfoOfUser(userName: string, infoName: string): Observable<GetInfoResponse> {
+    let infoAddress: string = this.infoAddressPrefix + '/' + userName + '/' + infoName;
+    return this.httpClient.get<GetInfoResponse>(infoAddress);
+  }
 }

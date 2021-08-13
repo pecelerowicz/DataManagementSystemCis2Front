@@ -12,20 +12,30 @@
 }
 
 .element {
-  width: 200px;
+  /* width: 200px;
   margin: 5px;
-  height: 70px;
+  height: 70px; */
+    padding-top: 21px;
+    width: 30%;
+    padding-left: 1.5%;
+    padding-right: 2%;
 }
 
 .button {
-  margin-top: 13px;
-  margin-bottom: 13px;
-  margin-left: 5px;
+  padding-top: 2.5%;
+  /* margin-bottom: 13px; */
+  padding-left: 1.5%;
 }
 
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+
+mat-divider {
+  width: 97%;
+  margin-left: 1.5%;
+  margin-bottom: 1%;
 }
   
 td, th {
@@ -33,7 +43,8 @@ td, th {
 }
   
 table {
-  width: 100%;
+  width: 97%;
+    margin-left: 1.5%;
 }
   
 p {
@@ -53,10 +64,10 @@ p {
 }
   
 .mat-row:hover {
-  background-color: grey;
+  background-color: lightgray;
 }
   
 .mat-row:focus {
-  background-color: grey;
+  background-color: lightgray;
 }
   
