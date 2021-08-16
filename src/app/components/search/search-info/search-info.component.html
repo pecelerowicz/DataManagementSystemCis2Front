@@ -7,11 +7,11 @@
       <!-- general -->
       <fieldset [disabled]="infoState.isFormDisabled" [formGroup]="general">
         <legend>General</legend>
-        <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
+        <!-- <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
             <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
             <mat-radio-button value="PROTECTED">Protected</mat-radio-button>
             <mat-radio-button value="PUBLIC">Public</mat-radio-button>
-        </mat-radio-group>
+        </mat-radio-group> -->
         <mat-form-field>
             <input type="text" matInput placeholder="Short name" formControlName="shortName">
             <mat-error>Short name cannot be empty or exceed 30 characters</mat-error>
@@ -123,36 +123,5 @@
         </mat-form-field>
       </fieldset>
 
-    </div>
-
-    <p id="father">
-      <button [matMenuTriggerFor]="metadataMenu" [disabled]="infoState.hasMetadata || !infoState.isFormDisabled" mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
-        <mat-icon>add</mat-icon>
-      </button>    
-      <mat-menu #metadataMenu="matMenu" yPosition="above" xPosition="before">
-        <button mat-menu-item (click)="addDiffractometer()">Diffractometer</button>
-        <button mat-menu-item (click)="addTest()">Test</button>
-      </mat-menu>
-
-
-      <button *ngIf="infoState.isFormDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
-        <mat-icon>mode</mat-icon>
-      </button>
-      <mat-menu #enableMenu="matMenu" yPosition="above" xPosition="before">
-        <button mat-menu-item (click)="toggleIsFormDisabled()">Edit</button>
-      </mat-menu>
-      <button *ngIf="!infoState.isFormDisabled" [matMenuTriggerFor]="disableMenu" color="warn" mat-button id="son2" mat-mini-fab>
-        <mat-icon>save</mat-icon>
-      </button>
-      <mat-menu #disableMenu="matMenu" yPosition="above" xPosition="before">
-        <button mat-menu-item (click)="updateChanges()">Save changes</button>
-        <button mat-menu-item (click)="giveUpChanges()">Give up changes</button>
-      </mat-menu>
-    </p>
-
-    
+    </div> 
 </div>
-
-
-
-

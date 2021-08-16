@@ -1,9 +1,9 @@
 <div fxLayout="column">
-    <div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
-      <h5 matSubheader>Folders {{ order }}</h5>
+    <div class="mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>storage: {{ name }}</h4>
       <mat-divider></mat-divider>
     
-      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree class="internal-container" [dataSource]="dataSource" [treeControl]="treeControl">
         <!-- file -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
          
@@ -17,6 +17,10 @@
             <button mat-menu-item (click)="onDownload(node.name)">
               <mat-icon>download</mat-icon>
               Download
+            </button>
+            <button mat-menu-item (click)="onOpenDeleteFolderDialog(node.name)">
+              <mat-icon>delete</mat-icon>
+              Delete
             </button>
           </mat-menu> 
         </mat-tree-node>
@@ -37,7 +41,7 @@
               <mat-icon>upload</mat-icon>
               Upload
             </button>
-            <button mat-menu-item (click)="onDelete(node.name)">
+            <button mat-menu-item (click)="onOpenDeleteFolderDialog(node.name)">
               <mat-icon>delete</mat-icon>
               Delete
             </button>
@@ -81,7 +85,7 @@
             <button mat-menu-item (click)="onOpenCreateSubfolderDialog(node.name)">
               <mat-icon>create_new_folder</mat-icon>
               Subfolder</button>
-            <button mat-menu-item (click)="onDelete(node.name)">
+            <button mat-menu-item (click)="onOpenDeleteFolderDialog(node.name)">
               <mat-icon>delete</mat-icon>
               Delete
             </button>  

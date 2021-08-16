@@ -27,4 +27,10 @@ export class SharedCommunicationService {
   public updateListOfFolders$: Subject<void> = new Subject();
 
   uploadBackEmitter = new EventEmitter();
+
+  fromSearchToMetadata: {position: number, name: string, username: string}
+   = {position: 0, name: '', username: ''};
+
+  fromSearchToStorage: {position: number, name: string, username: string}
+   = {position: 0, name: '', username: ''};
 }

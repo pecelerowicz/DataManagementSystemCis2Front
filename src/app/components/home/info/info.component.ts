@@ -6,6 +6,7 @@ import { GetInfoResponse, UpdateInfoRequest } from 'src/app/dto/info/info';
 import { createCreateDifrInfoRequest, getInitialValueDifr, mapDifrResponse, geometries, detectorAbsorbers, stages } from 'src/app/mappers/difr';
 import { createCreateTestInfoRequest, getInitialValueTest, mapTestResponse } from 'src/app/mappers/test';
 import { createUpdateInfoRequest, getInitialValueGeneral, mapGeneralResponse } from 'src/app/mappers/general';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-info',
@@ -18,7 +19,8 @@ export class InfoComponent implements OnInit {
   stages = stages;
   constructor(private route: ActivatedRoute, 
     private sharedCommunicationService: SharedCommunicationService, 
-    private infoService: InfoService) {}
+    private infoService: InfoService, 
+    private _snackBar: MatSnackBar,) {}
 
   infoState: InfoState = {
     order: 0,
@@ -59,9 +61,11 @@ export class InfoComponent implements OnInit {
       val => {
         // optymalnie byłoby przepisać zwracaną wartość...
         this.pullData();
+        this.openSnackBar("Metadata updated", "");
       }, 
       err => {
         console.log(err);
+        this.openSnackBar("Can not update metadata.", err.error.message);
       }
     )
   }
@@ -113,6 +117,10 @@ export class InfoComponent implements OnInit {
     this.infoState.hasMetadata = true;
     this.infoState.isFormDisabled = false;
     this.test = getInitialValueTest();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {duration: 6000,});
   }
 
 }

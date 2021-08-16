@@ -31,7 +31,7 @@ export class DeletePackageDialogComponent {
         this.router.navigate(['/home']);
       },
       (err) => {
-        console.error(err);
+        this.openSnackBar("Could not delete package", err.error.message);
       })
     }
 

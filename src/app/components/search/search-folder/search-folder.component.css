@@ -17,15 +17,13 @@ mat-divider {
 
 #father2 {
     position: relative;
-    margin: 0rem;
+    margin: 1rem;
     padding: 0;
-    height: 1px;
   }
   
   #son2 {
     top: -5rem;
-    left: -2rem; 
+    /* left: 22rem; */
     float: right;
   }
-
   

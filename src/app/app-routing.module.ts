@@ -6,6 +6,9 @@ import { FolderComponent } from './components/home/folder/folder.component';
 import { HomeComponent } from './components/home/home.component';
 import { InfoComponent } from './components/home/info/info.component';
 import { UploadComponent } from './components/home/upload/upload.component';
+import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
+import { SearchInfoComponent } from './components/search/search-info/search-info.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {
@@ -29,6 +32,20 @@ const routes: Routes = [
         component: UploadComponent,
       }
     ],
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
+    children: [
+      {
+        path: 'info/:order',
+        component: SearchInfoComponent
+      },
+      {
+        path: 'storage/:order',
+        component: SearchFolderComponent
+      }
+    ]
   },
   {
     path: 'login',

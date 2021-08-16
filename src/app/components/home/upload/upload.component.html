@@ -1,16 +1,28 @@
 <div fxLayout="column">
-<div class="example-container mat-elevation-z3" fxFlex="84vh" style="overflow-y:auto">
-    <h5 matSubheader>Destination: {{param.path}}</h5>
+<div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+    <h4 matSubheader>destination: package - {{param.packageName}}, folder - {{param.path}}</h4>
     <mat-divider></mat-divider>
 
-    <label class="md-button md-flat md-warn">
-      <input [disabled]="uploadPressed" class= "frame" type="file" multiple (change)="selectFiles($event)" />
-    </label>
+    <!-- <label class="md-button md-flat md-warn"> -->
+    
+    <input #fileUpload class= "frame" type="file" multiple (change)="selectFiles($event)" />
+    
+    <!-- <button (click)="fileUpload.click()" mat-mini-fab color="primary">
+      <mat-icon>attach_file</mat-icon>
+    </button> -->
+
+      <!-- </label> -->
     
       <div class="example-button-row">
         <div class="example-flex-container">
           <div class="example-button-container">
-            <button mat-mini-fab color="accent" 
+            <button [disabled]="selectedFiles" (click)="fileUpload.click()" mat-mini-fab color="primary">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+          </div>
+
+          <div class="example-button-container">
+            <button mat-mini-fab color="primary" 
             aria-label="Example icon button with a plus one icon"
             [disabled]="!selectedFiles || uploadPressed"
         (click)="uploadFiles()">
@@ -21,7 +33,7 @@
             <button mat-mini-fab color="primary"
             (click)="onGoBack()" 
             aria-label="Example icon button with a menu icon"
-            [disabled]="uploadPressed && !isComplete">
+            [disabled]="!isComplete">
               <mat-icon>arrow_back</mat-icon>
             </button>
           </div>
@@ -38,10 +50,11 @@
       </div>
     </div>
 
-    <div *ngIf="isComplete" class="alert alert-light" role="alert">{{ message }}</div>
-    <div *ngIf="isComplete" class="alert alert-light" role="alert">Total files: {{ totalFiles }}</div>
-    <div *ngIf="isComplete" class="alert alert-light" role="alert">Uploaded files: {{ counterFiles }}</div>
-    <div *ngIf="isComplete" class="alert alert-light" role="alert">Errors: {{ counterErrors }}</div>
-      
+    <div class="upload-information">
+      <div *ngIf="isComplete" class="alert alert-light" role="alert">{{ message }}</div>
+      <div *ngIf="isComplete" class="alert alert-light" role="alert">Total files: {{ totalFiles }}</div>
+      <div *ngIf="isComplete" class="alert alert-light" role="alert">Uploaded files: {{ counterFiles }}</div>
+      <div *ngIf="isComplete" class="alert alert-light" role="alert">Errors: {{ counterErrors }}</div>
+    </div>
 </div>
 </div>

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" [class.mat-elevation-z2]="true" class="navbar">
+<mat-toolbar color="primary" [class.mat-elevation-z4]="true" class="navbar">
     <div *ngIf="isLoggedIn">
       <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
       <button mat-button>NomatenData</button>
@@ -26,11 +26,11 @@
         <mat-icon>storage</mat-icon>
         <span>My Data</span>
     </a>
-    <a mat-menu-item routerLink="/register">
+    <!-- <a mat-menu-item routerLink="/register">
         <mat-icon>task</mat-icon>
         <span>My Projects</span>
-    </a>
-    <a mat-menu-item routerLink="/login">
+    </a> -->
+    <a mat-menu-item routerLink="/search">
         <mat-icon>manage_search</mat-icon>
         <span>Search</span>
     </a>
