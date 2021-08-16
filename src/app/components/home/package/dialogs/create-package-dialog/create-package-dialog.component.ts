@@ -37,7 +37,7 @@ export class CreatePackageDialogComponent {
           this.dialogRef.close();
         },
         (err) => {
-          this.openSnackBar("Could not create package!", err.error.exception);
+          this.openSnackBar("Could not create package", err.error.message);
         }
       );
     }

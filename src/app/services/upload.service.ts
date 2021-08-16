@@ -5,6 +5,7 @@ import { SharedCommunicationService } from './shared-communication.service';
 import { UploadFileRequest } from '../dto/storage-list';
 import { environmentCustom } from 'src/environments/environment.custom';
 import * as fileSaver from 'file-saver';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class UploadService {
   private baseUrl =  environmentCustom.address + '/api';   //'http://localhost:8080/api';
 
   constructor(private http: HttpClient,
-              private sharedCommunicationService: SharedCommunicationService) { }
+              private sharedCommunicationService: SharedCommunicationService,
+              private _snackBar: MatSnackBar) { }
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
@@ -45,6 +47,8 @@ export class UploadService {
     //params = params.append('folderPath', folderPath);
     params = params.append('fileNameWithPath', fileNameWithPath)
    
+    this.openSnackBar("Buffering download","It might take up to a few minutes", 100000)
+
     this.http.get(this.baseUrl + "/download", { 
         reportProgress: true,
         observe: 'events',
@@ -58,8 +62,9 @@ export class UploadService {
           let contentDisposition = val.headers.get('content-disposition');
           let filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
           fileSaver.saveAs(new File([val.body], filename));
+          this.openSnackBar("Download started", "", 6000);
         }
-
+        
       }
     );
   }
@@ -73,6 +78,8 @@ export class UploadService {
     //params = params.append('folderPath', folderPath);
     params = params.append('fileNameWithPath', fileNameWithPath)
    
+    this.openSnackBar("Buffering download","It might take up to a few minutes", 100000)
+
     this.http.get(this.baseUrl + "/download/user", { 
         reportProgress: true,
         observe: 'events',
@@ -86,12 +93,16 @@ export class UploadService {
           let contentDisposition = val.headers.get('content-disposition');
           let filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
           fileSaver.saveAs(new File([val.body], filename));
+          this.openSnackBar("Download started", "", 6000);
         }
 
       }
     );
   }
 
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {duration: duration});
+  }
 
 
 }

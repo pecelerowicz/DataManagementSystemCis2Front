@@ -53,3 +53,11 @@ section {
   justify-content: center;
   width: 120px;
 }
+
+input {
+  display: none;
+}
+
+.upload-information {
+  margin: 1.5%;
+}
