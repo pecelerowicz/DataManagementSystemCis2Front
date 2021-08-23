@@ -3,7 +3,7 @@
     <div class="elements-group" [formGroup]="search">
       <div class="element">
         <mat-form-field >
-          <mat-label>Owner</mat-label>
+          <mat-label>owner</mat-label>
           <mat-select formControlName="user">
             <ng-container *ngFor="let name of users" matNativeControl>
               <mat-option value={{name}}>{{name}}</mat-option>
@@ -14,7 +14,7 @@
 
       <div class="element">
         <mat-form-field>
-          <mat-label>Data type</mat-label>
+          <mat-label>data type</mat-label>
           <mat-select formControlName="type">
             <ng-container *ngFor="let type of types" matNativeControl>
               <mat-option value={{type}}>{{type}}</mat-option>
@@ -44,7 +44,7 @@
       </div> -->
 
       <div class="button">
-        <button mat-raised-button (click)="onSearch()">Search</button>
+        <button mat-raised-button (click)="onSearch()">search</button>
       </div>
     </div>
 

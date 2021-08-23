@@ -7,6 +7,7 @@ import { LoginRequest } from '../components/login/login-request';
 import { LoginResponse } from '../components/login/login-response';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -76,6 +77,29 @@ export class AuthService {
         throwError(error);
       })
   }
+
+
+  refreshToken() {
+
+    this.refreshTokenPayload = {
+      refreshToken: this.getRefreshToken(),
+      username: this.getUserName()
+    }
+
+    return this.httpClient.post<LoginResponse>(environmentCustom.address + '/api/auth/refresh/token',
+      this.refreshTokenPayload)
+      .pipe(tap(response => {
+        console.log("asdfasdf")
+        this.localStorage.clear('authenticationToken');
+        this.localStorage.clear('expiresAt');
+
+        this.localStorage.store('authenticationToken',
+          response.authenticationToken);
+        this.localStorage.store('expiresAt', response.expiresAt);
+      }));
+  }
+
+
 
   getUsers(): Observable<string[]> {
     return this.httpClient.get<string[]>(environmentCustom.address + "/api/auth/users");
