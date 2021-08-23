@@ -4,7 +4,7 @@
     <!-- <legend>General</legend> -->
     <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
         <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
-        <mat-radio-button value="PROTECTED">Protected</mat-radio-button>
+        <!-- <mat-radio-button value="PROTECTED">Protected</mat-radio-button> -->
         <mat-radio-button value="PUBLIC">Public</mat-radio-button>
         <!-- <mat-error *ngIf="access.errors && packageName.access?.noAccess">no access</mat-error> -->
     </mat-radio-group>
@@ -22,6 +22,6 @@
     </mat-form-field>
   <!-- </fieldset> -->
   <button (click)="onCreateMetadata()" mat-raised-button color="primary"  [disabled]="!general.valid">
-      Create metadata for {{name}}
+      Create metadata: {{name}}
   </button>
 </form>

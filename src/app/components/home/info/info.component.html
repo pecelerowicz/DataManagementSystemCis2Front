@@ -9,7 +9,7 @@
         <legend>General</legend>
         <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
             <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
-            <mat-radio-button value="PROTECTED">Protected</mat-radio-button>
+            <!-- <mat-radio-button value="PROTECTED">Protected</mat-radio-button> -->
             <mat-radio-button value="PUBLIC">Public</mat-radio-button>
         </mat-radio-group>
         <mat-form-field>
@@ -36,22 +36,24 @@
               <mat-option [value]="geometry">{{geometry}}</mat-option>
             </ng-container>
           </mat-select>
+          <mat-error>Geometry is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Incident soller" formControlName="incidentSoller">
+          <mat-error>Incident soller is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Incident slit" formControlName="incidentSlit">
+          <mat-error>Incident slit is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Detector soller" formControlName="detectorSoller">
+          <mat-error>Detector soller is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Detector slit" formControlName="detectorSlit">
+          <mat-error>Detector slit is invalid or empty</mat-error>
         </mat-form-field>
-        <!-- <mat-form-field>
-          <input type="text" matInput placeholder="Detector absorber" formControlName="detectorAbsorber">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>Detector absorber</mat-label>
           <mat-select placeholder="Detactor absorber" [disabled]="infoState.isFormDisabled" formControlName="detectorAbsorber">
@@ -59,28 +61,32 @@
               <mat-option [value]="detectorAbsorber">{{detectorAbsorber}}</mat-option>
             </ng-container>
           </mat-select>
+          <mat-error>Detector absorber is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Generator voltage" formControlName="generatorVoltage">
+          <mat-error>Generator voltage is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Generator current" formControlName="generatorCurrent">
+          <mat-error>Generator current is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input type="text" matInput placeholder="Date range start" formControlName="dataRangeStart">
+          <input type="text" matInput placeholder="Data range start" formControlName="dataRangeStart">
+          <mat-error>Data range start is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Data range end" formControlName="dataRangeEnd">
+          <mat-error>Data range end is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Step size" formControlName="stepSize">
+          <mat-error>Step size is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Step time" formControlName="stepTime">
+          <mat-error>Step time is invalid or empty</mat-error>
         </mat-form-field>
-        <!-- <mat-form-field>
-          <input type="text" matInput placeholder="Stage" formControlName="stage">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>Stage</mat-label>
           <mat-select placeholder="Stage" [disabled]="infoState.isFormDisabled" formControlName="stage">
@@ -88,18 +94,27 @@
               <mat-option [value]="stage">{{stage}}</mat-option>
             </ng-container>
           </mat-select>
+          <mat-error>Stage is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input type="text" matInput placeholder="Spinning rocking" formControlName="spinningRocking">
+          <mat-label>Spinning Rocking</mat-label>
+          <mat-select placeholder="Spinning Rocking" [disabled]="infoState.isFormDisabled" formControlName="spinningRocking">
+            <mat-option [value]="true">true</mat-option>
+            <mat-option [value]="false">false</mat-option>
+          </mat-select>
+          <mat-error>Spinning Rocking is empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Spinning rocking velocity" formControlName="spinningRockingVelocity">
+          <mat-error>Spinning Rocking velocity is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Temperature" formControlName="temperature">
+          <mat-error>Temperature is invalid or empty</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="text" matInput placeholder="Comments" formControlName="comments">
+          <mat-error>Comments is empty</mat-error>
         </mat-form-field>
       </fieldset>
 

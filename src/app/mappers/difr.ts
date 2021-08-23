@@ -1,27 +1,37 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InfoState } from '../components/home/info/info.component';
 import { CreateDifrInfoRequest, DetectorAbsorber, Geometry, GetDifrInfoResponse, Stage } from '../dto/info/difr_info/difr_info';
+import { createCommentsValidator, createDataRangeEndValidator, createDataRangeStartValidator, 
+         createDetectorAbsorberValidator, createDetectorSlitValidator, 
+         createDetectorSollerValidator, createGeneratorCurrentValidator, 
+         createGeneratorVoltageValidator, createGeometryValidator, 
+         createIncdentSlitValidator, createIncdentSollerValidator, 
+         createSpinningRockingValidator, 
+         createSpinningRockingVelocityValidator, 
+         createStageValidator, 
+         createStepSizeValidator, createStepTimeValidator, createTemperatureValidator } 
+         from '../validators/info_validators/diffractometer';
 
 export function getInitialValueDifr(): FormGroup {
     let fb: FormBuilder = new FormBuilder();
     return fb.group({
-        geometry: [''],
-        incidentSoller: [''],
-        incidentSlit: [''], 
-        detectorSoller: [''],
-        detectorSlit: [''],
-        detectorAbsorber: [''],
-        generatorVoltage: [''],
-        generatorCurrent: [''],
-        dataRangeStart: [''],
-        dataRangeEnd: [''],
-        stepSize: [''],
-        stepTime: [''],
-        stage: [''],
-        spinningRocking: [''],
-        spinningRockingVelocity: [''],
-        temperature: [''],
-        comments: ['']
+        geometry: ['', {validators: [createGeometryValidator()]}],
+        incidentSoller: ['', {validators: [createIncdentSollerValidator()]}],
+        incidentSlit: ['', {validators: [createIncdentSlitValidator()]}], 
+        detectorSoller: ['', {validators: [createDetectorSollerValidator()]}],
+        detectorSlit: ['', {validators: [createDetectorSlitValidator()]}],
+        detectorAbsorber: ['', {validators: [createDetectorAbsorberValidator()]}],
+        generatorVoltage: ['', {validators: [createGeneratorVoltageValidator()]}],
+        generatorCurrent: ['', {validators: [createGeneratorCurrentValidator()]}],
+        dataRangeStart: ['', {validators: [createDataRangeStartValidator()]}],
+        dataRangeEnd: ['', {validators: [createDataRangeEndValidator()]}],
+        stepSize: ['', {validators: [createStepSizeValidator()]}],
+        stepTime: ['', {validators: [createStepTimeValidator()]}],
+        stage: ['', {validators: [createStageValidator()]}],
+        spinningRocking: ['', {validators: [createSpinningRockingValidator()]}],
+        spinningRockingVelocity: ['', {validators: [createSpinningRockingVelocityValidator()]}],
+        temperature: ['', {validators: [createTemperatureValidator()]}],
+        comments: ['', {validators: [createCommentsValidator()]}]
       })
 }
 

@@ -2,7 +2,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Data, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { FolderService } from '../../../services/folder.service';
 import { Node } from '../../../dto/storage';
@@ -116,9 +116,9 @@ export class FolderComponent implements OnInit {
           <mat-form-field class="example-form-field">
             <input ngModel matInput type="text" name="name" placeholder="Folder Name">
           </mat-form-field>
-          <button (click)="onCreate(dialogForm)"
+          <button (click)="onCreate(dialogForm)" 
                   mat-raised-button color="primary">
-            Create {{data.order}} {{this.sharedCommunicationService.fromListToStorage.name}}
+            Create
           </button>
         </form>
   `,
@@ -149,11 +149,11 @@ export class CreateFolderDialog {
     this.folderService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
-          this.openSnackBar('Created Folder', val.newFolderFullName)
+          this.openSnackBar('Created folder', val.newFolderFullName)
           this.dialogRef.close();
         },
         (err) => {
-          this.openSnackBar("Could not create package!", err.error.exception);
+          this.openSnackBar("Folder could not be created", err.error.message);
         }
       );
   }
