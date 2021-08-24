@@ -6,5 +6,5 @@ build website:
     - npm build --prod
   artifacts:
     paths:
-      - ./dist
+      - ./dist/data-management-frontend
 
