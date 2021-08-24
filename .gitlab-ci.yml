@@ -1,12 +1,20 @@
 stages:
+  - prep
   - build
   - test
+
+prepare the project:
+  stage: prep
+  script: 
+    - mkdir test_folder
+    - touch test_folder/testfile.txt
+  artifacts:
+    paths:
+      - test_folder/
 
 build the project:
   stage: build
   script:
-    - mkdir test_folder
-    - touch test_folder/testfile.txt
     - cd test_folder
     - echo "test text" >> testfile.txt
     - echo "aaaa" >> testfile.txt
