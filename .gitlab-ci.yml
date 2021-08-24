@@ -3,8 +3,8 @@ build website:
   script:
     - npm --version
     - npm install
-    - npm build --prod
+    - npm run build --prod
   artifacts:
     paths:
-      - ./dist/data-management-frontend
+      - ./dist
 
