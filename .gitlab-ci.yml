@@ -25,5 +25,6 @@ test website:
   script:
     - npm install
     - npm start &
-    - curl "http://docker:4200"
+    - sleep 15
+    - curl "http://localhost:4200"
 
