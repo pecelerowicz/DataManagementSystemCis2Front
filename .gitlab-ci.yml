@@ -10,7 +10,8 @@ build the project:
     - cd test_folder
     - echo "test text" > testfile.txt
   artifacts:
-    - test_folder/
+    paths:
+      -test_folder/
 
 test the project:
   stage: test
