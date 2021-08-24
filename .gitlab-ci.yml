@@ -11,7 +11,7 @@ build the project:
     - echo "test text" > testfile.txt
   artifacts:
     paths:
-      -test_folder/
+      - test_folder/
 
 test the project:
   stage: test
