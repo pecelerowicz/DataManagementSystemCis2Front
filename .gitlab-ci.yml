@@ -1,4 +1,9 @@
+stages:
+  - build
+  - test
+
 build website:
+  stage: build
   image: node:12.19.0
   script:
     - npm --version
@@ -7,4 +12,9 @@ build website:
   artifacts:
     paths:
       - ./dist
+
+test artifact:
+  stage: test
+  script: 
+    - grep "mat" ./dist/data-management-frontend/styles.css
 
