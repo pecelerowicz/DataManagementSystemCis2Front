@@ -5,7 +5,8 @@ stages:
 
 prepare the project:
   stage: prep
-  script: 
+  script:
+    - cat src/app/dto/my_folder.ts
     - mkdir test_folder
     - touch test_folder/testfile.txt
   artifacts:
