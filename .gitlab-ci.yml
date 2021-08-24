@@ -8,7 +8,8 @@ build the project:
     - mkdir test_folder
     - touch test_folder/testfile.txt
     - cd test_folder
-    - echo "test text" > testfile.txt
+    - echo "test text" >> testfile.txt
+    - echo "aaaa" >> testfile.txt
   artifacts:
     paths:
       - test_folder/
