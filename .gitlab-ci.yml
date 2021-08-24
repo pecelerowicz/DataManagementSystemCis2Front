@@ -4,4 +4,6 @@ build website:
     - npm --version
     - npm install
     - npm build --prod
+  artifacts:
+    - ./dist
 
