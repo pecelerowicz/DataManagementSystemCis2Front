@@ -24,6 +24,6 @@ test website:
   image: node:12.19.0
   script:
     - npm install
-    - npm run
+    - npm start
     - curl "http://localhost:4200"
 
