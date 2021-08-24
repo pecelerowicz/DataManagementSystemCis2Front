@@ -25,6 +25,6 @@ test website:
   script:
     - npm install
     - npm start &
-    - sleep 15
+    - sleep 60
     - curl "http://localhost:4200"
 
