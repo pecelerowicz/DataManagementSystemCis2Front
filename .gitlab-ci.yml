@@ -1,6 +1,7 @@
 build website:
   image: node:12.19.0
   script:
+    - npm --version
     - npm install
     - npm build --prod
 
