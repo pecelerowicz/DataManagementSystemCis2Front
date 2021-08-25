@@ -1,30 +1,37 @@
 stages:
-  - build
-  - test
+  - publish
+  - deploy
 
-build website:
-  stage: build
-  image: node:12.19.0
+variables:
+  TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+
+publish:
+  image: docker:latest
+  stage: publish
+  services:
+    - docker:dind
   script:
-    - npm --version
-    - npm install
-    - npm run build --prod
-  artifacts:
-    paths:
-      - ./dist
+    - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
 
-test artifact:
-  stage: test
-  image: alpine
-  script: 
-    - grep -q "mat" ./dist/data-management-frontend/styles.css
-
-test website:
-  stage: test
-  image: node:12.19.0
+deploy:
+  image: alpine:latest
+  stage: deploy
+  tags:
+    - deployment
   script:
-    - npm install
-    - npm start &
-    - sleep 120
-    - curl "http://localhost:4200"
+    - chmod og= $ID_RSA
+    - apk update && apk add openssh-client
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f my-app || true"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 80:80 --name my-app $TAG_COMMIT"
+  environment:
+    name: production
+    url: http://134.122.86.52
+  only:
+    - master
 
