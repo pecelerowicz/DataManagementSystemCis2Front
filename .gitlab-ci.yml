@@ -13,6 +13,8 @@ publish:
     - docker:dind
   script:
     - docker --version
+    - echo $TAG_LATEST
+    - echo $TAG_COMMIT
 
 deploy:
   image: alpine:latest
@@ -20,6 +22,7 @@ deploy:
   tags:
     - deployment
   script:
-    - echo "test"
+    - echo $TAG_LATEST
+    - echo $TAG_COMMIT
     
 
