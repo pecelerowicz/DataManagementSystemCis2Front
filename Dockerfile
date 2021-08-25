@@ -1,8 +1,2 @@
-FROM node:latest as node
-WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm run build --prod
-
-FROM nginx:alpine
-COPY --from=node /app/dist/data-management-frontend /usr/share/nginx/html
+FROM nginx:1.18
+COPY index.html /usr/share/nginx/html
