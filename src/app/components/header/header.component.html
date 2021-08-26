@@ -3,10 +3,6 @@
       <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
       <button mat-button>NomatenData</button>
     </div>
-    <div *ngIf="!isLoggedIn">
-      <button mat-icon-button disabled><mat-icon></mat-icon></button>
-      <button mat-button>NomatenData</button>
-    </div>
     <div>
       <button [matMenuTriggerFor]="logoutMenu" mat-button *ngIf="isLoggedIn">
         <mat-icon>arrow_drop_down</mat-icon>
