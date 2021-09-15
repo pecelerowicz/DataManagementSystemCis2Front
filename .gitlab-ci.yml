@@ -21,7 +21,7 @@ deploy:
   image: alpine:latest
   stage: deploy
   tags:
-    - digitalocean
+    - centos
   script:
     - echo $ID_RSA
     - echo $SERVER_USER
