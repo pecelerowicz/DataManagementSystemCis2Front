@@ -24,6 +24,7 @@ deploy:
     - centos
   script:
     - echo $ID_RSA_CENTOS
+    - echo $ID_RSA
     - echo $SERVER_USER_CENTOS
     - echo $SERVER_IP
     - echo $CI_BUILD_TOKEN
