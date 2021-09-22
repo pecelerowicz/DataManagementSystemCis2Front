@@ -6,6 +6,7 @@ import { FolderComponent } from './components/home/folder/folder.component';
 import { HomeComponent } from './components/home/home.component';
 import { InfoComponent } from './components/home/info/info.component';
 import { UploadComponent } from './components/home/upload/upload.component';
+import { MyProjectsComponent } from './components/my-projects/my-projects.component';
 import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
 import { SearchInfoComponent } from './components/search/search-info/search-info.component';
 import { SearchComponent } from './components/search/search.component';
@@ -55,6 +56,10 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
   },
+  {
+    path: 'my-projects',
+    component: MyProjectsComponent
+  }
 ];
 
 @NgModule({

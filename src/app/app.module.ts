@@ -31,7 +31,8 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchPackageComponent } from './components/search/search-package/search-package.component';
 import { SearchInfoComponent } from './components/search/search-info/search-info.component';
 import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
-
+import { MyProjectsComponent } from './components/my-projects/my-projects.component';
+import { ProjectsListComponent } from './components/my-projects/projects-list/projects-list.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,9 @@ import { SearchFolderComponent } from './components/search/search-folder/search-
     SearchComponent,
     SearchPackageComponent,
     SearchInfoComponent,
-    SearchFolderComponent
+    SearchFolderComponent,
+    MyProjectsComponent,
+    ProjectsListComponent
   ],
   imports: [
     BrowserModule,
