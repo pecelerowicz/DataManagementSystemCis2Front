@@ -6,6 +6,7 @@ import { FolderComponent } from './components/home/folder/folder.component';
 import { HomeComponent } from './components/home/home.component';
 import { InfoComponent } from './components/home/info/info.component';
 import { UploadComponent } from './components/home/upload/upload.component';
+import { DescriptionComponent } from './components/my-projects/description/description.component';
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
 import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
 import { SearchInfoComponent } from './components/search/search-info/search-info.component';
@@ -62,7 +63,7 @@ const routes: Routes = [
     children: [
       {
         path: 'description/:id',
-        component: UploadComponent
+        component: DescriptionComponent
       }
     ]
   }

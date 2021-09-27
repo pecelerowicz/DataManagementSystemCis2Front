@@ -15,7 +15,7 @@ export class MyProjectsComponent implements OnInit {
   }
 
   onDescription(val) {
-    console.log(val)
+    // console.log(val)
     this.router.navigate(['description', val.id], { relativeTo: this.route });
   }
 

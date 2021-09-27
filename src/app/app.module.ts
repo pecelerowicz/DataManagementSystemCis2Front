@@ -34,6 +34,7 @@ import { SearchFolderComponent } from './components/search/search-folder/search-
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
 import { ProjectsListComponent } from './components/my-projects/projects-list/projects-list.component';
 import { CreateProjectDialogComponent } from './components/my-projects/projects-list/dialogs/create-project-dialog/create-project-dialog.component';
+import { DescriptionComponent } from './components/my-projects/description/description.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { CreateProjectDialogComponent } from './components/my-projects/projects-
     SearchFolderComponent,
     MyProjectsComponent,
     ProjectsListComponent,
-    CreateProjectDialogComponent
+    CreateProjectDialogComponent,
+    DescriptionComponent
   ],
   imports: [
     BrowserModule,
