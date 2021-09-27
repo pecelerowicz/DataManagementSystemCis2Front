@@ -58,7 +58,13 @@ const routes: Routes = [
   },
   {
     path: 'my-projects',
-    component: MyProjectsComponent
+    component: MyProjectsComponent,
+    children: [
+      {
+        path: 'description/:id',
+        component: UploadComponent
+      }
+    ]
   }
 ];
 

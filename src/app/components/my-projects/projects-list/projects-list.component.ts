@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GetProjectResponse } from '../../../dto/my_project';
 import { ProjectService } from '../../../services/project.service';
@@ -11,6 +11,8 @@ import { SharedCommunicationService } from '../../../services/shared-communicati
   styleUrls: ['./projects-list.component.css']
 })
 export class ProjectsListComponent implements OnInit {
+
+  @Output() description = new EventEmitter<{id: number}>();
 
   displayedColumns: string[] = ['date', 'name', 'description', 'packages', 'members', 'delete'];
   dataSource: GetProjectResponse[] = [];
@@ -36,6 +38,11 @@ export class ProjectsListComponent implements OnInit {
     err => {
       console.log(err);
     })
+  }
+
+  onDescription(element) {
+    // console.log(element);
+    this.description.emit({id: element.id})
   }
 
   onOpenCreateProjectDialog() {

@@ -7,10 +7,9 @@
   class="stats-cards"
 >
   <div fxFlex="50">
-    <app-projects-list></app-projects-list>
+    <app-projects-list (description)="onDescription($event)"></app-projects-list>
   </div>
   <div fxFlex="50">
-    <!-- <router-outlet></router-outlet> -->
-    <div>bbb</div>
+    <router-outlet></router-outlet>
   </div>
 </div>
