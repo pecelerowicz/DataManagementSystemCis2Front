@@ -16,3 +16,16 @@ export interface GetProjectResponse {
 export interface GetProjectsResponse {
     getProjectResponseList: GetProjectResponse[];
 }
+
+export interface CreateProjectRequest {
+    projectName: string;
+    description: string;
+}
+
+export interface CreateProjectResponse {
+    id: number;
+    projectName: string;
+    description: string;
+    localDate: string; // ?
+    ownerName: string;
+}

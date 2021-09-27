@@ -1,73 +1,44 @@
-.container {
-    height: 900px;
-    overflow: auto;
-  }
-  
-  .elements-group {
-    /* background-color: red; */
-    /* width: 100%; */
-    /* height: 400px; */
-    display: flex;
-    justify-content: left;
-  }
-  
-  .element {
-    /* width: 200px;
-    margin: 5px;
-    height: 70px; */
-      padding-top: 21px;
-      width: 30%;
-      padding-left: 1.5%;
-      padding-right: 2%;
-  }
-  
-  .button {
-    padding-top: 2.5%;
-    /* margin-bottom: 13px; */
-    padding-left: 1.5%;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  mat-divider {
-    width: 97%;
-    margin-left: 1.5%;
-    margin-bottom: 1%;
-  }
-    
-  td, th {
-    width: 25%;
-  }
-    
-  table {
-    width: 97%;
-      margin-left: 1.5%;
-  }
-    
-  p {
-    text-align: right;
-  }
-    
-  #father {
-    position: relative;
-    margin: 1rem;
-    padding: 0;
-  }
-    
-  #son1 {
-    top: -5rem;
-    /* left: -2rem; */
-    float: right;
-  }
-    
-  .mat-row:hover {
-    background-color: lightgray;
-  }
-    
-  .mat-row:focus {
-    background-color: lightgray;
-  }
-    
+.example-container {
+  height: 800px;
+  overflow: auto;
+}
+
+.mat-form-field {
+  /* font-size: 20px; */
+  padding-top: 15px;
+  width: 97%;
+  padding-left: 1.5%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+table {
+  width: 97%;
+  margin-left: 1.5%;
+}
+
+p {
+  text-align: right;
+}
+
+#father {
+  position: relative;
+  margin: 0rem;
+  padding: 0;
+  border: 0;
+  height: 1px;
+}
+
+#son1 {
+  top: -5rem;
+  left: -2rem;
+  /* left: -2rem; */
+  float: right;
+}
+
+.mat-row:hover {
+  background-color: lightgray;
+}

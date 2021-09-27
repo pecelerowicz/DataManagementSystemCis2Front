@@ -1,0 +1,17 @@
+<form mat-dialog-content [formGroup]="project" class="dialog-form" class="widen">
+    
+    
+      <mat-form-field class="example-form-field2">
+          <input type="text" matInput placeholder="Project name" formControlName="projectName">
+          <mat-error>Project name cannot be empty or exceed 30 characters</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field class="example-form-field2" appearance="outline">
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows = "2" placeholder="Project description" formControlName="description"></textarea>
+        <mat-error>Project description cannot be empty or exceed 500 characters</mat-error>
+      </mat-form-field>
+
+      <button (click)="onCreateProject()" mat-raised-button color="primary"  [disabled]="!project.valid">
+        Create project
+    </button>
+  </form>

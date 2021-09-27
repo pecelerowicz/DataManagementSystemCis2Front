@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { CreateProjectRequest } from '../dto/my_project';
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +34,9 @@ export class SharedCommunicationService {
 
   fromSearchToStorage: {position: number, name: string, username: string}
    = {position: 0, name: '', username: ''};
+
+  public _createProjectSource: Subject<CreateProjectRequest> 
+      = new Subject<CreateProjectRequest>();
+  public createProject$ = this._createProjectSource.asObservable();
+
 }
