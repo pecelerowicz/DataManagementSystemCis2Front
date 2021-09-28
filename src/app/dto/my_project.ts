@@ -29,3 +29,19 @@ export interface CreateProjectResponse {
     localDate: string; // ?
     ownerName: string;
 }
+
+export interface UpdateProjectRequest {
+    projectId: number;
+    newName: string;
+    newDescription: string;
+}
+
+export interface UpdateProjectResponse {
+    id: number;
+    projectName: string;
+    description: string;
+    localDate: string;
+    ownerName: string;
+    memberNames: string[];
+    projectInfoResponseList: ProjectInfoResponse[];
+}

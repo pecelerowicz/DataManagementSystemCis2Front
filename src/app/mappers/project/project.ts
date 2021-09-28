@@ -7,3 +7,10 @@ export function getInitialValueCreateProject(): FormGroup {
         projectName: ['', {validators: [createProjectNameValidator()]}],
         description: ['', {validators: [createProjectDescriptionValidator()]}]});
 }
+
+export function getInitialValueDescription(): FormGroup {
+    let fb: FormBuilder = new FormBuilder();
+    return fb.group({
+        description: [{value: 'asdf', disabled: true}, {validators: []}]
+    })
+}
