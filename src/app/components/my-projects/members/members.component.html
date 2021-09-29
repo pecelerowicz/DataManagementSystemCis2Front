@@ -1,1 +1,27 @@
-<p>members works! {{ id }}</p>
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>members: {{projectName}}</h4>
+      <mat-divider></mat-divider>
+      
+      <div class="test-group">
+        <div class="box">
+          <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+              <mat-chip *ngFor="let member of members" selected [color]="primary">
+              {{member}}
+              </mat-chip>
+          </mat-chip-list>
+        </div>
+        
+      </div>
+    </div>
+
+    <p id="father">
+        <button [matMenuTriggerFor]="metadataMenu" mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+            <mat-icon>add</mat-icon>
+          </button>    
+          <mat-menu #metadataMenu="matMenu" yPosition="above" xPosition="before">
+            <button *ngFor="let user of users" mat-menu-item (click)="onUser(user)" >{{ user }}</button>
+          </mat-menu>
+    </p>
+    
+</div>

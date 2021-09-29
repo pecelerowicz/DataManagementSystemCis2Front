@@ -9,7 +9,7 @@ export interface GetProjectResponse {
     description: string;
     localDate: string; // ?
     ownerName: string;
-    memberName: string[];
+    memberNames: string[];
     projectInfoResponseList: ProjectInfoResponse[]
 }
 
@@ -44,4 +44,19 @@ export interface UpdateProjectResponse {
     ownerName: string;
     memberNames: string[];
     projectInfoResponseList: ProjectInfoResponse[];
+}
+
+export interface AddUserRequest {
+    projectId: number;
+    userName: string;
+}
+
+export interface AddUserResponse {
+    projectId: number;
+    name: string;
+    description: string;
+    localDate: string;
+    ownerName: string;
+    memberNames: string[];
+    projectInfoResponseList: ProjectInfoResponse;
 }

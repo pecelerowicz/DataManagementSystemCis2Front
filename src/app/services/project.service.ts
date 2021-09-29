@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateProjectRequest, CreateProjectResponse, GetProjectResponse, GetProjectsResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
+import { AddUserRequest, AddUserResponse, CreateProjectRequest, CreateProjectResponse, GetProjectResponse, GetProjectsResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
 import { environmentCustom } from 'src/environments/environment.custom';
 
 @Injectable({
@@ -26,5 +26,9 @@ export class ProjectService {
 
   updateOwnedProject(payload: UpdateProjectRequest): Observable<UpdateProjectResponse> {
     return this.httpClient.put<UpdateProjectResponse>(this.projectAddressPrefix, payload);
+  }
+
+  addUserToOwnedProject(payload: AddUserRequest): Observable<AddUserResponse> {
+    return this.httpClient.post<AddUserResponse>(this.projectAddressPrefix + '/user', payload);
   }
 }
