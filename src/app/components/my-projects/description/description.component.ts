@@ -41,7 +41,6 @@ export class DescriptionComponent implements OnInit {
     this.projectService.getOwnedProject(this.id).subscribe(val => {
       let description: string = val.description;
       this.projectName = val.name;
-      console.log(description);
       this.description.patchValue({
         description: description
       });
@@ -63,9 +62,6 @@ export class DescriptionComponent implements OnInit {
       newName: this.projectName,
       newDescription: this.description.controls['description'].value,
     }
-    console.log("---");
-    console.log(updateProjectRequest);
-    console.log("---")
     this.projectService.updateOwnedProject(updateProjectRequest).subscribe(val => {
       this.id = val.id;
       this.projectName = val.projectName;

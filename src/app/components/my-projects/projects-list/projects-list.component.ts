@@ -13,6 +13,7 @@ import { SharedCommunicationService } from '../../../services/shared-communicati
 export class ProjectsListComponent implements OnInit {
 
   @Output() description = new EventEmitter<{id: number}>();
+  @Output() members = new EventEmitter<{id: number}>();
 
   displayedColumns: string[] = ['date', 'name', 'description', 'packages', 'members', 'delete'];
   dataSource: GetProjectResponse[] = [];
@@ -40,12 +41,15 @@ export class ProjectsListComponent implements OnInit {
     })
   }
 
-  onDescription(element) {
-    // console.log(element);
-    this.description.emit({id: element.id})
-  }
-
   onOpenCreateProjectDialog() {
     this.dialog.open(CreateProjectDialogComponent);
+  }
+
+  onDescription(element) {
+    this.description.emit({id: element.id});
+  }
+
+  onMembers(element) {
+    this.members.emit({id: element.id});
   }
 }
