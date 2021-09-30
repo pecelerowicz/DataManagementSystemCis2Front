@@ -24,9 +24,9 @@ export class MembersComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = parseInt(params.get('id'));
+      this.getProjectDetails();
+      this.getUsers();
     });
-    this.getProjectDetails();
-    this.getUsers();
   }
 
   getProjectDetails() {
