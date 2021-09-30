@@ -14,6 +14,7 @@ export class ProjectsListComponent implements OnInit {
 
   @Output() description = new EventEmitter<{id: number}>();
   @Output() members = new EventEmitter<{id: number}>();
+  @Output() packages = new EventEmitter<{id: number}>();
 
   displayedColumns: string[] = ['date', 'name', 'description', 'packages', 'members', 'delete'];
   dataSource: GetProjectResponse[] = [];
@@ -51,5 +52,9 @@ export class ProjectsListComponent implements OnInit {
 
   onMembers(element) {
     this.members.emit({id: element.id});
+  }
+
+  onPackages(element) {
+    this.packages.emit({id: element.id});
   }
 }

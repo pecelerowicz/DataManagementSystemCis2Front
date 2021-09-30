@@ -22,4 +22,8 @@ export class MyProjectsComponent implements OnInit {
     this.router.navigate(['members', val.id], { relativeTo: this.route });
   }
 
+  onPackages(val) {
+    this.router.navigate(['packages', val.id], { relativeTo: this.route });
+  }
+
 }

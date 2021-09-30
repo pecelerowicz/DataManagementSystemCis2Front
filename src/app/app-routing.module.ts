@@ -9,6 +9,7 @@ import { UploadComponent } from './components/home/upload/upload.component';
 import { DescriptionComponent } from './components/my-projects/description/description.component';
 import { MembersComponent } from './components/my-projects/members/members.component';
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
+import { PackagesComponent } from './components/my-projects/packages/packages.component';
 import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
 import { SearchInfoComponent } from './components/search/search-info/search-info.component';
 import { SearchComponent } from './components/search/search.component';
@@ -69,6 +70,10 @@ const routes: Routes = [
       {
         path: 'members/:id',
         component: MembersComponent
+      },
+      {
+        path: 'packages/:id',
+        component: PackagesComponent
       }
     ]
   }

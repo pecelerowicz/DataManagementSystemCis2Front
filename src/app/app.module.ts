@@ -36,6 +36,7 @@ import { ProjectsListComponent } from './components/my-projects/projects-list/pr
 import { CreateProjectDialogComponent } from './components/my-projects/projects-list/dialogs/create-project-dialog/create-project-dialog.component';
 import { DescriptionComponent } from './components/my-projects/description/description.component';
 import { MembersComponent } from './components/my-projects/members/members.component';
+import { PackagesComponent } from './components/my-projects/packages/packages.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { MembersComponent } from './components/my-projects/members/members.compo
     ProjectsListComponent,
     CreateProjectDialogComponent,
     DescriptionComponent,
-    MembersComponent
+    MembersComponent,
+    PackagesComponent
   ],
   imports: [
     BrowserModule,
