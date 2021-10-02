@@ -39,7 +39,7 @@
           <th mat-header-cell *matHeaderCellDef></th>
           <!-- <td mat-cell *matCellDef="let element">{{ element.username }}</td> -->
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button>
+            <button mat-icon-button (click)="onRemoveInfo(element)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -55,7 +55,7 @@
           <mat-icon>add</mat-icon>
         </button>    
         <mat-menu #metadataMenu="matMenu" yPosition="above" xPosition="before">
-          <button *ngFor="let info of infoList" mat-menu-item (click)="addMyInfoToOwnedProject(info)" >{{ info }}</button>
+          <button *ngFor="let info of infoList" mat-menu-item (click)="onAddMyInfo(info)" >{{ info }}</button>
         </mat-menu>
   </p>
   </div>

@@ -75,3 +75,19 @@ export interface AddMyInfoToOwnedProjectResponse {
     memberNames: string[];
     projectInfoResponseList: ProjectInfoResponse[];
 }
+
+export interface RemoveInfoFromOwnedProjectRequest {
+    projectId: number;
+    username: string;
+    infoName: string;
+}
+
+export interface RemoveInfoFromOwnedProjectResponse {
+    projectId: number;
+    name: string;
+    description: string;
+    localDate: string;
+    ownerName: string;
+    memberNames: string[];
+    projectInfoResponseList: ProjectInfoResponse[];
+}

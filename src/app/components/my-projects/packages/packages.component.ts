@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { GetInfoResponse } from '../../../dto/info/info';
-import { AddMyInfoToOwnedProjectRequest, ProjectInfoResponse } from '../../../dto/my_project';
+import { AddMyInfoToOwnedProjectRequest, ProjectInfoResponse, RemoveInfoFromOwnedProjectRequest } from '../../../dto/my_project';
 import { InfoService } from '../../../services/info.service';
 import { ProjectService } from '../../../services/project.service';
 
@@ -60,7 +60,27 @@ export class PackagesComponent implements OnInit {
     console.log(val);
   }
 
-  addMyInfoToOwnedProject(val) {
+  onRemoveInfo(val) {
+    console.log(val);
+    let payload: RemoveInfoFromOwnedProjectRequest = {
+      projectId: this.id,
+      username: val.username,
+      infoName: val.name
+    }
+    this.projectService.removeInfoFromOwnedProject(payload).subscribe(val => {
+      this.getProjectDetails();
+      this.getMyInfos();
+      this._snackBar.open("Package was removed from the project", "", {
+        duration: 6000,
+      });
+    }, err => {
+      this._snackBar.open("Package was not removed", err.error.message, {
+        duration: 6000,
+      });
+    })
+  }
+
+  onAddMyInfo(val) {
     let payload: AddMyInfoToOwnedProjectRequest = {
       infoName: val,
       projectId: this.id
@@ -68,7 +88,7 @@ export class PackagesComponent implements OnInit {
     this.projectService.addMyInfoToOwnedProject(payload).subscribe(val => {
       this.getProjectDetails();
       this.getMyInfos();
-      this._snackBar.open("Package was included to the project", "", {
+      this._snackBar.open("Package was included in the project", "", {
         duration: 6000,
       });
     }, err => {
