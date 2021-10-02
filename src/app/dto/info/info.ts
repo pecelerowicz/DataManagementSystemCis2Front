@@ -14,6 +14,10 @@ export interface GetInfoResponse extends InfoDto {
     getTestInfoResponse: GetTestInfoResponse;
 }
 
+export interface GetInfoListResponse {
+    infoNameList: string[];
+}
+
 export interface CreateInfoRequest extends InfoDto {
 }
 

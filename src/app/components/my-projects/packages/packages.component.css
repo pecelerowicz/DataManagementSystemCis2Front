@@ -1,0 +1,129 @@
+h2 {
+  font-family: "Roboto";
+  font-weight: thin;
+}
+
+h4 {
+  font-weight: 400;
+  padding-bottom: 0;
+  margin-bottom: 6px;
+  margin-top: 35px;
+  padding-left: 1.5%;
+  color: grey;
+}
+
+mat-divider {
+  width: 97%;
+  margin-left: 1.5%;
+  border-top-color: grey;
+}
+
+.scrolling-space {
+  width: 100%;
+  height: 500px;
+}
+
+.data-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stepper-buttons {
+  margin-top: 10px;
+}
+
+.stepper-buttons button {
+  margin-right: 5px;
+}
+
+#father {
+  position: relative;
+  margin: 0rem;
+  padding: 0;
+  height: 0;
+}
+
+#son1 {
+  top: -5rem;
+  left: -2rem; 
+  float: right;
+}
+
+#son2 {
+  top: -5rem;
+  left: -2rem; 
+  float: right;
+  margin-right: 0.8rem;
+}
+/**********************/
+
+textarea {
+  max-height: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 0%;
+  margin-top: 3%;
+  margin-bottom: 2%;
+}
+
+fieldset {
+  margin: 1rem;
+}
+
+.hide {
+  display: none;
+}
+
+
+/****** pasted mindlessly.... to be double checked  ***/
+.example-container {
+  height: 800px;
+  overflow: auto;
+}
+
+.mat-form-field {
+  /* font-size: 20px; */
+  padding-top: 15px;
+  width: 97%;
+  padding-left: 1.5%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+table {
+  width: 97%;
+  margin-left: 1.5%;
+}
+
+p {
+  text-align: right;
+}
+
+#father {
+  position: relative;
+  margin: 0rem;
+  padding: 0;
+  border: 0;
+  height: 1px;
+}
+
+#son1 {
+  top: -5rem;
+  left: -2rem;
+  /* left: -2rem; */
+  float: right;
+}
+
+.mat-row:hover {
+  background-color: lightgray;
+}

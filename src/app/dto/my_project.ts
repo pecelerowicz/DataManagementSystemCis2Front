@@ -60,3 +60,18 @@ export interface AddUserResponse {
     memberNames: string[];
     projectInfoResponseList: ProjectInfoResponse;
 }
+
+export interface AddMyInfoToOwnedProjectRequest {
+    infoName: string;
+    projectId: number;
+}
+
+export interface AddMyInfoToOwnedProjectResponse {
+    projectId: number;
+    name: string;
+    description: string;
+    localDate: string;
+    ownerName: string;
+    memberNames: string[];
+    projectInfoResponseList: ProjectInfoResponse[];
+}
