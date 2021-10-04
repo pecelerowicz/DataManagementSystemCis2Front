@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from '../app/components/login/login.component';
 import { RegisterComponent } from '../app/components/register/register.component';
+import { AllProjectsComponent } from './components/all-projects/all-projects.component';
 import { FolderComponent } from './components/home/folder/folder.component';
 import { HomeComponent } from './components/home/home.component';
 import { InfoComponent } from './components/home/info/info.component';
@@ -76,6 +77,10 @@ const routes: Routes = [
         component: PackagesComponent
       }
     ]
+  }, 
+  {
+    path: 'all-projects',
+    component: AllProjectsComponent
   }
 ];
 

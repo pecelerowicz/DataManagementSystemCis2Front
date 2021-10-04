@@ -38,6 +38,11 @@ import { DescriptionComponent } from './components/my-projects/description/descr
 import { MembersComponent } from './components/my-projects/members/members.component';
 import { PackagesComponent } from './components/my-projects/packages/packages.component';
 import { RemovePackageDialogComponent } from './components/my-projects/packages/dialogs/remove-package-dialog/remove-package-dialog.component';
+import { AllProjectsComponent } from './components/all-projects/all-projects.component';
+import { ProjectListAllComponent } from './components/all-projects/project-list-all/project-list-all.component';
+import { PackagesAllComponent } from './components/all-projects/packages-all/packages-all.component';
+import { MembersAllComponent } from './components/all-projects/members-all/members-all.component';
+import { DescriptionAllComponent } from './components/all-projects/description-all/description-all.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +74,12 @@ import { RemovePackageDialogComponent } from './components/my-projects/packages/
     DescriptionComponent,
     MembersComponent,
     PackagesComponent,
-    RemovePackageDialogComponent
+    RemovePackageDialogComponent,
+    AllProjectsComponent,
+    ProjectListAllComponent,
+    PackagesAllComponent,
+    MembersAllComponent,
+    DescriptionAllComponent
   ],
   imports: [
     BrowserModule,
