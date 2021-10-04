@@ -1,0 +1,9 @@
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+  }
+    
+  .example-form-field {
+    width: 300px;
+    height: 250px;
+  }

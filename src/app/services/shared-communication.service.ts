@@ -39,4 +39,5 @@ export class SharedCommunicationService {
       = new Subject<CreateProjectRequest>();
   public createProject$ = this._createProjectSource.asObservable();
 
+  public updateListOfPackagesInProject$: Subject<void> = new Subject();
 }
