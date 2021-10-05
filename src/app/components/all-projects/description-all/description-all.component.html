@@ -1,1 +1,11 @@
-<p>description-all works!</p>
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>description: {{projectName}}</h4>
+      <mat-divider></mat-divider>
+      <mat-form-field appearance="outline" [formGroup]="description">
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows = "8" placeholder="Description" formControlName="description"></textarea>
+        <mat-error>Description cannot be empty or exceed 500 characters</mat-error>
+      </mat-form-field>
+    </div>
+    
+</div>

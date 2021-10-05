@@ -42,6 +42,10 @@ export class ProjectService {
   }
 
   // OTHER PROJECTS
+  getProject(id: number): Observable<GetProjectResponse> {
+    return this.httpClient.get<GetProjectResponse>(this.projectAddressAllPrefix + '/' + id);
+  }
+
   getProjects(): Observable<GetProjectsResponse> {
     return this.httpClient.get<GetProjectsResponse>(this.projectAddressAllPrefix);
   }
