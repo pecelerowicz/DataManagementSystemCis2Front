@@ -7,11 +7,11 @@
   class="stats-cards"
 >
   <div fxFlex="50">
-    <app-projects-list 
+    <app-project-list-all
       (description)="onDescription($event)"
       (members)="onMembers($event)"
       (packages)="onPackages($event)">
-    </app-projects-list>
+    </app-project-list-all>
   </div>
   <div fxFlex="50">
     <router-outlet></router-outlet>

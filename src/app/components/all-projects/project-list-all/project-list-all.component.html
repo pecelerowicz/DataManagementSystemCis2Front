@@ -1,1 +1,46 @@
-<p>project-list-all works!</p>
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="89vh">
+        <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>name</th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="owner">
+          <th mat-header-cell *matHeaderCellDef>owner</th>
+          <td mat-cell *matCellDef="let element"> {{element.ownerName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>description</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onDescription(element)">
+              <mat-icon>info</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="packages">
+          <th mat-header-cell *matHeaderCellDef>packages</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onPackages(element)">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="members">
+          <th mat-header-cell *matHeaderCellDef>members</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onMembers(element)">
+              <mat-icon>people</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>created</th>
+          <td mat-cell *matCellDef="let element"> {{element.localDate}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+   
+  </div>
+  

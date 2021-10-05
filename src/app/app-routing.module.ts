@@ -14,6 +14,9 @@ import { PackagesComponent } from './components/my-projects/packages/packages.co
 import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
 import { SearchInfoComponent } from './components/search/search-info/search-info.component';
 import { SearchComponent } from './components/search/search.component';
+import { DescriptionAllComponent } from './components/all-projects/description-all/description-all.component';
+import { MembersAllComponent } from './components/all-projects/members-all/members-all.component';
+import { PackagesAllComponent } from './components/all-projects/packages-all/packages-all.component';
 
 const routes: Routes = [
   {
@@ -80,7 +83,22 @@ const routes: Routes = [
   }, 
   {
     path: 'all-projects',
-    component: AllProjectsComponent
+    component: AllProjectsComponent,
+    children: [
+      {
+        path: 'description/:id',
+        component: DescriptionAllComponent
+      },
+      {
+        path: 'members/:id',
+        component: MembersAllComponent
+      },
+      {
+        path: 'packages/:id',
+        component: PackagesAllComponent
+      }
+      
+    ]
   }
 ];
 

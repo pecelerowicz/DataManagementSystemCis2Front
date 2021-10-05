@@ -33,7 +33,6 @@ export class ProjectsListComponent implements OnInit {
   getProjects() {
     let projectList: GetProjectResponse[] = [];
     this.projectService.getOwnedProjects().subscribe(val => {
-      console.log(val);
       projectList = val.getProjectResponseList;
       this.dataSource = projectList;
     },
