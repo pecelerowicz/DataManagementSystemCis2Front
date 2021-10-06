@@ -70,6 +70,10 @@ mat-chip {
   max-width: 30rem;
 }
 
+mat-icon {
+  float: right;
+}
+
 .box {
   margin-top: 1rem;
   margin-right: 3rem;

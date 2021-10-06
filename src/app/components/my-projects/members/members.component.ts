@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AddUserRequest } from '../../../dto/my_project';
+import { AddUserRequest, RemoveUserFromOwnedProjectRequest } from '../../../dto/my_project';
 import { AuthService } from '../../../services/auth.service';
 import { ProjectService } from '../../../services/project.service';
 
@@ -67,5 +67,23 @@ export class MembersComponent implements OnInit {
       this.getUsers();
     })
   }
+
+  onRemove(val) {
+    let payload: RemoveUserFromOwnedProjectRequest = {
+      projectId: this.id,
+      userName: val
+    }
+    this.projectService.removeUserFromOwnedProject(payload).subscribe(val => {
+      // to można lepiej zrobić...
+      this.getProjectDetails();
+      this.getUsers();
+    }, err => {
+      console.log(err);
+    })
+    // console.log(val);
+  }
+
+
+
 
 }

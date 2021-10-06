@@ -58,7 +58,16 @@ export interface AddUserResponse {
     localDate: string;
     ownerName: string;
     memberNames: string[];
-    projectInfoResponseList: ProjectInfoResponse;
+    projectInfoResponseList: ProjectInfoResponse[]; //?
+}
+
+export interface RemoveUserFromOwnedProjectRequest {
+    projectId: number;
+    userName: string;
+}
+
+export interface RemoveUserFromOwnedProjectResponse {
+
 }
 
 export interface AddMyInfoToOwnedProjectRequest {
@@ -83,6 +92,38 @@ export interface RemoveInfoFromOwnedProjectRequest {
 }
 
 export interface RemoveInfoFromOwnedProjectResponse {
+    projectId: number;
+    name: string;
+    description: string;
+    localDate: string;
+    ownerName: string;
+    memberNames: string[];
+    projectInfoResponseList: ProjectInfoResponse[];
+}
+
+//
+
+export interface AddMyInfoToOtherProjectRequest {
+    infoName: string;
+    projectId: number;
+}
+
+export interface AddMyInfoToOtherProjectResponse {
+    projectId: number;
+    name: string;
+    description: string;
+    localDate: string;
+    ownerName: string;
+    memberNames: string[];
+    projectInfoResponseList: ProjectInfoResponse[];
+}
+
+export interface RemoveMyInfoFromOtherProjectRequest {
+    infoName: string;
+    projectId: number;
+}
+
+export interface RemoveMyInfoFromOtherProjectResponse {
     projectId: number;
     name: string;
     description: string;

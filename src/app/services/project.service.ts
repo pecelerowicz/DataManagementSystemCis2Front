@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddMyInfoToOwnedProjectRequest, AddMyInfoToOwnedProjectResponse, AddUserRequest, AddUserResponse, CreateProjectRequest, CreateProjectResponse, GetProjectResponse, GetProjectsResponse, RemoveInfoFromOwnedProjectRequest, RemoveInfoFromOwnedProjectResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
+import { AddMyInfoToOtherProjectRequest, AddMyInfoToOtherProjectResponse, AddMyInfoToOwnedProjectRequest, AddMyInfoToOwnedProjectResponse, AddUserRequest, AddUserResponse, CreateProjectRequest, CreateProjectResponse, GetProjectResponse, GetProjectsResponse, RemoveInfoFromOwnedProjectRequest, RemoveInfoFromOwnedProjectResponse, RemoveMyInfoFromOtherProjectRequest, RemoveMyInfoFromOtherProjectResponse, RemoveUserFromOwnedProjectRequest, RemoveUserFromOwnedProjectResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
 import { environmentCustom } from 'src/environments/environment.custom';
 
 @Injectable({
@@ -33,6 +33,10 @@ export class ProjectService {
     return this.httpClient.post<AddUserResponse>(this.projectAddressPrefix + '/user', payload);
   }
 
+  removeUserFromOwnedProject(payload: RemoveUserFromOwnedProjectRequest): Observable<RemoveUserFromOwnedProjectResponse> {
+    return this.httpClient.request<RemoveUserFromOwnedProjectResponse>('delete', this.projectAddressPrefix + '/user', {body: payload});
+  }
+
   addMyInfoToOwnedProject(payload: AddMyInfoToOwnedProjectRequest): Observable<AddMyInfoToOwnedProjectResponse> {
     return this.httpClient.post<AddMyInfoToOwnedProjectResponse>(this.projectAddressPrefix + '/info', payload); 
   }
@@ -48,5 +52,13 @@ export class ProjectService {
 
   getProjects(): Observable<GetProjectsResponse> {
     return this.httpClient.get<GetProjectsResponse>(this.projectAddressAllPrefix);
+  }
+
+  addMyInfoToOtherProject(payload: AddMyInfoToOtherProjectRequest): Observable<AddMyInfoToOtherProjectResponse> {
+    return this.httpClient.post<AddMyInfoToOwnedProjectResponse>(this.projectAddressAllPrefix + '/info', payload);
+  }
+
+  removeMyInfoFromOtherProject(payload: RemoveMyInfoFromOtherProjectRequest): Observable<RemoveMyInfoFromOtherProjectResponse> {
+    return this.httpClient.request<RemoveMyInfoFromOtherProjectResponse>('delete', this.projectAddressAllPrefix + '/info', {body: payload});
   }
 }
