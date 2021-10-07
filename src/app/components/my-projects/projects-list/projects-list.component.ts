@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GetProjectResponse } from '../../../dto/my_project';
 import { ProjectService } from '../../../services/project.service';
 import { CreateProjectDialogComponent} from '../../../components/my-projects/projects-list/dialogs/create-project-dialog/create-project-dialog.component';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
@@ -23,7 +22,6 @@ export class ProjectsListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['date', 'name', 'description', 'packages', 'members', 'delete'];
-  // dataSource: GetProjectResponse[] = [];
   dataSource: MatTableDataSource<{id: number, created: string, name: string, position: number}>;
 
   constructor(private projectService: ProjectService,
