@@ -67,7 +67,13 @@ export interface RemoveUserFromOwnedProjectRequest {
 }
 
 export interface RemoveUserFromOwnedProjectResponse {
-
+    projectId: number;
+    name: string;
+    description: string;
+    localDate: string;
+    ownerName: string;
+    memberNames: string[];
+    projectInfoResponseList: ProjectInfoResponse[];
 }
 
 export interface AddMyInfoToOwnedProjectRequest {
