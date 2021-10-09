@@ -45,4 +45,7 @@ export class SharedCommunicationService {
 
   public fromMyProjectsPackagesToPackagesInfo: Subject<void> = new Subject();
   public fromMyProjectsPackagesToPackagesInfoData: {projectId: number, infoName: string, userName: string} = {projectId: -1, infoName: '', userName: ''};
+
+  public fromAllProjectsPackagesToPackagesInfo: Subject<void> = new Subject();
+  public fromAllProjectsPackagesToPackagesInfoData: {projectId: number, infoName: string, userName: string} = {projectId: -1, infoName: '', userName: ''};
 }

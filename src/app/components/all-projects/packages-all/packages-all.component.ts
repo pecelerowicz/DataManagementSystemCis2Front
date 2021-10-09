@@ -101,4 +101,16 @@ export class PackagesAllComponent implements OnInit {
     console.log(val);
   }
 
+  onMetadata(val) {
+    console.log(val);
+    
+    this.sharedCommunicationService.fromAllProjectsPackagesToPackagesInfo.next();
+    this.sharedCommunicationService.fromAllProjectsPackagesToPackagesInfoData = 
+      {projectId: this.id, infoName: val.name, userName: val.username};
+  }
+
+  onStorage(val) {
+    console.log(val);
+  }
+
 }

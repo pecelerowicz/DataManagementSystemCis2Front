@@ -18,6 +18,7 @@ import { DescriptionAllComponent } from './components/all-projects/description-a
 import { MembersAllComponent } from './components/all-projects/members-all/members-all.component';
 import { PackagesAllComponent } from './components/all-projects/packages-all/packages-all.component';
 import { PackagesInfoComponent } from './components/my-projects/packages-info/packages-info.component';
+import { PackagesInfoAllComponent } from './components/all-projects/packages-info-all/packages-info-all.component';
 
 const routes: Routes = [
   {
@@ -101,8 +102,11 @@ const routes: Routes = [
       {
         path: 'packages/:id',
         component: PackagesAllComponent
+      },
+      {
+        path: 'packages-info',
+        component: PackagesInfoAllComponent
       }
-      
     ]
   }
 ];

@@ -45,6 +45,7 @@ import { MembersAllComponent } from './components/all-projects/members-all/membe
 import { DescriptionAllComponent } from './components/all-projects/description-all/description-all.component';
 import { PackagesInfoComponent } from './components/my-projects/packages-info/packages-info.component';
 import { PackagesFolderComponent } from './components/my-projects/packages-folder/packages-folder.component';
+import { PackagesInfoAllComponent } from './components/all-projects/packages-info-all/packages-info-all.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { PackagesFolderComponent } from './components/my-projects/packages-folde
     MembersAllComponent,
     DescriptionAllComponent,
     PackagesInfoComponent,
-    PackagesFolderComponent
+    PackagesFolderComponent,
+    PackagesInfoAllComponent
   ],
   imports: [
     BrowserModule,
