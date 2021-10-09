@@ -66,7 +66,7 @@ export class PackagesComponent implements OnInit {
     
     this.sharedCommunicationService.fromMyProjectsPackagesToPackagesInfo.next();
     this.sharedCommunicationService.fromMyProjectsPackagesToPackagesInfoData = 
-      {projectId: this.id, projectName: val.name, userName: val.username};
+      {projectId: this.id, infoName: val.name, userName: val.username};
   }
 
   onStorage(val) {

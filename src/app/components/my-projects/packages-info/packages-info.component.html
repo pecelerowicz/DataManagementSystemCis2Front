@@ -1,1 +1,98 @@
-<p>packages-info works! {{ state.username }} {{ state.name }}</p>
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>metadata: {{ infoState.infoName }}</h4>
+      
+      <mat-divider></mat-divider>
+      
+      <!-- general -->
+      <fieldset [disabled]="infoState.isFormDisabled" [formGroup]="general">
+        <legend>General</legend>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Short name" formControlName="shortName">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Long name" formControlName="longName">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows = "8" placeholder="Description" formControlName="description"></textarea>
+        </mat-form-field>
+      </fieldset>
+      
+      <!-- difr -->
+      <fieldset *ngIf="infoState.isDifr" [disabled]="infoState.isFormDisabled" [formGroup]="difr">
+        <legend>Diffractometer</legend>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Geometry" formControlName="geometry">   
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Incident soller" formControlName="incidentSoller">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Incident slit" formControlName="incidentSlit">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector soller" formControlName="detectorSoller">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector slit" formControlName="detectorSlit">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Detector absorber" formControlName="detectorAbsorber">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Generator voltage" formControlName="generatorVoltage">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Generator current" formControlName="generatorCurrent">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Date range start" formControlName="dataRangeStart">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Data range end" formControlName="dataRangeEnd">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Step size" formControlName="stepSize">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Step time" formControlName="stepTime">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Stage" formControlName="stage">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Spinning rocking" formControlName="spinningRocking">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Spinning rocking velocity" formControlName="spinningRockingVelocity">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Temperature" formControlName="temperature">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Comments" formControlName="comments">
+        </mat-form-field>
+      </fieldset>
+
+      <!-- test -->
+      <fieldset *ngIf="infoState.isTest" [disabled]="infoState.isFormDisabled" [formGroup]="test">
+        <legend>Test</legend>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 1" formControlName="testField1">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 2" formControlName="testField2">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 3" formControlName="testField3">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 4" formControlName="testField4">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Test Field 5" formControlName="testField5">
+        </mat-form-field>
+      </fieldset>
+
+    </div> 
+</div>
