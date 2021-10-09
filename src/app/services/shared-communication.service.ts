@@ -40,4 +40,9 @@ export class SharedCommunicationService {
   public createProject$ = this._createProjectSource.asObservable();
 
   public updateListOfPackagesInProject$: Subject<void> = new Subject();
+
+  //
+
+  public fromMyProjectsPackagesToPackagesInfo: Subject<void> = new Subject();
+  public fromMyProjectsPackagesToPackagesInfoData: {projectId: number, projectName: string, userName: string} = {projectId: -1, projectName: '', userName: ''};
 }

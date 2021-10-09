@@ -43,6 +43,8 @@ import { ProjectListAllComponent } from './components/all-projects/project-list-
 import { PackagesAllComponent } from './components/all-projects/packages-all/packages-all.component';
 import { MembersAllComponent } from './components/all-projects/members-all/members-all.component';
 import { DescriptionAllComponent } from './components/all-projects/description-all/description-all.component';
+import { PackagesInfoComponent } from './components/my-projects/packages-info/packages-info.component';
+import { PackagesFolderComponent } from './components/my-projects/packages-folder/packages-folder.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { DescriptionAllComponent } from './components/all-projects/description-a
     ProjectListAllComponent,
     PackagesAllComponent,
     MembersAllComponent,
-    DescriptionAllComponent
+    DescriptionAllComponent,
+    PackagesInfoComponent,
+    PackagesFolderComponent
   ],
   imports: [
     BrowserModule,

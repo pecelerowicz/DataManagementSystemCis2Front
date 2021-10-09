@@ -63,6 +63,10 @@ export class PackagesComponent implements OnInit {
 
   onMetadata(val) {
     console.log(val);
+    
+    this.sharedCommunicationService.fromMyProjectsPackagesToPackagesInfo.next();
+    this.sharedCommunicationService.fromMyProjectsPackagesToPackagesInfoData = 
+      {projectId: this.id, projectName: val.name, userName: val.username};
   }
 
   onStorage(val) {

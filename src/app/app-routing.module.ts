@@ -17,6 +17,7 @@ import { SearchComponent } from './components/search/search.component';
 import { DescriptionAllComponent } from './components/all-projects/description-all/description-all.component';
 import { MembersAllComponent } from './components/all-projects/members-all/members-all.component';
 import { PackagesAllComponent } from './components/all-projects/packages-all/packages-all.component';
+import { PackagesInfoComponent } from './components/my-projects/packages-info/packages-info.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
       {
         path: 'packages/:id',
         component: PackagesComponent
+      },
+      {
+        path: 'packages-info',
+        component: PackagesInfoComponent
       }
     ]
   }, 

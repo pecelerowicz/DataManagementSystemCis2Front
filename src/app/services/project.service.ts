@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddMyInfoToOtherProjectRequest, AddMyInfoToOtherProjectResponse, AddMyInfoToOwnedProjectRequest, AddMyInfoToOwnedProjectResponse, AddUserRequest, AddUserResponse, CreateProjectRequest, CreateProjectResponse, GetProjectResponse, GetProjectsResponse, RemoveInfoFromOwnedProjectRequest, RemoveInfoFromOwnedProjectResponse, RemoveMyInfoFromOtherProjectRequest, RemoveMyInfoFromOtherProjectResponse, RemoveUserFromOwnedProjectRequest, RemoveUserFromOwnedProjectResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
 import { environmentCustom } from 'src/environments/environment.custom';
+import { GetInfoResponse } from '../dto/info/info';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +61,11 @@ export class ProjectService {
 
   removeMyInfoFromOtherProject(payload: RemoveMyInfoFromOtherProjectRequest): Observable<RemoveMyInfoFromOtherProjectResponse> {
     return this.httpClient.request<RemoveMyInfoFromOtherProjectResponse>('delete', this.projectAddressAllPrefix + '/info', {body: payload});
+  }
+
+  // PACKAGES IN PROJECT
+  // GetInfoResponse temporarily taken from InfoPackage
+  getInfoOfUserAndProject(projectId: number, userName: string, infoName: string): Observable<GetInfoResponse> {
+    return this.httpClient.get<GetInfoResponse>(this.projectAddressPrefix + '/packages/info/' + projectId + '/' + userName + '/' + infoName);
   }
 }
