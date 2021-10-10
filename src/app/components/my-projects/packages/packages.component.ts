@@ -62,15 +62,15 @@ export class PackagesComponent implements OnInit {
   }
 
   onMetadata(val) {
-    console.log(val);
-    
     this.sharedCommunicationService.fromMyProjectsPackagesToPackagesInfo.next();
     this.sharedCommunicationService.fromMyProjectsPackagesToPackagesInfoData = 
       {projectId: this.id, infoName: val.name, userName: val.username};
   }
 
   onStorage(val) {
-    console.log(val);
+    this.sharedCommunicationService.fromMyProjectsPackagesToPackagesFolder.next();
+    this.sharedCommunicationService.fromMyProjectsPackagesToPackagesFolderData = 
+      {projectId: this.id, infoName: val.name, userName: val.username};
   }
 
   onOpenRemovePackageDialog(element) {

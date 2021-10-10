@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AddMyInfoToOtherProjectRequest, AddMyInfoToOtherProjectResponse, AddMyInfoToOwnedProjectRequest, AddMyInfoToOwnedProjectResponse, AddUserRequest, AddUserResponse, CreateProjectRequest, CreateProjectResponse, GetProjectResponse, GetProjectsResponse, RemoveInfoFromOwnedProjectRequest, RemoveInfoFromOwnedProjectResponse, RemoveMyInfoFromOtherProjectRequest, RemoveMyInfoFromOtherProjectResponse, RemoveUserFromOwnedProjectRequest, RemoveUserFromOwnedProjectResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { GetInfoResponse } from '../dto/info/info';
+import { Node } from '../dto/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +68,9 @@ export class ProjectService {
   // GetInfoResponse temporarily taken from InfoPackage
   getInfoOfUserAndProject(projectId: number, userName: string, infoName: string): Observable<GetInfoResponse> {
     return this.httpClient.get<GetInfoResponse>(this.projectAddressPrefix + '/packages/info/' + projectId + '/' + userName + '/' + infoName);
+  }
+
+  getPackageFolderStructureOfUserAndProject(projectId: number, userName: string, infoName: string): Observable<Node> {
+    return this.httpClient.get<Node>(this.projectAddressPrefix + '/packages/folder/' + projectId + '/' + userName + '/' + infoName);
   }
 }

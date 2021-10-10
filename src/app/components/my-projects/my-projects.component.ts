@@ -16,6 +16,9 @@ export class MyProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.sharedCommunicationService.fromMyProjectsPackagesToPackagesInfo.subscribe(val => {
       this.router.navigate(['packages-info'], { relativeTo: this.route });
+    });
+    this.sharedCommunicationService.fromMyProjectsPackagesToPackagesFolder.subscribe(val => {
+      this.router.navigate(['packages-folder'], { relativeTo: this.route });
     })
   }
 
