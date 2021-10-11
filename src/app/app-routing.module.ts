@@ -20,6 +20,7 @@ import { PackagesAllComponent } from './components/all-projects/packages-all/pac
 import { PackagesInfoComponent } from './components/my-projects/packages-info/packages-info.component';
 import { PackagesInfoAllComponent } from './components/all-projects/packages-info-all/packages-info-all.component';
 import { PackagesFolderComponent } from './components/my-projects/packages-folder/packages-folder.component';
+import { PackagesFolderAllComponent } from './components/all-projects/packages-folder-all/packages-folder-all.component';
 
 const routes: Routes = [
   {
@@ -111,6 +112,10 @@ const routes: Routes = [
       {
         path: 'packages-info',
         component: PackagesInfoAllComponent
+      }, 
+      {
+        path: 'packages-folder',
+        component: PackagesFolderAllComponent
       }
     ]
   }

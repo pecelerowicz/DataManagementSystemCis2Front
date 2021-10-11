@@ -111,6 +111,10 @@ export class PackagesAllComponent implements OnInit {
 
   onStorage(val) {
     console.log(val);
+
+    this.sharedCommunicationService.fromAllProjectsPackagesToPackagesFolder.next();
+    this.sharedCommunicationService.fromAllProjectsPackagesToPackagesFolderData = 
+      {projectId: this.id, infoName: val.name, userName: val.username};
   }
 
 }

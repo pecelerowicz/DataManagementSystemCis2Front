@@ -17,6 +17,9 @@ export class AllProjectsComponent implements OnInit {
     this.sharedCommunicationService.fromAllProjectsPackagesToPackagesInfo.subscribe(val => {
       this.router.navigate(['packages-info'], { relativeTo: this.route });
     })
+    this.sharedCommunicationService.fromAllProjectsPackagesToPackagesFolder.subscribe(val => {
+      this.router.navigate(['packages-folder'], { relativeTo: this.route });
+    })
   }
 
   onDescription(val) {

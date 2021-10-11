@@ -1,9 +1,9 @@
+import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { Node } from '../../../dto/storage';
 import { ProjectService } from '../../../services/project.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
-import { Node } from '../../../dto/storage';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { UploadService } from '../../../services/upload.service';
 
 export interface DialogData {
@@ -20,11 +20,11 @@ interface ExampleFlatNode {
 }
 
 @Component({
-  selector: 'app-packages-folder',
-  templateUrl: './packages-folder.component.html',
-  styleUrls: ['./packages-folder.component.css']
+  selector: 'app-packages-folder-all',
+  templateUrl: './packages-folder-all.component.html',
+  styleUrls: ['./packages-folder-all.component.css']
 })
-export class PackagesFolderComponent implements OnInit {
+export class PackagesFolderAllComponent implements OnInit {
 
   private _transformer = (node: Node, level: number) => {
     return {
@@ -56,7 +56,7 @@ export class PackagesFolderComponent implements OnInit {
   state: {projectId: number, infoName: string, userName: string} = {projectId: -1, infoName: '', userName: ''};
 
   ngOnInit(): void {
-    this.state = this.sharedCommunicationService.fromMyProjectsPackagesToPackagesFolderData
+    this.state = this.sharedCommunicationService.fromAllProjectsPackagesToPackagesFolderData
   
     this.projectService.getPackageFolderStructureOfUserAndProject(
       this.state.projectId, this.state.userName, this.state.infoName
