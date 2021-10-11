@@ -1,4 +1,55 @@
-<p>packages-folder works!</p>
-projectId = {{state.projectId}}
-infoName = {{state.infoName}}
-userName = {{state.userName}}
+<div fxLayout="column">
+    <div class="mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>storage: {{ state.infoName }}</h4>
+      <mat-divider></mat-divider>
+      <mat-tree class="internal-container" [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- file -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >        
+          <button mat-icon-button disabled></button>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>insert_drive_file</mat-icon>
+          </button>
+          {{ node.name | shorten}} 
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onDownload(node.name)">
+              <mat-icon>download</mat-icon>
+              Download
+            </button>
+          </mat-menu> 
+        </mat-tree-node>       
+        <!-- empty folder -->
+        <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder " matTreeNodePadding >
+         
+          <button mat-icon-button disabled></button>
+          <button mat-icon-button>
+            <mat-icon>folder</mat-icon>
+          </button>
+          {{ node.name | shorten}}   
+    
+        </mat-tree-node>
+        <!-- folder with content -->
+        <mat-tree-node
+          *matTreeNodeDef="let node; when: hasChild"
+          matTreeNodePadding
+        >
+        
+          <button mat-icon-button matTreeNodeToggle
+          [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+    
+          <button
+            mat-icon-button
+          >
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{ treeControl.isExpanded(node) ? "folder_open" : "folder" }}
+            </mat-icon>
+          </button>
+          {{ node.name | shorten}}
+        </mat-tree-node>
+      </mat-tree>
+    </div>    
+</div>
+    
