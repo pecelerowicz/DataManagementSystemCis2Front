@@ -73,6 +73,7 @@ export class InfoComponent implements OnInit {
   pullData() {
     this.infoService.getInfo(this.infoState.infoName).subscribe(
       val => {
+        console.log(val);
         this.mapResponse(val);
       }, 
       err => {

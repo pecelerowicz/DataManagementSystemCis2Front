@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './delete-project-dialog.component.html',
   styleUrls: ['./delete-project-dialog.component.css']
 })
-export class DeleteProjectDialogComponent implements OnInit {
+export class DeleteProjectDialogComponent {
 
   constructor(private projectService: ProjectService,
               private sharedCommunicationService: SharedCommunicationService,

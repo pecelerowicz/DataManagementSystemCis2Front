@@ -7,11 +7,19 @@
       <!-- general -->
       <fieldset [disabled]="infoState.isFormDisabled" [formGroup]="general">
         <legend>General</legend>
-        <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
-            <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
-            <!-- <mat-radio-button value="PROTECTED">Protected</mat-radio-button> -->
-            <mat-radio-button value="PUBLIC">Public</mat-radio-button>
-        </mat-radio-group>
+
+        
+
+          <mat-radio-group color="primary" class="example-radio-group" formControlName="access">
+              <mat-radio-button value="PRIVATE" >Private</mat-radio-button>
+              <!-- <mat-radio-button value="PROTECTED">Protected</mat-radio-button> -->
+              <mat-radio-button value="PUBLIC">Public</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field >
+            <mat-label>Date</mat-label>
+            <input [disabled]="true" matInput type="text" formControlName="localDate">
+          </mat-form-field>
+
         <mat-form-field>
             <input type="text" matInput placeholder="Short name" formControlName="shortName">
             <mat-error>Short name cannot be empty or exceed 30 characters</mat-error>

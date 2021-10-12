@@ -7,6 +7,7 @@ interface InfoDto {
     shortName: string;
     longName: string;
     description: string;
+    localDate?: string;
 }
 
 export interface GetInfoResponse extends InfoDto {
