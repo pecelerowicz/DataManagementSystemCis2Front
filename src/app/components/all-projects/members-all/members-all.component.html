@@ -1,0 +1,19 @@
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>members: {{projectName}}</h4>
+      <mat-divider></mat-divider>
+      
+      <div class="test-group">
+        <div class="box">
+          <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+              <mat-chip *ngFor="let member of members" >
+              {{member}}
+              </mat-chip>
+          </mat-chip-list>
+        </div>
+        
+      </div>
+    </div>
+    
+</div>
+

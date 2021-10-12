@@ -12,7 +12,8 @@ export function getInitialValueGeneral(): FormGroup {
         access: [Access.private, [Validators.required]],
         shortName: ['', {validators: [createShortNameValidator()/*Validators.maxLength(100)*//*, createNameValidator()*/], updateOn: 'change'}],
         longName: ['', {validators: [createLongNameValidator()/*Validators.maxLength(200)*//*, createNameValidator()*/], updateOn: 'change'}],
-        description: ['', {validators: [createDescriptionValidator()/*Validators.maxLength(200), Validators.required*/], updateOn: 'change'}]})
+        description: ['', {validators: [createDescriptionValidator()/*Validators.maxLength(200), Validators.required*/], updateOn: 'change'}],
+        localDate: ['', {validators: []}]})
 }
 
 export function mapGeneralResponse(general: FormGroup, getInfoResponse: GetInfoResponse) {
@@ -20,7 +21,8 @@ export function mapGeneralResponse(general: FormGroup, getInfoResponse: GetInfoR
           access: getInfoResponse.access,
           shortName: getInfoResponse.shortName, 
           longName: getInfoResponse.longName,
-          description: getInfoResponse.description
+          description: getInfoResponse.description,
+          localDate: getInfoResponse.localDate
         });
 }
 
@@ -31,6 +33,7 @@ export function createUpdateInfoRequest(infoState: InfoState, general: FormGroup
     shortName: general.controls['shortName'].value,
     longName: general.controls['longName'].value,
     description: general.controls['description'].value,
+    // localDate: general.controls['localDate'].value,
     createDifrInfoRequest: null,
     createTestInfoRequest: null
   }

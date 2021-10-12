@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { CreatePackageRequest } from 'src/app/dto/my_package';
 import { PackageService } from 'src/app/services/package.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
@@ -16,6 +17,7 @@ export class CreatePackageDialogComponent {
 
     constructor(
       private packageService: PackageService,
+      private router: Router,
       private dialogRef: MatDialogRef<CreatePackageDialogComponent>,
       private sharedCommunicationService: SharedCommunicationService,
       private _snackBar: MatSnackBar) {}
@@ -35,6 +37,7 @@ export class CreatePackageDialogComponent {
           this.sharedCommunicationService.updateListOfPackages$.next()
           this.openSnackBar(val.createPackageMessage, '');
           this.dialogRef.close();
+          this.router.navigate(['/home']);
         },
         (err) => {
           this.openSnackBar("Could not create package", err.error.message);

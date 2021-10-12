@@ -1,0 +1,30 @@
+<div fxLayout="column">
+    <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
+      <h4 matSubheader>description: {{projectName}}</h4>
+      <mat-divider></mat-divider>
+      <mat-form-field appearance="outline" [formGroup]="description">
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows = "8" placeholder="Description" formControlName="description"></textarea>
+        <mat-error>Description cannot be empty or exceed 500 characters</mat-error>
+      </mat-form-field>
+    </div>
+    <p id="father">      
+      <button *ngIf="isDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
+        <mat-icon>mode</mat-icon>
+      </button>
+      <mat-menu #enableMenu="matMenu" yPosition="above" xPosition="before">
+        <button mat-menu-item (click)="toggleIsFormDisabled()">Edit</button>
+      </mat-menu>
+
+      <button *ngIf="!isDisabled" [matMenuTriggerFor]="disableMenu" color="warn" mat-button id="son2" mat-mini-fab>
+        <mat-icon>save</mat-icon>
+      </button>
+      <mat-menu #disableMenu="matMenu" yPosition="above" xPosition="before">
+        <button mat-menu-item (click)="saveChanges()">Save changes</button>
+        <button mat-menu-item (click)="giveUpChanges()">Give up changes</button>
+      </mat-menu>
+    </p>
+</div>
+
+
+
+

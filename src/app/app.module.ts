@@ -31,7 +31,23 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchPackageComponent } from './components/search/search-package/search-package.component';
 import { SearchInfoComponent } from './components/search/search-info/search-info.component';
 import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
-
+import { MyProjectsComponent } from './components/my-projects/my-projects.component';
+import { ProjectsListComponent } from './components/my-projects/projects-list/projects-list.component';
+import { CreateProjectDialogComponent } from './components/my-projects/projects-list/dialogs/create-project-dialog/create-project-dialog.component';
+import { DescriptionComponent } from './components/my-projects/description/description.component';
+import { MembersComponent } from './components/my-projects/members/members.component';
+import { PackagesComponent } from './components/my-projects/packages/packages.component';
+import { RemovePackageDialogComponent } from './components/my-projects/packages/dialogs/remove-package-dialog/remove-package-dialog.component';
+import { AllProjectsComponent } from './components/all-projects/all-projects.component';
+import { ProjectListAllComponent } from './components/all-projects/project-list-all/project-list-all.component';
+import { PackagesAllComponent } from './components/all-projects/packages-all/packages-all.component';
+import { MembersAllComponent } from './components/all-projects/members-all/members-all.component';
+import { DescriptionAllComponent } from './components/all-projects/description-all/description-all.component';
+import { PackagesInfoComponent } from './components/my-projects/packages-info/packages-info.component';
+import { PackagesFolderComponent } from './components/my-projects/packages-folder/packages-folder.component';
+import { PackagesInfoAllComponent } from './components/all-projects/packages-info-all/packages-info-all.component';
+import { PackagesFolderAllComponent } from './components/all-projects/packages-folder-all/packages-folder-all.component';
+import { DeleteProjectDialogComponent } from './components/my-projects/projects-list/dialogs/delete-project-dialog/delete-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +72,24 @@ import { SearchFolderComponent } from './components/search/search-folder/search-
     SearchComponent,
     SearchPackageComponent,
     SearchInfoComponent,
-    SearchFolderComponent
+    SearchFolderComponent,
+    MyProjectsComponent,
+    ProjectsListComponent,
+    CreateProjectDialogComponent,
+    DescriptionComponent,
+    MembersComponent,
+    PackagesComponent,
+    RemovePackageDialogComponent,
+    AllProjectsComponent,
+    ProjectListAllComponent,
+    PackagesAllComponent,
+    MembersAllComponent,
+    DescriptionAllComponent,
+    PackagesInfoComponent,
+    PackagesFolderComponent,
+    PackagesInfoAllComponent,
+    PackagesFolderAllComponent,
+    DeleteProjectDialogComponent
   ],
   imports: [
     BrowserModule,

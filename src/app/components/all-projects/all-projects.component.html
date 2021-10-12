@@ -1,0 +1,19 @@
+<div
+  fxLayout="row"
+  fxLayoutAlign="space-between top"
+  fxLayoutGap="10px"
+  [style.margin-left]="'10px'"
+  [style.margin-right]="'10px'"
+  class="stats-cards"
+>
+  <div fxFlex="50">
+    <app-project-list-all
+      (description)="onDescription($event)"
+      (members)="onMembers($event)"
+      (packages)="onPackages($event)">
+    </app-project-list-all>
+  </div>
+  <div fxFlex="50">
+    <router-outlet></router-outlet>
+  </div>
+</div>

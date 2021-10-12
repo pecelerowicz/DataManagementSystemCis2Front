@@ -7,11 +7,16 @@ interface InfoDto {
     shortName: string;
     longName: string;
     description: string;
+    localDate?: string;
 }
 
 export interface GetInfoResponse extends InfoDto {
     getDifrInfoResponse: GetDifrInfoResponse;
     getTestInfoResponse: GetTestInfoResponse;
+}
+
+export interface GetInfoListResponse {
+    infoNameList: string[];
 }
 
 export interface CreateInfoRequest extends InfoDto {

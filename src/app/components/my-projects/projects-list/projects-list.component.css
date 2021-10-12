@@ -1,0 +1,44 @@
+.example-container {
+  height: 800px;
+  overflow: auto;
+}
+
+.mat-form-field {
+  /* font-size: 20px; */
+  padding-top: 15px;
+  width: 97%;
+  padding-left: 1.5%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+table {
+  width: 97%;
+  margin-left: 1.5%;
+}
+
+p {
+  text-align: right;
+}
+
+#father {
+  position: relative;
+  margin: 0rem;
+  padding: 0;
+  border: 0;
+  height: 1px;
+}
+
+#son1 {
+  top: -5rem;
+  left: -2rem;
+  /* left: -2rem; */
+  float: right;
+}
+
+.mat-row:hover {
+  background-color: lightgray;
+}

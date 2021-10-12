@@ -21,15 +21,23 @@
 
 <mat-menu #menu="matMenu">
     <a mat-menu-item routerLink="/login">
-        <mat-icon>storage</mat-icon>
-        <span>My Data</span>
+        <mat-icon>calendar_view_day</mat-icon>
+        <span>my data</span>
     </a>
     <!-- <a mat-menu-item routerLink="/register">
         <mat-icon>task</mat-icon>
         <span>My Projects</span>
     </a> -->
     <a mat-menu-item routerLink="/search">
-        <mat-icon>manage_search</mat-icon>
-        <span>Search</span>
+        <mat-icon>menu</mat-icon>
+        <span>all data</span>
+    </a>
+    <a mat-menu-item routerLink="/my-projects">
+      <mat-icon>view_array</mat-icon>
+      <span>my projects</span>
+    </a>
+    <a mat-menu-item routerLink="/all-projects">
+      <mat-icon>view_column</mat-icon>
+      <span>all projects</span>
     </a>
 </mat-menu>
