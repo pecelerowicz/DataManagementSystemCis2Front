@@ -107,6 +107,10 @@ export interface RemoveInfoFromOwnedProjectResponse {
     projectInfoResponseList: ProjectInfoResponse[];
 }
 
+export interface DeleteOwnedProjectRequest {
+    projectId: number;
+}
+
 //
 
 export interface AddMyInfoToOtherProjectRequest {

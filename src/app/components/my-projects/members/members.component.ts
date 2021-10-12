@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AddUserRequest, RemoveUserFromOwnedProjectRequest } from '../../../dto/my_project';
 import { AuthService } from '../../../services/auth.service';
@@ -13,10 +14,12 @@ export class MembersComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private authService: AuthService,
-              private projectService: ProjectService) { }
+              private projectService: ProjectService,
+              private _snackBar: MatSnackBar) { }
 
   public id: number = -1;
   public projectName: string = '';
+  public ownerName: string = '';
 
   users: string[] = [];
   members: string[] = [];
@@ -32,9 +35,10 @@ export class MembersComponent implements OnInit {
   getProjectDetails() {
     this.projectService.getOwnedProject(this.id).subscribe(val => {
       this.projectName = val.name;
+      this.ownerName = val.ownerName;
       
       this.members = [];
-      this.members.push(val.ownerName + " (owner)");
+      this.members.push(val.ownerName);
       for(let memberName of val.memberNames) {
         if(val.ownerName !== memberName) {
           this.members.push(memberName);
@@ -55,20 +59,25 @@ export class MembersComponent implements OnInit {
     })
   }
 
-  onUser(user) {
-    console.log(user);
+  onAddUser(user) {
     let payload: AddUserRequest = {
       projectId: this.id,
       userName: user
     }
     this.projectService.addUserToOwnedProject(payload).subscribe(val => {
-      // to można lepiej zrobić...
       this.getProjectDetails();
       this.getUsers();
+      this._snackBar.open("User added", "", {
+        duration: 6000,
+      });
+    }, err => {
+      this._snackBar.open("User not added", err.error.message, {
+        duration: 6000
+      })
     })
   }
 
-  onRemove(val) {
+  onRemoveUser(val) {
     let payload: RemoveUserFromOwnedProjectRequest = {
       projectId: this.id,
       userName: val
@@ -77,10 +86,14 @@ export class MembersComponent implements OnInit {
       // to można lepiej zrobić...
       this.getProjectDetails();
       this.getUsers();
+      this._snackBar.open("User removed", "", {
+        duration: 6000,
+      });
     }, err => {
-      console.log(err);
+      this._snackBar.open("User not removed", err.error.message, {
+        duration: 6000
+      })
     })
-    // console.log(val);
   }
 
 

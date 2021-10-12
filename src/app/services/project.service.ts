@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddMyInfoToOtherProjectRequest, AddMyInfoToOtherProjectResponse, AddMyInfoToOwnedProjectRequest, AddMyInfoToOwnedProjectResponse, AddUserRequest, AddUserResponse, CreateProjectRequest, CreateProjectResponse, GetProjectResponse, GetProjectsResponse, RemoveInfoFromOwnedProjectRequest, RemoveInfoFromOwnedProjectResponse, RemoveMyInfoFromOtherProjectRequest, RemoveMyInfoFromOtherProjectResponse, RemoveUserFromOwnedProjectRequest, RemoveUserFromOwnedProjectResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
+import { AddMyInfoToOtherProjectRequest, AddMyInfoToOtherProjectResponse, AddMyInfoToOwnedProjectRequest, AddMyInfoToOwnedProjectResponse, AddUserRequest, AddUserResponse, CreateProjectRequest, CreateProjectResponse, DeleteOwnedProjectRequest, GetProjectResponse, GetProjectsResponse, RemoveInfoFromOwnedProjectRequest, RemoveInfoFromOwnedProjectResponse, RemoveMyInfoFromOtherProjectRequest, RemoveMyInfoFromOtherProjectResponse, RemoveUserFromOwnedProjectRequest, RemoveUserFromOwnedProjectResponse, UpdateProjectRequest, UpdateProjectResponse } from '../dto/my_project';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { GetInfoResponse } from '../dto/info/info';
 import { Node } from '../dto/storage';
@@ -45,6 +45,10 @@ export class ProjectService {
 
   removeInfoFromOwnedProject(payload: RemoveInfoFromOwnedProjectRequest): Observable<RemoveInfoFromOwnedProjectResponse> {
     return this.httpClient.request<RemoveInfoFromOwnedProjectResponse>('delete', this.projectAddressPrefix + '/info', {body: payload});
+  }
+
+  deleteOwnedProject(payload: DeleteOwnedProjectRequest): Observable<GetProjectsResponse> {
+    return this.httpClient.request<GetProjectsResponse>('delete', this.projectAddressPrefix, {body: payload});
   }
 
   // OTHER PROJECTS

@@ -6,6 +6,7 @@ import { SharedCommunicationService } from '../../../services/shared-communicati
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { DeleteProjectDialogComponent } from './dialogs/delete-project-dialog/delete-project-dialog.component';
 
 @Component({
   selector: 'app-projects-list',
@@ -38,6 +39,10 @@ export class ProjectsListComponent implements OnInit {
 
     this.getProjects();
     this.sharedCommunicationService.createProject$.subscribe(val => {
+      this.getProjects();
+    })
+
+    this.sharedCommunicationService.updateListOfProjects$.subscribe(val => {
       this.getProjects();
     })
   }
@@ -75,6 +80,10 @@ export class ProjectsListComponent implements OnInit {
 
   onPackages(element) {
     this.packages.emit({id: element.id});
+  }
+
+  onOpenDeleteProjectDialog(element) {
+    this.dialog.open(DeleteProjectDialogComponent, {data: {id: element.id}});
   }
 
   applyFilter(event: Event) {

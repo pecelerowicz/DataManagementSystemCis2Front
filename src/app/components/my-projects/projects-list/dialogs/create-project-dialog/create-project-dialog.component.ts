@@ -8,6 +8,7 @@ import { ProjectService } from '../../../../../services/project.service';
 import { SharedCommunicationService } from '../../../../../services/shared-communication.service';
 import { CreateMetadataDialogComponent } from '../../../../home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-project-dialog',
@@ -19,6 +20,7 @@ export class CreateProjectDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private sharedCommunicationService: SharedCommunicationService,
               private dialogRef: MatDialogRef<CreateMetadataDialogComponent>,            
+              private router: Router,
               private _snackBar: MatSnackBar,
               private projectService: ProjectService) { }
 
@@ -35,6 +37,7 @@ export class CreateProjectDialogComponent implements OnInit {
     this.projectService.createOwnedProject(createProjectRequest).subscribe(val => {
       this.sharedCommunicationService._createProjectSource.next(createProjectRequest);
       this.openSnackBar('New project created', '');
+      this.router.navigate(['/my-projects']);
       this.dialogRef.close();
     },
     err => {

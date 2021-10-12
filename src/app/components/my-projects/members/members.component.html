@@ -9,9 +9,9 @@
               <mat-chip *ngFor="let member of members" 
               [selectable]="true"
               [removable]="true"
-              (removed)="onRemove(member)">
+              (removed)="onRemoveUser(member)">
               {{member}}
-              <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+              <mat-icon matChipRemove *ngIf="member!==ownerName">cancel</mat-icon>
               </mat-chip>
           </mat-chip-list>
         </div>
@@ -24,7 +24,7 @@
             <mat-icon>add</mat-icon>
           </button>    
           <mat-menu #metadataMenu="matMenu" yPosition="above" xPosition="before">
-            <button *ngFor="let user of users" mat-menu-item (click)="onUser(user)" >{{ user }}</button>
+            <button *ngFor="let user of users" mat-menu-item (click)="onAddUser(user)" >{{ user }}</button>
           </mat-menu>
     </p>
     

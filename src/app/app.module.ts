@@ -47,6 +47,7 @@ import { PackagesInfoComponent } from './components/my-projects/packages-info/pa
 import { PackagesFolderComponent } from './components/my-projects/packages-folder/packages-folder.component';
 import { PackagesInfoAllComponent } from './components/all-projects/packages-info-all/packages-info-all.component';
 import { PackagesFolderAllComponent } from './components/all-projects/packages-folder-all/packages-folder-all.component';
+import { DeleteProjectDialogComponent } from './components/my-projects/projects-list/dialogs/delete-project-dialog/delete-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { PackagesFolderAllComponent } from './components/all-projects/packages-f
     PackagesInfoComponent,
     PackagesFolderComponent,
     PackagesInfoAllComponent,
-    PackagesFolderAllComponent
+    PackagesFolderAllComponent,
+    DeleteProjectDialogComponent
   ],
   imports: [
     BrowserModule,
