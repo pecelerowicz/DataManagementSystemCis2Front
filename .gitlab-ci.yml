@@ -1,40 +1,47 @@
-stages:
   - publish
-  - deploy
+    #- deploy
 
 variables:
   TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
 
 publish:
-  image: docker:latest
+  #image: docker:latest
+  tags:
+    - docker
   stage: publish
   services:
     - docker:dind
   script:
     - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker image ls -a
+    - echo $TAG_LATEST
+    - echo $TAG_COMMIT
+    - echo $CI_BUILD_TOKEN
+    - echo $CI_REGISTRY
+    - $TAG_COMMIT
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_COMMIT
     - docker push $TAG_LATEST
 
-deploy:
-  image: alpine:latest
-  stage: deploy
-  tags:
-    - centos
-  script:
-    - echo $ID_RSA_CENTOS
-    - echo $ID_RSA
-    - echo $SERVER_USER_CENTOS
-    - echo $SERVER_IP
-    - echo $CI_BUILD_TOKEN
-    - echo $CI_REGISTRY
-    - chmod og= $ID_RSA_CENTOS
-    - apk update && apk add openssh-client
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker pull $TAG_COMMIT"
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker container rm -f data-management-frontend || true"
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker run -d -p 80:80 --name data-management-frontend $TAG_COMMIT"
-  environment:
-    name: production
-    url: http://46.101.209.29
+      #deploy:
+      #image: alpine:latest
+      #stage: deploy
+      #tags:
+      #- deployment
+      #script:
+      #- echo $ID_RSA
+      #- echo $SERVER_USER
+      #- echo $SERVER_IP
+      #- echo $CI_BUILD_TOKEN
+      #- echo $CI_REGISTRY
+      #- chmod og= $ID_RSA
+      #- apk update && apk add openssh-client
+      #- ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+      #- ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
+      #- ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f data-management-frontend || true"
+      #- ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 80:80 --name data-management-frontend $TAG_COMMIT"
+      #environment:
+      #name: production
+      #url: http://134.122.86.52
+
