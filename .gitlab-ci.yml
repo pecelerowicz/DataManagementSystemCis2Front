@@ -1,6 +1,6 @@
 stages:
   - publish
-  - deploy
+    #- deploy
 
 variables:
   TAG_LATEST: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
@@ -17,24 +17,24 @@ publish:
     - docker push $TAG_COMMIT
     - docker push $TAG_LATEST
 
-deploy:
-  image: alpine:latest
-  stage: deploy
-  tags:
-    - centos
-  script:
-    - echo $ID_RSA_CENTOS
-    - echo $ID_RSA
-    - echo $SERVER_USER_CENTOS
-    - echo $SERVER_IP
-    - echo $CI_BUILD_TOKEN
-    - echo $CI_REGISTRY
-    - chmod og= $ID_RSA_CENTOS
-    - apk update && apk add openssh-client
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker pull $TAG_COMMIT"
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker container rm -f data-management-frontend || true"
-    - ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker run -d -p 80:80 --name data-management-frontend $TAG_COMMIT"
-  environment:
-    name: production
-    url: http://46.101.209.29
+      #deploy:
+      #image: alpine:latest
+      #stage: deploy
+      #tags:
+      #- centos
+      #script:
+      #- echo $ID_RSA_CENTOS
+      #- echo $ID_RSA
+      #- echo $SERVER_USER_CENTOS
+      #- echo $SERVER_IP
+      #- echo $CI_BUILD_TOKEN
+      #- echo $CI_REGISTRY
+      #- chmod og= $ID_RSA_CENTOS
+      #- apk update && apk add openssh-client
+      #- ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+      #- ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker pull $TAG_COMMIT"
+      #- ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker container rm -f data-management-frontend || true"
+      #- ssh -i $ID_RSA_CENTOS -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP_CENTOS "docker run -d -p 80:80 --name data-management-frontend $TAG_COMMIT"
+      #environment:
+      #name: production
+      #url: http://46.101.209.29
