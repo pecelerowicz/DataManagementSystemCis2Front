@@ -6,17 +6,16 @@
       <button mat-button>NomatenDatabase</button>
     </div>
     <div>
-      <button [matMenuTriggerFor]="logoutMenu" mat-button *ngIf="isLoggedIn">
+      <button [matMenuTriggerFor]="loggedInUserMenu" mat-button *ngIf="isLoggedIn">
         <mat-icon>arrow_drop_down</mat-icon>
         {{username}}
       </button>
     </div>
 </mat-toolbar>
 
-<mat-menu #logoutMenu="matMenu">
-  <a mat-menu-item (click)="logout()">
-    <span>Logout</span>
-</a>
+<mat-menu #loggedInUserMenu="matMenu">
+  <a mat-menu-item (click)="logout()"><span>Logout</span></a>
+  <a mat-menu-item (click)="changePassword()"><span>Password</span></a>
 </mat-menu>
 
 <mat-menu #menu="matMenu">
