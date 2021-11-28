@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { createPasswordStrengthValidator } from '../../validators/password-strength.validator';
+import { ChangePasswordRequest } from '../../dto/my_auth';
+import { NewPassService } from '../../services/newpass.service';
 
 @Component({
   selector: 'app-change-password',
@@ -11,12 +13,12 @@ export class ChangePasswordComponent implements OnInit {
 
   group: FormGroup;
 
-  constructor() { }
+  constructor(private newpassService: NewPassService) { }
 
   ngOnInit(): void {
     let fb: FormBuilder = new FormBuilder();
     this.group = fb.group({
-      oldPassword: new FormControl('', {validators: [Validators.required, Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}),
+      // oldPassword: new FormControl('', {validators: [Validators.required, Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}),
       newPassword: new FormControl('', {validators: [Validators.required, Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}),
       newPasswordRepeat: new FormControl('', {validators: [Validators.required], updateOn: 'change'})
     }, 
@@ -45,7 +47,9 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onChangePassword() {
-    
+    let changePasswordRequest: ChangePasswordRequest = {newPassword: this.group.controls['newPassword'].value};
+    this.newpassService.changePassword(changePasswordRequest);
+    this.group.disable();
   }
 
 }
