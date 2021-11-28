@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { createPasswordStrengthValidator } from '../../validators/password-strength.validator';
 
 @Component({
@@ -9,20 +9,42 @@ import { createPasswordStrengthValidator } from '../../validators/password-stren
 })
 export class ChangePasswordComponent implements OnInit {
 
+  group: FormGroup;
+
   constructor() { }
 
   ngOnInit(): void {
     let fb: FormBuilder = new FormBuilder();
     this.group = fb.group({
-      oldPassword: ['', {validators: [Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}],
-      newPassword: ['', {validators: [Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}],
-      newPasswordRepeat: ['', {validators: [Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}]
+      oldPassword: new FormControl('', {validators: [Validators.required, Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}),
+      newPassword: new FormControl('', {validators: [Validators.required, Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}),
+      newPasswordRepeat: new FormControl('', {validators: [Validators.required], updateOn: 'change'})
+    }, 
+    {
+      validators: this.MustMatch('newPassword', 'newPasswordRepeat')
     })
   }
 
-  group: FormGroup;
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName]
+      const matchinControl = formGroup.controls[matchingControlName]
+      if(matchinControl.errors && !matchinControl.errors.MustMatch) {
+        return
+      }
+      if(control.value !== matchinControl.value) {
+        matchinControl.setErrors({MustMatch: true});
+      } else {
+        matchinControl.setErrors(null);
+      }
+    }
+  }
 
-  changePassword() {
+  get f() {
+    return this.group.controls;
+  }
+
+  onChangePassword() {
     
   }
 
