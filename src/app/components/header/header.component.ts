@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   changePassword() {
-    this.router.navigateByUrl('changePassword');
+    this.router.navigateByUrl('change-password');
   }
 
 }
