@@ -21,6 +21,7 @@ import { PackagesInfoComponent } from './components/my-projects/packages-info/pa
 import { PackagesInfoAllComponent } from './components/all-projects/packages-info-all/packages-info-all.component';
 import { PackagesFolderComponent } from './components/my-projects/packages-folder/packages-folder.component';
 import { PackagesFolderAllComponent } from './components/all-projects/packages-folder-all/packages-folder-all.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   },
   {
     path: 'my-projects',

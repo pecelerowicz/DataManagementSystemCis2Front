@@ -1,0 +1,55 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { createPasswordStrengthValidator } from '../../validators/password-strength.validator';
+import { ChangePasswordRequest } from '../../dto/my_auth';
+import { NewPassService } from '../../services/newpass.service';
+
+@Component({
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.css']
+})
+export class ChangePasswordComponent implements OnInit {
+
+  group: FormGroup;
+
+  constructor(private newpassService: NewPassService) { }
+
+  ngOnInit(): void {
+    let fb: FormBuilder = new FormBuilder();
+    this.group = fb.group({
+      // oldPassword: new FormControl('', {validators: [Validators.required, Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}),
+      newPassword: new FormControl('', {validators: [Validators.required, Validators.maxLength(20), Validators.minLength(8), createPasswordStrengthValidator()], updateOn: 'change'}),
+      newPasswordRepeat: new FormControl('', {validators: [Validators.required], updateOn: 'change'})
+    }, 
+    {
+      validators: this.MustMatch('newPassword', 'newPasswordRepeat')
+    })
+  }
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName]
+      const matchinControl = formGroup.controls[matchingControlName]
+      if(matchinControl.errors && !matchinControl.errors.MustMatch) {
+        return
+      }
+      if(control.value !== matchinControl.value) {
+        matchinControl.setErrors({MustMatch: true});
+      } else {
+        matchinControl.setErrors(null);
+      }
+    }
+  }
+
+  get f() {
+    return this.group.controls;
+  }
+
+  onChangePassword() {
+    let changePasswordRequest: ChangePasswordRequest = {newPassword: this.group.controls['newPassword'].value};
+    this.newpassService.changePassword(changePasswordRequest);
+    this.group.disable();
+  }
+
+}

@@ -48,6 +48,7 @@ import { PackagesFolderComponent } from './components/my-projects/packages-folde
 import { PackagesInfoAllComponent } from './components/all-projects/packages-info-all/packages-info-all.component';
 import { PackagesFolderAllComponent } from './components/all-projects/packages-folder-all/packages-folder-all.component';
 import { DeleteProjectDialogComponent } from './components/my-projects/projects-list/dialogs/delete-project-dialog/delete-project-dialog.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { DeleteProjectDialogComponent } from './components/my-projects/projects-
     PackagesFolderComponent,
     PackagesInfoAllComponent,
     PackagesFolderAllComponent,
-    DeleteProjectDialogComponent
+    DeleteProjectDialogComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
