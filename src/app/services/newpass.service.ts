@@ -17,7 +17,7 @@ export class NewPassService {
 // change password
 changePassword(changePasswordRequest: ChangePasswordRequest): void {
     this.httpClient
-      .put<ChangePasswordResponse>(environmentCustom.address + "/api/test/newpass", changePasswordRequest)
+      .put<ChangePasswordResponse>(environmentCustom.address + "/api/newpass", changePasswordRequest)
       .subscribe(data => {
         // this.localStorage.store('authenticationToken', data.authenticationToken);
         // this.localStorage.store('username', data.username);
