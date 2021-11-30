@@ -7,7 +7,7 @@ export function createDescriptionValidator(): ValidatorFn {
         if(!value || value === '') {
             return {descriptionEmpty: true, descriptionLengthExceeded: false};
         }
-        if(value.length > 500) {
+        if(value.length > 1000) {
             return {descriptionEmpty: false, descriptionLengthExceeded: true};
         } 
 

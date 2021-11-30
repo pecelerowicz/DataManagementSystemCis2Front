@@ -7,7 +7,7 @@ export function createLongNameValidator(): ValidatorFn {
         if(!value || value === '') {
             return {longNameEmpty: true, longNameLengthExceeded: false};
         }
-        if(value.length > 50) {
+        if(value.length > 80) {
             return {longNameEmpty: false, longNameLengthExceeded: true};
         } 
 

@@ -62,7 +62,9 @@ h2 {
   }
   
   mat-form-field {
-    width: 100%;
+    margin: 1.7%;
+    margin-top: 2.2%;
+    width: 96.6%;
   }
   
   .example-radio-group {

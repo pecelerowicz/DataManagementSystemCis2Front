@@ -7,7 +7,7 @@ export function createShortNameValidator(): ValidatorFn {
         if(!value || value === '') {
             return {shortNameEmpty: true, shortNameLengthExceeded: false};
         }
-        if(value.length > 30) {
+        if(value.length > 50) {
             return {shortNameEmpty: false, shortNameLengthExceeded: true};
         } 
 

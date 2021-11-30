@@ -22,15 +22,15 @@
 
         <mat-form-field>
             <input type="text" matInput placeholder="Short name" formControlName="shortName">
-            <mat-error>Short name cannot be empty or exceed 30 characters</mat-error>
+            <mat-error>Short name cannot be empty or exceed 50 characters</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input type="text" matInput placeholder="Long name" formControlName="longName">
-            <mat-error>Long name cannot be empty or exceed 50 characters</mat-error>
+            <mat-error>Long name cannot be empty or exceed 80 characters</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <textarea matInput matTextareaAutosize matAutosizeMinRows="8" matAutosizeMaxRows = "8" placeholder="Description" formControlName="description"></textarea>
-          <mat-error>Description cannot be empty or exceed 500 characters</mat-error>
+          <mat-error>Description cannot be empty or exceed 1000 characters</mat-error>
         </mat-form-field>
       </fieldset>
       
