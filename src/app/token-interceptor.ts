@@ -43,7 +43,7 @@ export class TokenInterceptor implements HttpInterceptor {
             console.log(error)
             console.log("---error---`")
             if (error instanceof HttpErrorResponse
-                  && error.status === 403) {
+                  && (error.status === 403 || (error.status === 500 && error.error.exception === "io.jsonwebtoken.ExpiredJwtException"))) {
                   console.log("aaaa")
                   return this.handleAuthErrors(req, next);
               } else {
