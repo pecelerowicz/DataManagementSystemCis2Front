@@ -8,8 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, filter, switchMap, take } from 'rxjs/operators';
-import { environmentCustom } from '../environments/environment.custom';
+import { catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +17,6 @@ export class TokenInterceptor implements HttpInterceptor {
 
   isTokenRefreshing = false;
   refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject(null);
-
   constructor(public authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
@@ -46,7 +44,8 @@ export class TokenInterceptor implements HttpInterceptor {
                   && (error.status === 403 || (error.status === 500 && error.error.exception === "io.jsonwebtoken.ExpiredJwtException"))) {
                   console.log("<<<>>>")
                   console.log(error.status)
-                  console.log(error.error.exception)
+                  console.log(this.isTokenRefreshing)
+                //   console.log(error.error.exception)
                   console.log("<<<>>>")
                   return this.handleAuthErrors(req, next);
               } else {
@@ -66,7 +65,12 @@ export class TokenInterceptor implements HttpInterceptor {
 
           console.log("bbb");
 
+
           return this.authService.refreshToken().pipe(
+              catchError(error => {
+                this.isTokenRefreshing = false;
+                return throwError(error);
+              }),
               switchMap((refreshTokenResponse: LoginResponse) => {
                   this.isTokenRefreshing = false;
                   this.refreshTokenSubject
@@ -75,19 +79,20 @@ export class TokenInterceptor implements HttpInterceptor {
                       refreshTokenResponse.authenticationToken));
               })
           )
-      } else {
+      } 
+    //   else {
 
-          console.log("ccc");
+    //       console.log("ccc");
 
-          return this.refreshTokenSubject.pipe(
-              filter(result => result !== null),
-              take(1),
-              switchMap((res) => {
-                  return next.handle(this.addToken(req,
-                      this.authService.getJwtToken()))
-              })
-          );
-      }
+    //       return this.refreshTokenSubject.pipe(
+    //           filter(result => result !== null),
+    //           take(1),
+    //           switchMap((res) => {
+    //               return next.handle(this.addToken(req,
+    //                   this.authService.getJwtToken()))
+    //           })
+    //       );
+    //   }
   }
 
   addToken(req: HttpRequest<any>, jwtToken: any) {
@@ -97,33 +102,6 @@ export class TokenInterceptor implements HttpInterceptor {
       });
   }
 
-  // isTokenRefreshing = false;
-  // refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject(null);
-  
-  // constructor(public authService: AuthService) {}
-
-  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-   
-  //   if (
-  //     req.url !== environmentCustom.address + "/api/auth/signup" &&
-  //     req.url !== environmentCustom.address + "/api/auth/login"
-  //   ) {
-     
-  //     req = req.clone({
-  //       setHeaders: {
-  //         Authorization: `Bearer ${this.authService.getJwtToken()}`,
-  //       },
-  //     });
-  //   }
-  //   return <any> next.handle(req).pipe(catchError(error => {
-  //     if(error instanceof HttpErrorResponse && error.status === 403) {
-  //       console.log("tutaj");
-  //       return this.handleAuthErrors(req, next);
-  //     } else {
-  //       return throwError(error);
-  //     }
-  //   }))
-  // }
 }
 
 
