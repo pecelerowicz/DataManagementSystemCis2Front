@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UpdateProjectRequest } from '../../../dto/my_project';
 import { getInitialValueDescription } from '../../../mappers/project/project';
@@ -12,7 +13,8 @@ import { ProjectService } from '../../../services/project.service';
 export class DescriptionComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private projectService: ProjectService) { }
+              private projectService: ProjectService,
+              private _snackBar: MatSnackBar) { }
 
   public id: number = -1;
   public projectName: string = '';
@@ -68,6 +70,14 @@ export class DescriptionComponent implements OnInit {
       this.description.controls['description'].setValue(val.description);
       this.description.controls['description'].disable();
       this.isDisabled = true;
+      this._snackBar.open("Project description was updated", "", {
+        duration: 6000,
+      });
+    },
+    error => {
+      this._snackBar.open("Not updated", error.error.message, {
+        duration: 6000,
+      });
     })
   }
 
