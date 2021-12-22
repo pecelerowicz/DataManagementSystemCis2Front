@@ -4,14 +4,13 @@ import { PackageService } from '../../../services/package.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { StorageService } from 'src/app/services/storage.service';
 import { CreateStorageRequest } from 'src/app/dto/my_storage';
 import { InfoService } from 'src/app/services/info.service';
 import { CreateMetadataDialogComponent } from 'src/app/components/home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
 import { CreatePackageDialogComponent } from './dialogs/create-package-dialog/create-package-dialog.component';
 import { DeletePackageDialogComponent } from './dialogs/delete-package-dialog/delete-package-dialog.component';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   name: string;
@@ -27,25 +26,20 @@ export class PackageComponent implements OnInit {
   @Output() info = new EventEmitter<{ order: number }>();
   @Output() storage = new EventEmitter<{ order: number }>();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   dataSource: MatTableDataSource<{name: string, position: number}>;
+  dataSourceCopy: MatTableDataSource<{name: string, position: number}>;
 
   constructor(private infoService: InfoService,
               private storageService: StorageService,
               private packageService: PackageService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog,
-              private _snackBar: MatSnackBar) {}
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }  
+              private router: Router,
+              private _snackBar: MatSnackBar) {} 
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
+    this.dataSourceCopy = new MatTableDataSource();
     this.getPackageList();
     this.sharedCommunicationService.updateListOfPackages$.subscribe(() => {
       this.getPackageList();
@@ -57,16 +51,25 @@ export class PackageComponent implements OnInit {
   }
 
   private getPackageList() {
-    let fetch: {name: string, hasStorage: boolean, hasMetadata: boolean, position: number}[] = [];
+    let fetch: {name: string, hasStorage: boolean, 
+      hasMetadata: boolean, localDate: string, position: number}[] = [];
     this.packageService.getPackageList().subscribe(val => {
       let counter: number = 1;
       for(let sm of val.packageResponseList) {
         fetch.push({name: sm.name, hasStorage: sm.hasStorage, 
-          hasMetadata: sm.hasMetadata, position: counter});
+          hasMetadata: sm.hasMetadata, localDate: sm.localDate, position: counter});
         counter++;
       }
+      this.dataSource = new MatTableDataSource();
+      this.dataSourceCopy = new MatTableDataSource();
       this.dataSource.data = fetch;
+      this.dataSourceCopy.data = fetch;
     })
+  }
+
+  catchFilteredData(eventValue: {"sliced": MatTableDataSource<{name: string, position: number}>}) {
+    this.router.navigate(['/home']);
+    this.dataSourceCopy.data = eventValue.sliced.data;
   }
 
   onInfo(element) {
@@ -119,5 +122,5 @@ export class PackageComponent implements OnInit {
     }
   }
 
-  displayedColumns: string[] = ['description', 'name', 'info', 'storage', 'delete'];
+  displayedColumns: string[] = ['date', 'name', 'info', 'storage', 'delete'];
 }

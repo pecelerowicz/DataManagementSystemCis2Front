@@ -1,0 +1,27 @@
+<form class="elements-group" [formGroup]="formGroup">
+    <div class="element">
+
+      <mat-form-field >
+        <mat-label>type</mat-label>
+        <mat-select formControlName="dataType">
+          <ng-container matNativeControl>
+            <mat-option (click)="onAny()" value="any">any</mat-option>
+          </ng-container> 
+          <ng-container matNativeControl>
+            <mat-option (click)="onStorage()" value="storage">storage</mat-option>
+          </ng-container>  
+          <ng-container matNativeControl>
+            <mat-option (click)="onMetadata()" value="metadata">metadata</mat-option>
+          </ng-container>   
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>
+          <span>search data</span>
+        </mat-label>
+        <input (keyup)="onKeyUp()" matInput type="text" formControlName="typedText">
+      </mat-form-field>
+
+    </div>
+  </form>
