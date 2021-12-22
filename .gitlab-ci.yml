@@ -9,7 +9,7 @@ variables:
 publish:
   #image: docker:latest
   image: 
-    name: gcr.io/kaniko-project/executor:debug
+    name: gcr.io/kaniko-project/executor:debug-v1.3.0
     entrypoint: [""]
   tags:
     - k8s
