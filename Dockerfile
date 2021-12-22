@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm audit fix
+RUN ngcc --properties es2015 browser module main --async false
 RUN npm run build --prod
 
 FROM nginx:alpine
