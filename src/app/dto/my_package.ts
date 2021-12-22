@@ -2,6 +2,7 @@ export interface PackageResponse {
     name: string;
     hasStorage: boolean;
     hasMetadata: boolean;
+    localDate: string;
 }
 
 export interface GetPackageListResponse {
