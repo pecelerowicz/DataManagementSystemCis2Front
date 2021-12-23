@@ -6,6 +6,7 @@ import { getInitialValueDifr, mapDifrResponse } from 'src/app/mappers/difr';
 import { getInitialValueGeneral, mapGeneralResponse } from 'src/app/mappers/general';
 import { getInitialValueTest, mapTestResponse } from 'src/app/mappers/test';
 import { GetInfoResponse } from '../../../dto/info/info';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-packages-info-all',
@@ -15,6 +16,7 @@ import { GetInfoResponse } from '../../../dto/info/info';
 export class PackagesInfoAllComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
+              private location: Location,
               private sharedCommunitationService: SharedCommunicationService) { }
 
   state: {projectId: number, infoName: string, userName: string} = {projectId: -1, infoName: '', userName: ''};
@@ -71,6 +73,10 @@ export class PackagesInfoAllComponent implements OnInit {
     this.infoState.isTest = false ; 
     this.infoState.isDifr = false;
     this.infoState.isTest = false;
+  }
+
+  onGoBack() {
+    this.location.back();
   }
 
 }

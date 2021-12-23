@@ -1,12 +1,18 @@
 <div fxLayout="column">
     <div class="example-container mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
-      <h4 matSubheader>metadata: {{ infoState.infoName }}</h4>
+      <h4 matSubheader>{{ infoState.infoName }}</h4>
       
       <mat-divider></mat-divider>
       
       <!-- general -->
       <fieldset [disabled]="infoState.isFormDisabled" [formGroup]="general">
         <legend>General</legend>
+
+        <mat-form-field >
+          <mat-label>Date</mat-label>
+          <input [disabled]="true" matInput type="text" formControlName="localDate">
+        </mat-form-field>
+
         <mat-form-field>
             <input type="text" matInput placeholder="Short name" formControlName="shortName">
         </mat-form-field>
@@ -95,4 +101,10 @@
       </fieldset>
 
     </div> 
+
+    <p id="father">
+      <button (click)="onGoBack()" mat-button  id="son1"  mat-mini-fab color="primary" >
+          <mat-icon>arrow_back</mat-icon>
+        </button>    
+    </p>
 </div>

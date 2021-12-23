@@ -1,6 +1,6 @@
 <div fxLayout="column">
     <div class="example-container mat-elevation-z3" fxFlex="89vh">
-      <h4 matSubheader>packages: {{ projectName }}</h4>
+      <h4 matSubheader>{{ projectName }}</h4>
       <mat-divider></mat-divider>
       
 
@@ -57,5 +57,5 @@
         <mat-menu #metadataMenu="matMenu" yPosition="above" xPosition="before">
           <button *ngFor="let info of infoList" mat-menu-item (click)="onAddMyInfo(info)" >{{ info }}</button>
         </mat-menu>
-  </p>
+    </p>
   </div>
