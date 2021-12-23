@@ -1,6 +1,6 @@
 <div fxLayout="column">
     <div class="mat-elevation-z3" fxFlex="89vh" style="overflow-y:auto">
-      <h4 matSubheader>storage: {{ state.infoName }}</h4>
+      <h4 matSubheader>{{ state.infoName }}</h4>
       <mat-divider></mat-divider>
       <mat-tree class="internal-container" [dataSource]="dataSource" [treeControl]="treeControl">
         <!-- file -->
@@ -51,5 +51,12 @@
         </mat-tree-node>
       </mat-tree>
     </div>    
+
+    <p id="father">
+      <button (click)="onGoBack()"  mat-button  id="son1"  mat-mini-fab color="primary" >
+          <mat-icon>arrow_back</mat-icon>
+        </button>    
+    </p>
+
 </div>
     

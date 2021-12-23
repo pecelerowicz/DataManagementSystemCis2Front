@@ -9,6 +9,7 @@ export interface SearchResponse {
     name: string;
     username: string;
     hasStorage: boolean;
+    localDate: string;
 }
 
 export interface GetSearchListResponse {

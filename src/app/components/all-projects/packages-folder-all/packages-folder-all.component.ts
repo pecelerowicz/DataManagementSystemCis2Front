@@ -5,6 +5,7 @@ import { Node } from '../../../dto/storage';
 import { ProjectService } from '../../../services/project.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { UploadService } from '../../../services/upload.service';
+import { Location } from '@angular/common';
 
 export interface DialogData {
   order: number;
@@ -51,7 +52,8 @@ export class PackagesFolderAllComponent implements OnInit {
 
   constructor(private sharedCommunicationService: SharedCommunicationService,
               private projectService: ProjectService,
-              private uploadService: UploadService) { }
+              private uploadService: UploadService,
+              private location: Location) { }
 
   state: {projectId: number, infoName: string, userName: string} = {projectId: -1, infoName: '', userName: ''};
 
@@ -77,6 +79,10 @@ export class PackagesFolderAllComponent implements OnInit {
       this.state.projectId, this.state.userName, this.state.infoName, val
     );
     console.log(val);
+  }
+
+  onGoBack() {
+    this.location.back();
   }
 
 }

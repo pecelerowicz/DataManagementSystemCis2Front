@@ -19,7 +19,7 @@ export class SearchPackageComponent implements OnInit {
   search: FormGroup = getSearch();
   searchList: SearchResponse[];
 
-  displayedColumns: string[] = ['position', 'name', 'username', 'metadata', 'storage'];
+  displayedColumns: string[] = ['date', 'name', 'username', 'metadata', 'storage'];
   dataSource: SearchRow[] = [];// = ELEMENT_DATA;
 
   constructor(private authService: AuthService, 
@@ -74,11 +74,12 @@ export class SearchPackageComponent implements OnInit {
 
       let counter = 1;
       for(let s of val.searchResponseList) {
-        fetch.push({position: counter, name: s.name, username: s.username, hasStorage: s.hasStorage});
+        fetch.push({position: counter, name: s.name, username: s.username, hasStorage: s.hasStorage, localDate: s.localDate});
         counter++;
       }
 
       this.dataSource = fetch;
+      console.log(fetch)
 
     }, 
     err => {
@@ -113,4 +114,5 @@ export interface SearchRow {
   name: string;
   username: string;
   hasStorage: boolean;
+  localDate: string;
 }

@@ -5,6 +5,7 @@ import { Node } from '../../../dto/storage';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { UploadService } from '../../../services/upload.service';
+import { Location } from '@angular/common';
 
 export interface DialogData {
   order: number;
@@ -51,7 +52,8 @@ export class PackagesFolderComponent implements OnInit {
 
   constructor(private sharedCommunicationService: SharedCommunicationService,
               private projectService: ProjectService,
-              private uploadService: UploadService) { }
+              private uploadService: UploadService,
+              private location: Location) { }
 
   state: {projectId: number, infoName: string, userName: string} = {projectId: -1, infoName: '', userName: ''};
 
@@ -77,6 +79,10 @@ export class PackagesFolderComponent implements OnInit {
       this.state.projectId, this.state.userName, this.state.infoName, val
     );
     console.log(val);
+  }
+
+  onGoBack() {
+    this.location.back();
   }
 
 }
