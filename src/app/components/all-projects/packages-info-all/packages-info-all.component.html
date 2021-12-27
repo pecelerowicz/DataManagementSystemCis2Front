@@ -7,6 +7,12 @@
       <!-- general -->
       <fieldset [disabled]="infoState.isFormDisabled" [formGroup]="general">
         <legend>General</legend>
+
+        <mat-form-field >
+          <mat-label>Date</mat-label>
+          <input [disabled]="true" matInput type="text" formControlName="localDate">
+        </mat-form-field>
+
         <mat-form-field>
             <input type="text" matInput placeholder="Short name" formControlName="shortName">
         </mat-form-field>
