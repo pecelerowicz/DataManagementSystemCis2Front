@@ -4,8 +4,8 @@ import { CreateTestInfoRequest, GetTestInfoResponse, UpdateTestInfoResponse } fr
 interface InfoDto {
     infoName: string;
     access: Access;
-    shortName: string;
-    longName: string;
+    title: string;
+    shortDescription: string;
     description: string;
     localDate?: string;
 }

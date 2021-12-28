@@ -10,8 +10,8 @@ export function getInitialValueGeneral(): FormGroup {
     let fb: FormBuilder = new FormBuilder();
     return fb.group({
         access: [Access.private, [Validators.required]],
-        shortName: ['', {validators: [createShortNameValidator()/*Validators.maxLength(100)*//*, createNameValidator()*/], updateOn: 'change'}],
-        longName: ['', {validators: [createLongNameValidator()/*Validators.maxLength(200)*//*, createNameValidator()*/], updateOn: 'change'}],
+        title: ['', {validators: [createShortNameValidator()/*Validators.maxLength(100)*//*, createNameValidator()*/], updateOn: 'change'}],
+        shortDescription: ['', {validators: [createLongNameValidator()/*Validators.maxLength(200)*//*, createNameValidator()*/], updateOn: 'change'}],
         description: ['', {validators: [createDescriptionValidator()/*Validators.maxLength(200), Validators.required*/], updateOn: 'change'}],
         localDate: ['', {validators: []}]})
 }
@@ -19,8 +19,8 @@ export function getInitialValueGeneral(): FormGroup {
 export function mapGeneralResponse(general: FormGroup, getInfoResponse: GetInfoResponse) {
         general.patchValue({
           access: getInfoResponse.access,
-          shortName: getInfoResponse.shortName, 
-          longName: getInfoResponse.longName,
+          title: getInfoResponse.title, 
+          shortDescription: getInfoResponse.shortDescription,
           description: getInfoResponse.description,
           localDate: getInfoResponse.localDate
         });
@@ -30,8 +30,8 @@ export function createUpdateInfoRequest(infoState: InfoState, general: FormGroup
   return {
     infoName: infoState.infoName,
     access: general.controls['access'].value,
-    shortName: general.controls['shortName'].value,
-    longName: general.controls['longName'].value,
+    title: general.controls['title'].value,
+    shortDescription: general.controls['shortDescription'].value,
     description: general.controls['description'].value,
     // localDate: general.controls['localDate'].value,
     createDifrInfoRequest: null,

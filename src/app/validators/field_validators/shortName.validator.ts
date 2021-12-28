@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
-export function createShortNameValidator(): ValidatorFn {
+export function createShortNameValidator(): ValidatorFn { // name to be changed
     return (control: AbstractControl): ValidationErrors | null => {
         const value = control.value;
 

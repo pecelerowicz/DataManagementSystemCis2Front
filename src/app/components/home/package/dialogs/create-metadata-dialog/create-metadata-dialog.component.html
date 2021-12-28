@@ -9,12 +9,12 @@
         <!-- <mat-error *ngIf="access.errors && packageName.access?.noAccess">no access</mat-error> -->
     </mat-radio-group>
     <mat-form-field class="example-form-field2">
-        <input type="text" matInput placeholder="Short name" formControlName="shortName">
-        <mat-error>Short name cannot be empty or exceed 50 characters</mat-error>
+        <input type="text" matInput placeholder="Title" formControlName="title">
+        <mat-error>Title cannot be empty or exceed 50 characters</mat-error>
     </mat-form-field>
     <mat-form-field class="example-form-field2">
-        <input type="text" matInput placeholder="Long name" formControlName="longName">
-        <mat-error>Long name cannot be empty or exceed 80 characters</mat-error>
+        <input type="text" matInput placeholder="Short description" formControlName="shortDescription">
+        <mat-error>Short description cannot be empty or exceed 80 characters</mat-error>
     </mat-form-field>
     <mat-form-field class="example-form-field2" appearance="outline">
       <textarea matInput matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows = "2" placeholder="Description" formControlName="description"></textarea>

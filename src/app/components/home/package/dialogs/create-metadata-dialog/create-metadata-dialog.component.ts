@@ -35,8 +35,8 @@ export class CreateMetadataDialogComponent implements OnInit {
     let createInfoRequst: CreateInfoRequest = {
       infoName: this.name,
       access: this.general.value.access,
-      shortName: this.general.value.shortName,
-      longName: this.general.value.longName,
+      title: this.general.value.title,
+      shortDescription: this.general.value.shortDescription,
       description: this.general.value.description
     }
     this.infoService.createMetadata(createInfoRequst).subscribe(val => {
