@@ -1,104 +1,108 @@
 <div fxLayout="column">
-    <div class="example-container  mat-elevation-z3" fxFlex="89vh">
-  
-    <app-filter [dataSource]="dataSource" (filteredDataEmit)="catchFilteredData($event)"></app-filter>  
-    
-      <table mat-table [dataSource]="dataSourceCopy" >
-    
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>name</th>
-        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-      </ng-container>
-    
-      <ng-container matColumnDef="info">
-        <th mat-header-cell *matHeaderCellDef>metadata</th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            *ngIf="!element.hasMetadata"
-            mat-icon-button
-            aria-label="Example icon button with a vertical three dot icon"
-            [matMenuTriggerFor]="menuCreateMetadata"
-            [matMenuTriggerData]="{label: element}"
-          >
-            <mat-icon>add_circle_outline</mat-icon>
-          </button>
-          <button
-            *ngIf="element.hasMetadata"
-            mat-icon-button
-            (click)="onInfo(element)"
-            class="button-focus"
-            >
-            <mat-icon>info</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-     
-      <mat-menu #menuCreateMetadata="matMenu" matMenuContent>
-        <ng-template let-label="label" matMenuContent>
-          <button mat-menu-item (click)="onOpenCreateMetadataDialog(label)">
-            <mat-icon>info</mat-icon>
-            <span>Create metadata</span>
-          </button>
-        </ng-template>
-      </mat-menu>
-    
-      <ng-container matColumnDef="storage">
-        <th mat-header-cell *matHeaderCellDef>folder</th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            *ngIf="element.hasStorage"
-            mat-icon-button
-            (click)="onStorage(element)"
-            class="button-focus"
-          >
-            <mat-icon>folder</mat-icon>
-          </button>
-          <button
-            *ngIf="!element.hasStorage"
-            mat-icon-button
-            [matMenuTriggerFor]="menuCreateStorage"
-            [matMenuTriggerData]="{label: element}"
-          >
-            <mat-icon>add_circle_outline</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-    
-      <mat-menu #menuCreateStorage="matMenu" matMenuContent>
-        <ng-template let-label="label" matMenuContent>
-          <button mat-menu-item (click)="onCreateStorage(label)">
-            <mat-icon>storage</mat-icon>
-            <span>Create storage</span>
-          </button>
-        </ng-template>
-      </mat-menu>
-    
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            mat-icon-button
-            (click)="onOpenDeletePackageDialog(element)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+  <div class="example-container  mat-elevation-z3" fxFlex="89vh">
 
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef>date</th>
-        <td mat-cell *matCellDef="let element">{{ element.localDate }}</td>
-      </ng-container>
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-    
+    <mat-form-field>
+      <input (keyup)="applyFilter($event)" matInput placeholder="search">
+    </mat-form-field>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" >
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="info">
+          <th mat-header-cell *matHeaderCellDef>metadata</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="!element.hasMetadata"
+              mat-icon-button
+              aria-label="Example icon button with a vertical three dot icon"
+              [matMenuTriggerFor]="menuCreateMetadata"
+              [matMenuTriggerData]="{label: element}"
+            >
+              <mat-icon>add_circle_outline</mat-icon>
+            </button>
+            <button
+              *ngIf="element.hasMetadata"
+              mat-icon-button
+              (click)="onInfo(element)"
+              class="button-focus"
+              >
+              <mat-icon>info</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+      
+        <mat-menu #menuCreateMetadata="matMenu" matMenuContent>
+          <ng-template let-label="label" matMenuContent>
+            <button mat-menu-item (click)="onOpenCreateMetadataDialog(label)">
+              <mat-icon>info</mat-icon>
+              <span>Create metadata</span>
+            </button>
+          </ng-template>
+        </mat-menu>
+
+        <ng-container matColumnDef="storage">
+          <th mat-header-cell *matHeaderCellDef>folder</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="element.hasStorage"
+              mat-icon-button
+              (click)="onStorage(element)"
+              class="button-focus"
+            >
+              <mat-icon>folder</mat-icon>
+            </button>
+            <button
+              *ngIf="!element.hasStorage"
+              mat-icon-button
+              [matMenuTriggerFor]="menuCreateStorage"
+              [matMenuTriggerData]="{label: element}"
+            >
+              <mat-icon>add_circle_outline</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <mat-menu #menuCreateStorage="matMenu" matMenuContent>
+          <ng-template let-label="label" matMenuContent>
+            <button mat-menu-item (click)="onCreateStorage(label)">
+              <mat-icon>storage</mat-icon>
+              <span>Create storage</span>
+            </button>
+          </ng-template>
+        </mat-menu>
+      
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              (click)="onOpenDeletePackageDialog(element)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>date</th>
+          <td mat-cell *matCellDef="let element">{{ element.localDate }}</td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
-    
-    <p id="father">    
-      <button (click)="onOpenCreatePackageDialog()" id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
-        <mat-icon>add</mat-icon>
-      </button>
-      </p>
-    </div>
+    <mat-paginator [pageSizeOptions]="[20, 50, 100, 200, 500]" showFirstLastButtons></mat-paginator>
+  </div>
+  
+  <p id="father">    
+    <button (click)="onOpenCreatePackageDialog()" id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+      <mat-icon>add</mat-icon>
+    </button>
+  </p>
+</div>

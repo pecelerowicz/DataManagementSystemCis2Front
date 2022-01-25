@@ -2,6 +2,7 @@ export interface PackageResponse {
     name: string;
     hasStorage: boolean;
     hasMetadata: boolean;
+    shortDescription: string;
     localDate: string;
 }
 
