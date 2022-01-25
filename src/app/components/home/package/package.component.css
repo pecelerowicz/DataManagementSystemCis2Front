@@ -46,4 +46,13 @@
   /* .button-focus:focus {
     background-color: lightgray;
   } */
-  
+  .mat-paginator {
+    display: flex;
+    justify-content: center;
+  } 
+
+  .table-container {
+    /* height: calc(90vh - 155px); */
+    min-height: calc(90.8vh - 155px);
+    overflow: auto;
+  }
