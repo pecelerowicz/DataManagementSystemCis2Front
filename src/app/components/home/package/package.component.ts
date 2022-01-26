@@ -53,7 +53,8 @@ export class PackageComponent implements OnInit {
       let counter: number = 1;
       for(let sm of val.packageResponseList) {
         fetch.push({name: sm.name, hasStorage: sm.hasStorage, 
-          hasMetadata: sm.hasMetadata, localDate: sm.localDate, shortDescription: sm.shortDescription, position: counter});
+          hasMetadata: sm.hasMetadata, localDate: sm.localDate, 
+          title: sm.title, shortDescription: sm.shortDescription, position: counter});
         counter++;
       }
       this.dataSource = new MatTableDataSource();
@@ -122,6 +123,7 @@ interface Row {
   hasStorage: boolean, 
   hasMetadata: boolean, 
   localDate: string, 
+  title: string,
   shortDescription: string,
   position: number
 }
