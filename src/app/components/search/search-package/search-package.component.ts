@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { GetSearchListRequest, SearchResponse } from 'src/app/dto/my_search';
 import { AuthService } from 'src/app/services/auth.service';
 import { SearchService } from 'src/app/services/search.service';
@@ -14,13 +16,15 @@ export class SearchPackageComponent implements OnInit {
   @Output() info = new EventEmitter<{order: number, username: string, name: string }>();
   @Output() storage = new EventEmitter<{order: number, username: string, name: string}>();
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   users: string[];
   types: string[];
   search: FormGroup = getSearch();
   searchList: SearchResponse[];
 
   displayedColumns: string[] = ['date', 'name', 'username', 'metadata', 'storage'];
-  dataSource: SearchRow[] = [];// = ELEMENT_DATA;
+  dataSource: MatTableDataSource<SearchRow>;//SearchRow[] = [];
 
   constructor(private authService: AuthService, 
               private searchService: SearchService,
@@ -78,7 +82,9 @@ export class SearchPackageComponent implements OnInit {
         counter++;
       }
 
-      this.dataSource = fetch;
+      this.dataSource = new MatTableDataSource();
+      this.dataSource.data = fetch;
+      this.dataSource.paginator = this.paginator;
       console.log(fetch)
 
     }, 
