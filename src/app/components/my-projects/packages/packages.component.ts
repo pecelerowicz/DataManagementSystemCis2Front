@@ -23,7 +23,7 @@ export class PackagesComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-      this.sharedCommunicationService.updateListOfPackagesInProject$.subscribe(() => {
+    this.sharedCommunicationService.updateListOfPackagesInProject$.subscribe(() => {
       this.getProjectDetails();
       this.getMyInfos();
     });

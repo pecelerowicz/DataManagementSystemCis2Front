@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AddMyInfoToOtherProjectRequest, ProjectInfoResponse, RemoveMyInfoFromOtherProjectRequest } from '../../../dto/my_project';
 import { AuthService } from '../../../services/auth.service';
@@ -13,15 +15,16 @@ import { SharedCommunicationService } from '../../../services/shared-communicati
   templateUrl: './packages-all.component.html',
   styleUrls: ['./packages-all.component.css']
 })
-export class PackagesAllComponent implements OnInit {
+export class PackagesAllComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['name', 'author', 'metadata', 'storage', 'delete'];
-  dataSource: ProjectInfoResponse[] = [];
+  displayedColumns: string[] = ['name', 'username', 'metadata', 'storage', 'delete'];
+  dataSource = new MatTableDataSource();
+
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
               private projectService: ProjectService,
               private infoService: InfoService,
-              private dialog: MatDialog,
               private authService: AuthService,
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar) { }
@@ -31,9 +34,8 @@ export class PackagesAllComponent implements OnInit {
   public infoList: string[] = [];
   public userName: string = '';
 
-  ngOnInit(): void {
-
-
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = parseInt(params.get('id'));
       this.getProjectDetails();
@@ -45,7 +47,7 @@ export class PackagesAllComponent implements OnInit {
   getProjectDetails() {
     this.projectService.getProject(this.id).subscribe(val => {
       this.projectName = val.name;
-      this.dataSource = val.projectInfoResponseList;
+      this.dataSource.data = val.projectInfoResponseList;
     },
     err => {
       console.log(err);
