@@ -3,21 +3,23 @@
       <h4 matSubheader>{{ projectName }}</h4>
       <mat-divider></mat-divider>
       
-
-      <table mat-table [dataSource]="dataSource" >
+      <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>name</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            name
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="author">
-          <th mat-header-cell *matHeaderCellDef>author</th>
-          <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            owner
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.username}} </td>
         </ng-container>
 
         <ng-container matColumnDef="metadata">
           <th mat-header-cell *matHeaderCellDef>metadata</th>
-          <!-- <td mat-cell *matCellDef="let element">{{ element.username }}</td> -->
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="onMetadata(element)">
               <mat-icon>info</mat-icon>
@@ -27,7 +29,6 @@
 
         <ng-container matColumnDef="storage">
           <th mat-header-cell *matHeaderCellDef>folder</th>
-          <!-- <td mat-cell *matCellDef="let element">{{ element.username }}</td> -->
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="onStorage(element)">
               <mat-icon>storage</mat-icon>
@@ -37,7 +38,6 @@
 
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef></th>
-          <!-- <td mat-cell *matCellDef="let element">{{ element.username }}</td> -->
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="onOpenRemovePackageDialog(element)">
               <mat-icon>delete</mat-icon>
@@ -48,8 +48,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
     </div>
+
     <p id="father">
       <button [matMenuTriggerFor]="metadataMenu" mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
           <mat-icon>add</mat-icon>
@@ -58,4 +58,5 @@
           <button *ngFor="let info of infoList" mat-menu-item (click)="onAddMyInfo(info)" >{{ info }}</button>
         </mat-menu>
     </p>
+    
   </div>

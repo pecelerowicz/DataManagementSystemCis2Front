@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { GetInfoResponse } from '../../../dto/info/info';
-import { AddMyInfoToOwnedProjectRequest, ProjectInfoResponse, RemoveInfoFromOwnedProjectRequest } from '../../../dto/my_project';
+import { AddMyInfoToOwnedProjectRequest, ProjectInfoResponse } from '../../../dto/my_project';
 import { InfoService } from '../../../services/info.service';
 import { ProjectService } from '../../../services/project.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
@@ -14,10 +15,24 @@ import { RemovePackageDialogComponent } from './dialogs/remove-package-dialog/re
   templateUrl: './packages.component.html',
   styleUrls: ['./packages.component.css']
 })
-export class PackagesComponent implements OnInit {
+export class PackagesComponent implements AfterViewInit {
+  displayedColumns: string[] = ['name', 'username', 'metadata', 'storage', 'delete'];
+  dataSource = new MatTableDataSource();
 
-  displayedColumns: string[] = ['name', 'author', 'metadata', 'storage', 'delete'];
-  dataSource: ProjectInfoResponse[] = [];
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+      this.sharedCommunicationService.updateListOfPackagesInProject$.subscribe(() => {
+      this.getProjectDetails();
+      this.getMyInfos();
+    });
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = parseInt(params.get('id'));
+      this.getProjectDetails();
+      this.getMyInfos();
+    });
+  }
 
   constructor(private route: ActivatedRoute,
               private projectService: ProjectService,
@@ -30,22 +45,10 @@ export class PackagesComponent implements OnInit {
   public projectName: string = '';
   public infoList: string[] = [];
 
-  ngOnInit(): void {
-    this.sharedCommunicationService.updateListOfPackagesInProject$.subscribe(() => {
-      this.getProjectDetails();
-      this.getMyInfos();
-    });
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.id = parseInt(params.get('id'));
-      this.getProjectDetails();
-      this.getMyInfos();
-    });
-  }
-
   getProjectDetails() {
     this.projectService.getOwnedProject(this.id).subscribe(val => {
       this.projectName = val.name;
-      this.dataSource = val.projectInfoResponseList;
+      this.dataSource.data = val.projectInfoResponseList;
     },
     err => {
       console.log(err);
@@ -74,7 +77,6 @@ export class PackagesComponent implements OnInit {
   }
 
   onOpenRemovePackageDialog(element) {
-    //console.log(element);
     this.dialog.open(RemovePackageDialogComponent, 
       {data: {infoName: element.name, 
               username: element.username,

@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { GetProjectResponse } from '../../../dto/my_project';
 import { ProjectService } from '../../../services/project.service';
 
 @Component({
@@ -20,7 +19,6 @@ export class ProjectListAllComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['date', 'name', 'owner', 'members', 'description', 'packages'];
-  // dataSource: GetProjectResponse[] = [];
   dataSource: MatTableDataSource<{id: number, created: string, name: string, owner: string, position: number}>;
 
   constructor(private projectService: ProjectService) { }
