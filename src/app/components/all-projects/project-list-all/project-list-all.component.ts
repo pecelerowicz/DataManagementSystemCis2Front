@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProjectService } from '../../../services/project.service';
+import { AllProjectsService } from '../../../services/all-projects.service';
 
 @Component({
   selector: 'app-project-list-all',
@@ -21,7 +21,7 @@ export class ProjectListAllComponent implements OnInit {
   displayedColumns: string[] = ['date', 'name', 'owner', 'members', 'description', 'packages'];
   dataSource: MatTableDataSource<{id: number, created: string, name: string, owner: string, position: number}>;
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private allProjectsService: AllProjectsService) { }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -36,7 +36,7 @@ export class ProjectListAllComponent implements OnInit {
   getProjects() {
     let fetch: {id: number, created: string, name: string, owner: string, position: number}[] = [];
     //let projectList: GetProjectResponse[] = [];
-    this.projectService.getProjects().subscribe(val => {
+    this.allProjectsService.getProjects().subscribe(val => {
       let counter: number = 1;
       for(let sm of val.getProjectResponseList) {
         fetch.push({id: sm.id, created: sm.localDate, name: sm.name,  

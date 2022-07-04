@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../../services/project.service';
+import { MyProjectsService } from '../../../services/my-projects.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { getInitialValueDifr, mapDifrResponse } from 'src/app/mappers/difr';
 import { getInitialValueGeneral, mapGeneralResponse } from 'src/app/mappers/general';
@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 })
 export class PackagesInfoComponent implements OnInit {
 
-  constructor(private projectService: ProjectService,
+  constructor(private myProjectsService: MyProjectsService,
               private sharedCommunitationService: SharedCommunicationService,
               private location: Location) { }
 
@@ -41,7 +41,7 @@ export class PackagesInfoComponent implements OnInit {
   }
 
   pullData() {
-    this.projectService.getInfoOfUserAndProject(this.state.projectId, 
+    this.myProjectsService.getInfoOfUserInProject(this.state.projectId, 
       this.state.userName, this.state.infoName).subscribe(val => {
         console.log(val);
         this.mapResponse(val);

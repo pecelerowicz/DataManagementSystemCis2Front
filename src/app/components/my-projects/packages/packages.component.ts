@@ -4,9 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AddMyInfoToOwnedProjectRequest, ProjectInfoResponse } from '../../../dto/my_project';
-import { InfoService } from '../../../services/info.service';
-import { ProjectService } from '../../../services/project.service';
+import { AddMyInfoToOwnedProjectRequest } from '../../../dto/my_project';
+import { MyProjectsService } from '../../../services/my-projects.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { RemovePackageDialogComponent } from './dialogs/remove-package-dialog/remove-package-dialog.component';
 
@@ -35,8 +34,7 @@ export class PackagesComponent implements AfterViewInit {
   }
 
   constructor(private route: ActivatedRoute,
-              private projectService: ProjectService,
-              private infoService: InfoService,
+              private myProjectsService: MyProjectsService,
               private dialog: MatDialog,
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar) { }
@@ -46,7 +44,7 @@ export class PackagesComponent implements AfterViewInit {
   public infoList: string[] = [];
 
   getProjectDetails() {
-    this.projectService.getOwnedProject(this.id).subscribe(val => {
+    this.myProjectsService.getOwnedProject(this.id).subscribe(val => {
       this.projectName = val.name;
       this.dataSource.data = val.projectInfoResponseList;
     },
@@ -56,7 +54,7 @@ export class PackagesComponent implements AfterViewInit {
   }
 
   getMyInfos() {
-    this.infoService.getInfoList().subscribe(val => {
+    this.myProjectsService.getInfoList().subscribe(val => {
       this.infoList = val.infoNameList;
     },
     err => {
@@ -88,7 +86,7 @@ export class PackagesComponent implements AfterViewInit {
       infoName: val,
       projectId: this.id
     }
-    this.projectService.addMyInfoToOwnedProject(payload).subscribe(val => {
+    this.myProjectsService.addMyInfoToOwnedProject(payload).subscribe(val => {
       this.getProjectDetails();
       this.getMyInfos();
       this._snackBar.open("Package was included in the project", "", {

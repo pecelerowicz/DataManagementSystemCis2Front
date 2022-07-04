@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
-import { ProjectService } from '../../../services/project.service';
+import { AllProjectsService } from 'src/app/services/all-projects.service';
 
 @Component({
   selector: 'app-members-all',
@@ -11,8 +10,7 @@ import { ProjectService } from '../../../services/project.service';
 export class MembersAllComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private authService: AuthService,
-              private projectService: ProjectService) { }
+              private allProjectsService: AllProjectsService) { }
 
   public id: number = -1;
   public projectName: string = '';
@@ -26,7 +24,7 @@ export class MembersAllComponent implements OnInit {
   }
 
   getProjectDetails() {
-    this.projectService.getProject(this.id).subscribe(val => {
+    this.allProjectsService.getProject(this.id).subscribe(val => {
       this.projectName = val.name;
 
       this.members = [];

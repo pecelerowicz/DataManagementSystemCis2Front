@@ -2,10 +2,9 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { FolderService } from 'src/app/services/folder.service';
+import { AllDataService } from 'src/app/services/all-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
-import { UploadService } from 'src/app/services/upload.service';
-import { Node } from '../../../dto/storage';
+import { Node } from '../../../dto/my_data';
 
 export interface DialogData {
   order: number;
@@ -55,8 +54,7 @@ export class SearchFolderComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private sharedCommunicationService: SharedCommunicationService,
-              private folderService: FolderService,
-              private uploadService: UploadService,
+              private allDataService: AllDataService,
               private route: ActivatedRoute, ) { }
 
   ngOnInit(): void {
@@ -64,7 +62,7 @@ export class SearchFolderComponent implements OnInit {
       this.order = this.sharedCommunicationService.fromSearchToStorage.position;
       this.name = this.sharedCommunicationService.fromSearchToStorage.name;
       this.username = this.sharedCommunicationService.fromSearchToStorage.username;
-      this.folderService.getPackageFolderStructureOfUser(this.username, this.name).subscribe((val) => {
+      this.allDataService.getPackageFolderStructureOfUser(this.username, this.name).subscribe((val) => {
         this.dataSource.data = val.children;
       })
     });
@@ -80,7 +78,7 @@ export class SearchFolderComponent implements OnInit {
   }
 
   onDownloadFileOfUser(val) {
-    this.uploadService.downloadFileOfUser(this.username, this.name, val)
+    this.allDataService.downloadFileOfUser(this.username, this.name, val)
   }
 
   onTestDisplay() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { getInitialValueDescription } from '../../../mappers/project/project';
-import { ProjectService } from '../../../services/project.service';
+import { AllProjectsService } from '../../../services/all-projects.service';
 
 @Component({
   selector: 'app-description-all',
@@ -11,7 +11,7 @@ import { ProjectService } from '../../../services/project.service';
 export class DescriptionAllComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private projectService: ProjectService) { }
+              private allProjectsService: AllProjectsService) { }
 
   public id: number = -1;
   public projectName: string = '';
@@ -26,7 +26,7 @@ export class DescriptionAllComponent implements OnInit {
   }
 
   getDescriptionAndName() {
-    this.projectService.getProject(this.id).subscribe(val => {
+    this.allProjectsService.getProject(this.id).subscribe(val => {
       let description: string = val.description;
       this.projectName = val.name;
       this.description.patchValue({

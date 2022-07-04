@@ -5,3 +5,15 @@ export interface ChangePasswordRequest {
 export interface ChangePasswordResponse {
     message: string;
 }
+
+export interface LoginRequest {
+    username: string;
+    password: string;
+}
+
+export interface LoginResponse {
+    authenticationToken: string;
+    expiresAt: Date;
+    refreshToken: string;
+    username: string;
+}

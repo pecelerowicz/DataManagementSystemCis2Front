@@ -4,7 +4,7 @@ import { GetInfoResponse } from 'src/app/dto/info/info';
 import { getInitialValueDifr, mapDifrResponse } from 'src/app/mappers/difr';
 import { getInitialValueGeneral, mapGeneralResponse } from 'src/app/mappers/general';
 import { getInitialValueTest, mapTestResponse } from 'src/app/mappers/test';
-import { InfoService } from 'src/app/services/info.service';
+import { AllDataService } from 'src/app/services/all-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 import { InfoState } from '../../home/info/info.component';
 
@@ -17,7 +17,7 @@ export class SearchInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private sharedCommunicationService: SharedCommunicationService,
-              private infoService: InfoService) { }
+              private allDataService: AllDataService) { }
 
   userName: string = '';
   infoState: InfoState = {
@@ -44,7 +44,7 @@ export class SearchInfoComponent implements OnInit {
   }
 
   pullData() {
-    this.infoService.getInfoOfUser(this.userName, this.infoState.infoName).subscribe(val => {
+    this.allDataService.getInfoOfUser(this.userName, this.infoState.infoName).subscribe(val => {
       //console.log(val);
       this.mapResponse(val);
     }, err => {

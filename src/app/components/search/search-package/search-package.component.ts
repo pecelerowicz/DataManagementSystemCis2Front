@@ -2,9 +2,9 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { GetSearchListRequest, SearchResponse } from 'src/app/dto/my_search';
+import { GetSearchListRequest, SearchResponse } from 'src/app/dto/all_data';
 import { AuthService } from 'src/app/services/auth.service';
-import { SearchService } from 'src/app/services/search.service';
+import { AllDataService } from 'src/app/services/all-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class SearchPackageComponent implements OnInit {
   dataSource: MatTableDataSource<SearchRow>;//SearchRow[] = [];
 
   constructor(private authService: AuthService, 
-              private searchService: SearchService,
+              private allDataService: AllDataService,
               private sharedCommuncationService: SharedCommunicationService) { }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class SearchPackageComponent implements OnInit {
         console.log(err);
       }
     )
-    this.searchService.getTypes().subscribe(
+    this.allDataService.getTypeList().subscribe(
       val => {
         this.types = val;
       }, 
@@ -72,7 +72,7 @@ export class SearchPackageComponent implements OnInit {
       // do nothing
     } 
 
-    this.searchService.getSearchList(getSearchListRequest).subscribe(val => {
+    this.allDataService.getSearchList(getSearchListRequest).subscribe(val => {
       this.searchList = val.searchResponseList;
       let fetch: SearchRow[] = [];
 

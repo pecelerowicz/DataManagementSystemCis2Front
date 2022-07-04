@@ -11,6 +11,7 @@ export class SharedCommunicationService {
 
   passParam: {name: string, path: string, order: number, packageName: string, folderPath: string} = 
   {name: '', path: '', order: 0, packageName: '', folderPath: ''};
+  
   componentChangeEmitter = new EventEmitter();
 
   createPackageEmitter = new EventEmitter();

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { CreatePackageRequest } from 'src/app/dto/my_package';
-import { PackageService } from 'src/app/services/package.service';
+import { CreatePackageRequest } from 'src/app/dto/my_data';
+import { MyDataService } from 'src/app/services/my-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 import { createNameValidator } from 'src/app/validators/field_validators/name.validator';
 
@@ -16,7 +16,7 @@ import { createNameValidator } from 'src/app/validators/field_validators/name.va
 export class CreatePackageDialogComponent {
 
     constructor(
-      private packageService: PackageService,
+      private myDataService: MyDataService,
       private router: Router,
       private dialogRef: MatDialogRef<CreatePackageDialogComponent>,
       private sharedCommunicationService: SharedCommunicationService,
@@ -32,7 +32,7 @@ export class CreatePackageDialogComponent {
 
     onCreate() {
       let createPackageRequest: CreatePackageRequest = {packageName: this.form.value.packageName};
-      this.packageService.createPackage(createPackageRequest).subscribe(
+      this.myDataService.createPackage(createPackageRequest).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfPackages$.next()
           this.openSnackBar(val.createPackageMessage, '');

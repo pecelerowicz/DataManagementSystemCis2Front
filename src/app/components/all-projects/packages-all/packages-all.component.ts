@@ -1,13 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AddMyInfoToOtherProjectRequest, ProjectInfoResponse, RemoveMyInfoFromOtherProjectRequest } from '../../../dto/my_project';
+import { AllProjectsService } from 'src/app/services/all-projects.service';
+import { AddMyInfoToOtherProjectRequest, RemoveMyInfoFromOtherProjectRequest } from '../../../dto/my_project';
 import { AuthService } from '../../../services/auth.service';
-import { InfoService } from '../../../services/info.service';
-import { ProjectService } from '../../../services/project.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 
 @Component({
@@ -23,8 +21,7 @@ export class PackagesAllComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
-              private projectService: ProjectService,
-              private infoService: InfoService,
+              private allProjectsService: AllProjectsService,
               private authService: AuthService,
               private sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar) { }
@@ -45,7 +42,7 @@ export class PackagesAllComponent implements AfterViewInit {
   }
 
   getProjectDetails() {
-    this.projectService.getProject(this.id).subscribe(val => {
+    this.allProjectsService.getProject(this.id).subscribe(val => {
       this.projectName = val.name;
       this.dataSource.data = val.projectInfoResponseList;
     },
@@ -55,7 +52,7 @@ export class PackagesAllComponent implements AfterViewInit {
   }
 
   getMyInfos() {
-    this.infoService.getInfoList().subscribe(val => {
+    this.allProjectsService.getInfoList().subscribe(val => {
       this.infoList = val.infoNameList;
     },
     err => {
@@ -68,7 +65,7 @@ export class PackagesAllComponent implements AfterViewInit {
       infoName: val,
       projectId: this.id
     }
-    this.projectService.addMyInfoToOtherProject(payload).subscribe(val => {
+    this.allProjectsService.addMyInfoToOtherProject(payload).subscribe(val => {
       this.getProjectDetails();
       this.getMyInfos();
       this._snackBar.open("Package was included in the project", "", {
@@ -87,7 +84,7 @@ export class PackagesAllComponent implements AfterViewInit {
       projectId: this.id
     }
 
-    this.projectService.removeMyInfoFromOtherProject(payload).subscribe(val => {
+    this.allProjectsService.removeMyInfoFromOtherProject(payload).subscribe(val => {
       this.getProjectDetails();
       this.getMyInfos();
       this._snackBar.open("Package was removed from the project", "", {

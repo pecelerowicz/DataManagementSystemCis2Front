@@ -4,12 +4,12 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
-import { FolderService } from '../../../services/folder.service';
-import { Node } from '../../../dto/storage';
+import { Node } from '../../../dto/my_data';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadService } from 'src/app/services/upload.service';
-import { DeleteItemRequest } from 'src/app/dto/my_folder';
+import { DeleteItemRequest } from 'src/app/dto/my_data';
+import { MyDataService } from 'src/app/services/my-data.service';
 
 export interface DialogData {
   order: number;
@@ -57,7 +57,7 @@ export class FolderComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private route: ActivatedRoute, 
-              private folderService: FolderService,
+              private myDataService: MyDataService,
               private uploadService: UploadService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog) {}
@@ -66,7 +66,7 @@ export class FolderComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.order = parseInt(params.get('order'));
       this.name = this.sharedCommunicationService.fromListToStorage.name;
-      this.folderService.getPackageFolderStructure(this.name).subscribe((val) => {
+      this.myDataService.getPackageFolderStructure(this.name).subscribe((val) => {
         this.dataSource.data = val.children;
       })
     });
@@ -75,7 +75,7 @@ export class FolderComponent implements OnInit {
       this.route.paramMap.subscribe((params: ParamMap) => {
         this.order = parseInt(params.get('order'));
         this.name = this.sharedCommunicationService.fromListToStorage.name;
-        this.folderService.getPackageFolderStructure(this.name).subscribe((val) => {
+        this.myDataService.getPackageFolderStructure(this.name).subscribe((val) => {
           this.dataSource.data = val.children;
         })
       });
@@ -88,7 +88,7 @@ export class FolderComponent implements OnInit {
   isEmptyFolder = (_: number, node: ExampleFlatNode) => node.folder && !node.expandable;
 
   onDownload(val) {
-    this.uploadService.download(this.name, val);
+    this.myDataService.downloadFile(this.name, val);
   }
 
   onUpload(val) {
@@ -135,7 +135,7 @@ export class FolderComponent implements OnInit {
   `]
 })
 export class CreateFolderDialog {
-  constructor(private folderService: FolderService,
+  constructor(private myDataService: MyDataService,
               private dialogRef: MatDialogRef<CreateFolderDialog>,
               public sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
@@ -146,7 +146,7 @@ export class CreateFolderDialog {
     let sourceName = this.data.subfolderName;
     let newFolder = dialogForm.value.name;
 
-    this.folderService.createFolder(newFolder, sourceName, packageName).subscribe(
+    this.myDataService.createFolder(newFolder, sourceName, packageName).subscribe(
         (val) => {
           this.sharedCommunicationService.updateListOfFolders$.next();
           this.openSnackBar('Created folder', val.newFolderFullName)
@@ -187,7 +187,7 @@ export class CreateFolderDialog {
   `]
 })
 export class DeleteFolderDialog {
-  constructor(private folderService: FolderService,
+  constructor(private myDataService: MyDataService,
               private dialogRef: MatDialogRef<DeleteFolderDialog>,
               public sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
@@ -196,7 +196,7 @@ export class DeleteFolderDialog {
     
     let deleteItemRequest: DeleteItemRequest = {packageName: this.data.name, itemPathString: this.data.subfolderName};
     
-    this.folderService.deleteFolder(deleteItemRequest).subscribe(
+    this.myDataService.deleteItem(deleteItemRequest).subscribe(
       val => {
         this.sharedCommunicationService.updateListOfFolders$.next();
         this.openSnackBar(val.deleteFolderMessage, '');

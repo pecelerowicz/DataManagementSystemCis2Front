@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegisterRequest } from '../components/register/register.request';
 import { Observable, Subject, throwError } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
-import { LoginRequest } from '../components/login/login-request';
-import { LoginResponse } from '../components/login/login-response';
+import { LoginRequest } from '../dto/my_auth';
+import { LoginResponse } from '../dto/my_auth';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs/operators';
+import { ChangePasswordRequest, ChangePasswordResponse } from '../dto/my_auth';
 
 @Injectable({
   providedIn: 'root',
@@ -25,14 +25,14 @@ export class AuthService {
     private _snackBar: MatSnackBar
   ) {}
 
-  signup(registerRequest: RegisterRequest): Observable<any> {
-    //any?
-    return this.httpClient.post(
-      environmentCustom.address + "/api/auth/signup",
-      registerRequest,
-      { responseType: 'text' }
-    );
-  }
+  // signup(registerRequest: RegisterRequest): Observable<any> {
+  //   //any?
+  //   return this.httpClient.post(
+  //     environmentCustom.address + "/api/auth/signup",
+  //     registerRequest,
+  //     { responseType: 'text' }
+  //   );
+  // }
 
   // login
   private _loginSource = new Subject<boolean>();
@@ -89,7 +89,6 @@ export class AuthService {
     return this.httpClient.post<LoginResponse>(environmentCustom.address + '/api/auth/refresh/token',
       this.refreshTokenPayload)
       .pipe(tap(response => {
-        console.log("asdfasdf")
         this.localStorage.clear('authenticationToken');
         this.localStorage.clear('expiresAt');
 
@@ -99,10 +98,26 @@ export class AuthService {
       }));
   }
 
-
+// change password
+changePassword(changePasswordRequest: ChangePasswordRequest): void {
+  this.httpClient
+    .put<ChangePasswordResponse>(environmentCustom.address + "/api/newpass", changePasswordRequest)
+    .subscribe(data => {
+      // this.localStorage.store('authenticationToken', data.authenticationToken);
+      // this.localStorage.store('username', data.username);
+      // this.localStorage.store('refreshToken', data.refreshToken);
+      // this.localStorage.store('expiresAt', data.expiresAt);
+      // this._loginSource.next(true);
+      
+      this._snackBar.open(data.message, '', {duration: 6000});
+    },
+    (err) => {
+      this._snackBar.open('Password not changed... Please try again.', '', {duration: 6000});
+    })
+}
 
   getUsers(): Observable<string[]> {
-    return this.httpClient.get<string[]>(environmentCustom.address + "/api/auth/users");
+    return this.httpClient.get<string[]>(environmentCustom.address + "/api/all-data/users");
   }
 
   getJwtToken() {

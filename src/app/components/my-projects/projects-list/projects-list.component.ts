@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProjectService } from '../../../services/project.service';
+import { MyProjectsService } from '../../../services/my-projects.service';
 import { CreateProjectDialogComponent} from '../../../components/my-projects/projects-list/dialogs/create-project-dialog/create-project-dialog.component';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,7 +25,7 @@ export class ProjectsListComponent implements OnInit {
   displayedColumns: string[] = ['date', 'name', 'description', 'packages', 'members', 'delete'];
   dataSource: MatTableDataSource<{id: number, created: string, name: string, position: number}>;
 
-  constructor(private projectService: ProjectService,
+  constructor(private myProjectsService: MyProjectsService,
               private dialog: MatDialog,
               private sharedCommunicationService: SharedCommunicationService) { }
 
@@ -50,7 +50,7 @@ export class ProjectsListComponent implements OnInit {
   getProjects() {
     let fetch: {id: number, created: string, name: string, position: number}[] = [];
     //let projectList: GetProjectResponse[] = [];
-    this.projectService.getOwnedProjects().subscribe(val => {
+    this.myProjectsService.getOwnedProjects().subscribe(val => {
       let counter: number = 1;
       for(let sm of val.getProjectResponseList) {
         fetch.push({id: sm.id, created: sm.localDate, name: sm.name,  
