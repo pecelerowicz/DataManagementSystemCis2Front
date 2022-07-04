@@ -13,16 +13,17 @@ export class PackageService {
   constructor(private http: HttpClient) { }
 
   private packageAddress: string = environmentCustom.address + "/api/package";
+  private packageAddressMyData: string = environmentCustom.address + "/api/my-data/package";
 
   getPackageList(): Observable<GetPackageListResponse> {
-    return this.http.get<GetPackageListResponse>(this.packageAddress);
+    return this.http.get<GetPackageListResponse>(this.packageAddressMyData);
   }
 
   createPackage(createPackageRequest: CreatePackageRequest): Observable<CreatePackageResponse> {
-    return this.http.post<CreatePackageResponse>(this.packageAddress, createPackageRequest);
+    return this.http.post<CreatePackageResponse>(this.packageAddressMyData, createPackageRequest);
   }
 
   deletePackage(deletePackageRequest: DeletePackageRequest): Observable<DeletePackageResponse> {
-    return this.http.request<DeletePackageResponse>('delete', this.packageAddress, {body: deletePackageRequest});
+    return this.http.request<DeletePackageResponse>('delete', this.packageAddressMyData, {body: deletePackageRequest});
   }
 }

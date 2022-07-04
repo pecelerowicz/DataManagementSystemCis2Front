@@ -12,10 +12,10 @@ export class SearchService {
   constructor(private httpClient: HttpClient) { }
 
   getTypes(): Observable<string[]> {
-    return this.httpClient.get<string[]>(environmentCustom.address + "/api/search/types")
+    return this.httpClient.get<string[]>(environmentCustom.address + "/api/all-data/types")
   }
 
   getSearchList(getSearchListRequest: GetSearchListRequest): Observable<GetSearchListResponse> {
-    return this.httpClient.post<GetSearchListResponse>(environmentCustom.address + "/api/search", getSearchListRequest);
+    return this.httpClient.post<GetSearchListResponse>(environmentCustom.address + "/api/all-data/search", getSearchListRequest);
   }
 }

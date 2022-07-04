@@ -15,40 +15,42 @@ export class ProjectService {
   private projectAddressPrefix: string =  environmentCustom.address + '/api/project';
   private projectAddressAllPrefix: string =  environmentCustom.address + '/api/project/all';
 
+  private projectAddressPrefixMyProjects: string =  environmentCustom.address + '/api/my-projects/project';
+
   getOwnedProject(id: number): Observable<GetProjectResponse> {
-    return this.httpClient.get<GetProjectResponse>(this.projectAddressPrefix + '/' + id);
+    return this.httpClient.get<GetProjectResponse>(this.projectAddressPrefixMyProjects + '/' + id);
   }
 
   getOwnedProjects(): Observable<GetProjectsResponse> {
-    return this.httpClient.get<GetProjectsResponse>(this.projectAddressPrefix);
+    return this.httpClient.get<GetProjectsResponse>(this.projectAddressPrefixMyProjects);
   }
 
   createOwnedProject(payload: CreateProjectRequest): Observable<CreateProjectResponse> {
-    return this.httpClient.post<CreateProjectResponse>(this.projectAddressPrefix, payload);
+    return this.httpClient.post<CreateProjectResponse>(this.projectAddressPrefixMyProjects, payload);
   }
 
   updateOwnedProject(payload: UpdateProjectRequest): Observable<UpdateProjectResponse> {
-    return this.httpClient.put<UpdateProjectResponse>(this.projectAddressPrefix, payload);
+    return this.httpClient.put<UpdateProjectResponse>(this.projectAddressPrefixMyProjects, payload);
   }
 
   addUserToOwnedProject(payload: AddUserRequest): Observable<AddUserResponse> {
-    return this.httpClient.post<AddUserResponse>(this.projectAddressPrefix + '/user', payload);
+    return this.httpClient.post<AddUserResponse>(this.projectAddressPrefixMyProjects + '/user', payload);
   }
 
   removeUserFromOwnedProject(payload: RemoveUserFromOwnedProjectRequest): Observable<RemoveUserFromOwnedProjectResponse> {
-    return this.httpClient.request<RemoveUserFromOwnedProjectResponse>('delete', this.projectAddressPrefix + '/user', {body: payload});
+    return this.httpClient.request<RemoveUserFromOwnedProjectResponse>('delete', this.projectAddressPrefixMyProjects + '/user', {body: payload});
   }
 
   addMyInfoToOwnedProject(payload: AddMyInfoToOwnedProjectRequest): Observable<AddMyInfoToOwnedProjectResponse> {
-    return this.httpClient.post<AddMyInfoToOwnedProjectResponse>(this.projectAddressPrefix + '/info', payload); 
+    return this.httpClient.post<AddMyInfoToOwnedProjectResponse>(this.projectAddressPrefixMyProjects + '/info', payload); 
   }
 
   removeInfoFromOwnedProject(payload: RemoveInfoFromOwnedProjectRequest): Observable<RemoveInfoFromOwnedProjectResponse> {
-    return this.httpClient.request<RemoveInfoFromOwnedProjectResponse>('delete', this.projectAddressPrefix + '/info', {body: payload});
+    return this.httpClient.request<RemoveInfoFromOwnedProjectResponse>('delete', this.projectAddressPrefixMyProjects + '/info', {body: payload});
   }
 
   deleteOwnedProject(payload: DeleteOwnedProjectRequest): Observable<GetProjectsResponse> {
-    return this.httpClient.request<GetProjectsResponse>('delete', this.projectAddressPrefix, {body: payload});
+    return this.httpClient.request<GetProjectsResponse>('delete', this.projectAddressPrefixMyProjects, {body: payload});
   }
 
   // OTHER PROJECTS

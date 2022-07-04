@@ -11,7 +11,7 @@ export class StorageService {
 
   constructor(private http: HttpClient) { }
 
-  private storageAddress: string = environmentCustom.address + '/api/storage';
+  private storageAddress: string = environmentCustom.address + '/api/my-data/storage';
 
   createStorage(createStorageRequest: CreateStorageRequest): Observable<CreateStorageResponse> {
     return this.http.post<CreateStorageResponse>(this.storageAddress, createStorageRequest);

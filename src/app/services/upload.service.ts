@@ -13,6 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UploadService {
 
   private baseUrl =  environmentCustom.address + '/api';   //'http://localhost:8080/api';
+  private baseUrlMyData = environmentCustom.address + '/api/my-data';
+  private baseUrlAllData = environmentCustom.address + '/api/all-data';
 
   constructor(private http: HttpClient,
               private sharedCommunicationService: SharedCommunicationService,
@@ -27,7 +29,7 @@ export class UploadService {
     formData.append('file', file);
     formData.append('uploadFileRequest', JSON.stringify(payload));
 
-    const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.baseUrlMyData}/upload`, formData, {
       reportProgress: true,
       responseType: 'json'
     })
@@ -49,7 +51,7 @@ export class UploadService {
    
     this.openSnackBar("Buffering download","It might take up to a few minutes", 100000)
 
-    this.http.get(this.baseUrl + "/download", { 
+    this.http.get(this.baseUrlMyData + "/download", { 
         reportProgress: true,
         observe: 'events',
         responseType: 'blob',
@@ -80,7 +82,7 @@ export class UploadService {
    
     this.openSnackBar("Buffering download","It might take up to a few minutes", 100000)
 
-    this.http.get(this.baseUrl + "/download/user", { 
+    this.http.get(this.baseUrlAllData + "/download/user", { 
         reportProgress: true,
         observe: 'events',
         responseType: 'blob',
@@ -112,7 +114,7 @@ export class UploadService {
 
     this.openSnackBar("Buffering download","It might take up to a few minutes", 100000)
 
-    this.http.get(this.baseUrl + "/download/project", { 
+    this.http.get(this.baseUrl + "/my-projects/download", { 
         reportProgress: true,
         observe: 'events',
         responseType: 'blob',
