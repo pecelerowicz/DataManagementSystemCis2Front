@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { DeletePackageRequest } from 'src/app/dto/my_package';
-import { PackageService } from 'src/app/services/package.service';
+import { DeletePackageRequest } from 'src/app/dto/my_data';
+import { MyDataService } from 'src/app/services/my-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 import { DialogData } from '../../package.component';
 
@@ -15,7 +15,7 @@ import { DialogData } from '../../package.component';
 export class DeletePackageDialogComponent {
 
   constructor(
-    private packageService: PackageService,
+    private myDataService: MyDataService,
     private dialogRef: MatDialogRef<DeletePackageDialogComponent>,
     private sharedCommunicationService: SharedCommunicationService,
     private _snackBar: MatSnackBar,
@@ -24,7 +24,7 @@ export class DeletePackageDialogComponent {
   
     onDelete() {
       let deletePackageRequest: DeletePackageRequest = {packageName: this.data.name};
-      this.packageService.deletePackage(deletePackageRequest).subscribe((response) => {
+      this.myDataService.deletePackage(deletePackageRequest).subscribe((response) => {
         this.sharedCommunicationService.updateListOfPackages$.next()
         this.openSnackBar(response.deleteMessage, '');
         this.dialogRef.close();

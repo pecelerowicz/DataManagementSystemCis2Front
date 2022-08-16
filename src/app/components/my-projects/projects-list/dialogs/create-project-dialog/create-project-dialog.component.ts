@@ -4,7 +4,7 @@ import { getInitialValueCreateProject } from '../../../../../mappers/project/pro
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../../../../home/package/package.component';
 import { CreateProjectRequest } from '../../../../../dto/my_project';
-import { ProjectService } from '../../../../../services/project.service';
+import { MyProjectsService } from '../../../../../services/my-projects.service';
 import { SharedCommunicationService } from '../../../../../services/shared-communication.service';
 import { CreateMetadataDialogComponent } from '../../../../home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,7 +22,7 @@ export class CreateProjectDialogComponent implements OnInit {
               private dialogRef: MatDialogRef<CreateMetadataDialogComponent>,            
               private router: Router,
               private _snackBar: MatSnackBar,
-              private projectService: ProjectService) { }
+              private myProjectsService: MyProjectsService) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +34,7 @@ export class CreateProjectDialogComponent implements OnInit {
       projectName: this.project.value.projectName,
       description: this.project.value.description
     }
-    this.projectService.createOwnedProject(createProjectRequest).subscribe(val => {
+    this.myProjectsService.createOwnedProject(createProjectRequest).subscribe(val => {
       this.sharedCommunicationService._createProjectSource.next(createProjectRequest);
       this.openSnackBar('New project created', '');
       this.router.navigate(['/my-projects']);

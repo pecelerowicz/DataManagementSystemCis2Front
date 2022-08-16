@@ -1,11 +1,10 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { Node } from '../../../dto/storage';
-import { ProjectService } from '../../../services/project.service';
+import { Node } from '../../../dto/my_data';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
-import { UploadService } from '../../../services/upload.service';
 import { Location } from '@angular/common';
+import { AllProjectsService } from 'src/app/services/all-projects.service';
 
 export interface DialogData {
   order: number;
@@ -51,8 +50,7 @@ export class PackagesFolderAllComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private sharedCommunicationService: SharedCommunicationService,
-              private projectService: ProjectService,
-              private uploadService: UploadService,
+              private allProjectsService: AllProjectsService,
               private location: Location) { }
 
   state: {projectId: number, infoName: string, userName: string} = {projectId: -1, infoName: '', userName: ''};
@@ -60,7 +58,7 @@ export class PackagesFolderAllComponent implements OnInit {
   ngOnInit(): void {
     this.state = this.sharedCommunicationService.fromAllProjectsPackagesToPackagesFolderData
   
-    this.projectService.getPackageFolderStructureOfUserAndProject(
+    this.allProjectsService.getPackageFolderStructureOfUserAndProject(
       this.state.projectId, this.state.userName, this.state.infoName
     ).subscribe(val => {
       console.log(val);
@@ -74,8 +72,7 @@ export class PackagesFolderAllComponent implements OnInit {
   isEmptyFolder = (_: number, node: ExampleFlatNode) => node.folder && !node.expandable;
 
   onDownload(val) {
-    // this.uploadService.download(this.name, val);
-    this.uploadService.downloadFileOfProject(
+    this.allProjectsService.downloadFileOfProject(
       this.state.projectId, this.state.userName, this.state.infoName, val
     );
     console.log(val);

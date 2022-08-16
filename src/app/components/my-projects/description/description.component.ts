@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UpdateProjectRequest } from '../../../dto/my_project';
 import { getInitialValueDescription } from '../../../mappers/project/project';
-import { ProjectService } from '../../../services/project.service';
+import { MyProjectsService } from '../../../services/my-projects.service';
 
 @Component({
   selector: 'app-description',
@@ -13,7 +13,7 @@ import { ProjectService } from '../../../services/project.service';
 export class DescriptionComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private projectService: ProjectService,
+              private myProjectsService: MyProjectsService,
               private _snackBar: MatSnackBar) { }
 
   public id: number = -1;
@@ -40,7 +40,7 @@ export class DescriptionComponent implements OnInit {
   }
 
   getDescriptionAndName() {
-    this.projectService.getOwnedProject(this.id).subscribe(val => {
+    this.myProjectsService.getOwnedProject(this.id).subscribe(val => {
       let description: string = val.description;
       this.projectName = val.name;
       this.description.patchValue({
@@ -64,7 +64,7 @@ export class DescriptionComponent implements OnInit {
       newName: this.projectName,
       newDescription: this.description.controls['description'].value,
     }
-    this.projectService.updateOwnedProject(updateProjectRequest).subscribe(val => {
+    this.myProjectsService.updateOwnedProject(updateProjectRequest).subscribe(val => {
       this.id = val.id;
       this.projectName = val.projectName;
       this.description.controls['description'].setValue(val.description);

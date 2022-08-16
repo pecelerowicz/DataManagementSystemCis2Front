@@ -1,9 +1,8 @@
 import { HttpResponse } from '@angular/common/http';
 import { HttpEventType } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { MyDataService } from 'src/app/services/my-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
-import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
   selector: 'app-upload',
@@ -24,15 +23,12 @@ export class UploadComponent implements OnInit {
   counterErrors: number = 0;
   isComplete: boolean = this.counterFiles + this.counterErrors === this.totalFiles && this.totalFiles !== 0;
 
-  fileInfos: Observable<any>;
-
   constructor(private sharedCommunicationService: SharedCommunicationService,
-              private uploadService: UploadService) {
+              private myDataService: MyDataService) {
     this.param = this.sharedCommunicationService.passParam;
   }
 
   ngOnInit(): void {
-    this.fileInfos = this.uploadService.getFiles();
   }
 
   selectFiles(event) {
@@ -41,7 +37,6 @@ export class UploadComponent implements OnInit {
   }
 
   uploadFiles() {
-    //this.message = '';
     this.uploadPressed = true;
     for (let i = 0; i < this.selectedFiles.length; i++) {
       this.upload(i, this.selectedFiles[i]);
@@ -51,12 +46,11 @@ export class UploadComponent implements OnInit {
   upload(idx, file) {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
   
-    this.uploadService.upload(file).subscribe(
+    this.myDataService.uploadFile(file).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          this.fileInfos = this.uploadService.getFiles();
           this.updateStatus();
         }
       },

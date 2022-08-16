@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { createPasswordStrengthValidator } from '../../validators/password-strength.validator';
 import { ChangePasswordRequest } from '../../dto/my_auth';
-import { NewPassService } from '../../services/newpass.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-change-password',
@@ -13,7 +13,7 @@ export class ChangePasswordComponent implements OnInit {
 
   group: FormGroup;
 
-  constructor(private newpassService: NewPassService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     let fb: FormBuilder = new FormBuilder();
@@ -48,7 +48,7 @@ export class ChangePasswordComponent implements OnInit {
 
   onChangePassword() {
     let changePasswordRequest: ChangePasswordRequest = {newPassword: this.group.controls['newPassword'].value};
-    this.newpassService.changePassword(changePasswordRequest);
+    this.authService.changePassword(changePasswordRequest);
     this.group.disable();
   }
 

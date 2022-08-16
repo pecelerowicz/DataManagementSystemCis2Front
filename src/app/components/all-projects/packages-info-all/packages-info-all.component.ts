@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../../services/project.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { InfoState } from '../../home/info/info.component';
 import { getInitialValueDifr, mapDifrResponse } from 'src/app/mappers/difr';
@@ -7,6 +6,7 @@ import { getInitialValueGeneral, mapGeneralResponse } from 'src/app/mappers/gene
 import { getInitialValueTest, mapTestResponse } from 'src/app/mappers/test';
 import { GetInfoResponse } from '../../../dto/info/info';
 import { Location } from '@angular/common';
+import { AllProjectsService } from 'src/app/services/all-projects.service';
 
 @Component({
   selector: 'app-packages-info-all',
@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 })
 export class PackagesInfoAllComponent implements OnInit {
 
-  constructor(private projectService: ProjectService,
+  constructor(private allProjectsService: AllProjectsService,
               private location: Location,
               private sharedCommunitationService: SharedCommunicationService) { }
 
@@ -46,7 +46,7 @@ export class PackagesInfoAllComponent implements OnInit {
     console.log(this.state.userName); 
     console.log(this.state.infoName);
     console.log("-- -- --")
-    this.projectService.getInfoOfUserAndProject(this.state.projectId, 
+    this.allProjectsService.getInfoOfUserAndProject(this.state.projectId, 
       this.state.userName, this.state.infoName).subscribe(val => {
         console.log(val);
         this.mapResponse(val);

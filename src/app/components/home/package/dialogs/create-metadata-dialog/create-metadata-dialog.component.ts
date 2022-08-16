@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Access, CreateInfoRequest } from 'src/app/dto/info/info';
+import { CreateInfoRequest } from 'src/app/dto/info/info';
 import { getInitialValueGeneral } from 'src/app/mappers/general';
-import { InfoService } from 'src/app/services/info.service';
+import { MyDataService } from 'src/app/services/my-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 import { DialogData } from '../../package.component';
 
@@ -18,7 +18,7 @@ export class CreateMetadataDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
     private sharedCommunicationService: SharedCommunicationService,
     private dialogRef: MatDialogRef<CreateMetadataDialogComponent>,
-    private infoService: InfoService, 
+    private myDataService: MyDataService,
     private _snackBar: MatSnackBar) { }
 
   name: string = '';
@@ -39,7 +39,7 @@ export class CreateMetadataDialogComponent implements OnInit {
       shortDescription: this.general.value.shortDescription,
       description: this.general.value.description
     }
-    this.infoService.createMetadata(createInfoRequst).subscribe(val => {
+    this.myDataService.createInfo(createInfoRequst).subscribe(val => {
       this.sharedCommunicationService.updateListOfPackages$.next()
       this.sharedCommunicationService._createMetadataInDialogSource.next({ order: this.data.order, name: this.data.name});
       this.openSnackBar("Created metadata in package " + val.infoName, '');

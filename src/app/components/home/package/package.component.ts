@@ -1,15 +1,14 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { PackageService } from '../../../services/package.service';
 import { SharedCommunicationService } from '../../../services/shared-communication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { StorageService } from 'src/app/services/storage.service';
-import { CreateStorageRequest } from 'src/app/dto/my_storage';
+import { CreateStorageRequest } from 'src/app/dto/my_data';
 import { CreateMetadataDialogComponent } from 'src/app/components/home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
 import { CreatePackageDialogComponent } from './dialogs/create-package-dialog/create-package-dialog.component';
 import { DeletePackageDialogComponent } from './dialogs/delete-package-dialog/delete-package-dialog.component';
+import { MyDataService } from 'src/app/services/my-data.service';
 
 export interface DialogData {
   name: string;
@@ -30,8 +29,7 @@ export class PackageComponent implements OnInit {
   dataSource: MatTableDataSource<Row>;
   filterValue: string = '';
 
-  constructor(private storageService: StorageService,
-              private packageService: PackageService,
+  constructor(private myDataService: MyDataService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog,
               private _snackBar: MatSnackBar) {} 
@@ -49,7 +47,7 @@ export class PackageComponent implements OnInit {
 
   private getPackageList() {
     let fetch: Row[] = [];
-    this.packageService.getPackageList().subscribe(val => {
+    this.myDataService.getPackageList().subscribe(val => {
       let counter: number = 1;
       for(let sm of val.packageResponseList) {
         fetch.push({name: sm.name, hasStorage: sm.hasStorage, 
@@ -76,7 +74,7 @@ export class PackageComponent implements OnInit {
 
   onCreateStorage(element) {
     let createStorageRequest: CreateStorageRequest = {storageName: element.name};
-    this.storageService.createStorage(createStorageRequest).subscribe(
+    this.myDataService.createStorage(createStorageRequest).subscribe(
       (val) => {
         this.sharedCommunicationService.updateListOfPackages$.next();
         this._snackBar.open(val.createStorageMessage, "", {

@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProjectService } from '../../../../../services/project.service';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MyProjectsService } from '../../../../../services/my-projects.service';
 import { DeleteOwnedProjectRequest } from '../../../../../dto/my_project';
 import { SharedCommunicationService } from '../../../../../services/shared-communication.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class DeleteProjectDialogComponent {
 
-  constructor(private projectService: ProjectService,
+  constructor(private myProjectsService: MyProjectsService,
               private sharedCommunicationService: SharedCommunicationService,
               private router: Router,
               private _snackBar: MatSnackBar,
@@ -24,7 +24,7 @@ export class DeleteProjectDialogComponent {
     let deleteOwnedProjectRequest: DeleteOwnedProjectRequest = {
       projectId: this.data.id
     }
-    this.projectService.deleteOwnedProject(deleteOwnedProjectRequest).subscribe(val => {
+    this.myProjectsService.deleteOwnedProject(deleteOwnedProjectRequest).subscribe(val => {
       this.sharedCommunicationService.updateListOfProjects$.next()
       this.router.navigate(['/my-projects']);
       this.openSnackBar("Project deleted", '');

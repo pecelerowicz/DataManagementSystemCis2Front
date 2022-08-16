@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { InfoService } from '../../../services/info.service';
+import { MyDataService } from '../../../services/my-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 import { GetInfoResponse, UpdateInfoRequest } from 'src/app/dto/info/info';
 import { createCreateDifrInfoRequest, getInitialValueDifr, mapDifrResponse, geometries, detectorAbsorbers, stages } from 'src/app/mappers/difr';
@@ -19,7 +19,7 @@ export class InfoComponent implements OnInit {
   stages = stages;
   constructor(private route: ActivatedRoute, 
     private sharedCommunicationService: SharedCommunicationService, 
-    private infoService: InfoService, 
+    private myDataService: MyDataService,
     private _snackBar: MatSnackBar,) {}
 
   infoState: InfoState = {
@@ -57,7 +57,7 @@ export class InfoComponent implements OnInit {
       updateInfoRequest.createTestInfoRequest = createCreateTestInfoRequest(this.infoState, this.test);
     }
 
-    this.infoService.updateInfo(updateInfoRequest).subscribe(
+    this.myDataService.updateInfo(updateInfoRequest).subscribe(
       val => {
         // optymalnie byłoby przepisać zwracaną wartość...
         this.pullData();
@@ -71,7 +71,7 @@ export class InfoComponent implements OnInit {
   }
 
   pullData() {
-    this.infoService.getInfo(this.infoState.infoName).subscribe(
+    this.myDataService.getInfo(this.infoState.infoName).subscribe(
       val => {
         console.log(val);
         this.mapResponse(val);

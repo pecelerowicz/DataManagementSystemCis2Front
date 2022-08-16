@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RemoveInfoFromOwnedProjectRequest } from '../../../../../dto/my_project';
-import { ProjectService } from '../../../../../services/project.service';
+import { MyProjectsService } from '../../../../../services/my-projects.service';
 import { SharedCommunicationService } from '../../../../../services/shared-communication.service';
 import { DeletePackageDialogComponent } from '../../../../home/package/dialogs/delete-package-dialog/delete-package-dialog.component';
 
@@ -14,7 +14,7 @@ import { DeletePackageDialogComponent } from '../../../../home/package/dialogs/d
 })
 export class RemovePackageDialogComponent implements OnInit {
 
-  constructor(private projectService: ProjectService,
+  constructor(private myProjectsService: MyProjectsService,
     private dialogRef: MatDialogRef<DeletePackageDialogComponent>,
     private sharedCommunicationService: SharedCommunicationService,
     private _snackBar: MatSnackBar,
@@ -30,7 +30,7 @@ export class RemovePackageDialogComponent implements OnInit {
       username: this.data.username,
       infoName: this.data.infoName
     }
-    this.projectService.removeInfoFromOwnedProject(payload).subscribe(val => {
+    this.myProjectsService.removeInfoFromOwnedProject(payload).subscribe(val => {
       this._snackBar.open("Package was removed from the project", "", {
         duration: 6000,
       });
