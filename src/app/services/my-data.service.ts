@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreateFolderRequest, CreateFolderResponse, CreatePackageRequest, CreatePackageResponse, CreateStorageRequest, CreateStorageResponse, DeleteItemRequest, DeleteItemResponse, DeletePackageRequest, DeletePackageResponse, GetPackageListResponse, UploadFileRequest } from '../dto/my_data';
+import { CreateFolderRequest, CreateFolderResponse, CreatePackageRequest, CreatePackageResponse, CreateStorageRequest, CreateStorageResponse, DeleteItemRequest, DeleteItemResponse, DeletePackageRequest, DeletePackageResponse, GetPackageListResponse, IsArchivedResponse, UploadFileRequest } from '../dto/my_data';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { CreateInfoRequest, CreateInfoResponse, GetInfoResponse, UpdateInfoRequest, UpdateInfoResponse } from '../dto/info/info'
 import { Node } from '../dto/my_data';
@@ -22,6 +22,7 @@ export class MyDataService {
   private infoAddressPrefixMyData: string = environmentCustom.address + '/api/my-data/info';
   private storageAddress: string = environmentCustom.address + '/api/my-data/storage';
   private foldersAddressMyData: string = environmentCustom.address + "/api/my-data/folders";
+  private archiveAddressMyData: string = environmentCustom.address + "/api/my-data/archive"; 
   private baseUrlMyData = environmentCustom.address + '/api/my-data';
 
   getPackageList(): Observable<GetPackageListResponse> {
@@ -34,6 +35,10 @@ export class MyDataService {
 
   deletePackage(deletePackageRequest: DeletePackageRequest): Observable<DeletePackageResponse> {
     return this.http.request<DeletePackageResponse>('delete', this.packageAddressMyData, {body: deletePackageRequest});
+  }
+
+  isArchived(packageName: string): Observable<IsArchivedResponse> {
+    return this.http.get<IsArchivedResponse>(this.archiveAddressMyData + '/' + packageName);
   }
 
   getInfo(infoName: string): Observable<GetInfoResponse> {

@@ -28,6 +28,10 @@ export interface DeletePackageResponse {
     deleteMessage: string;
 }
 
+export interface IsArchivedResponse {
+    archived: boolean;
+}
+
 export interface CreateFolderRequest {
     newFolderName: string;
     packageName: string;

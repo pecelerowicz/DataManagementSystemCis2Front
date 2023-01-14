@@ -33,6 +33,8 @@ export class FolderComponent implements OnInit {
   order: number;
   name: string;
 
+  isArchived: boolean;
+
   private _transformer = (node: Node, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -68,7 +70,11 @@ export class FolderComponent implements OnInit {
       this.name = this.sharedCommunicationService.fromListToStorage.name;
       this.myDataService.getPackageFolderStructure(this.name).subscribe((val) => {
         this.dataSource.data = val.children;
-      })
+      });
+      this.myDataService.isArchived(this.name).subscribe(val => {
+        this.isArchived = val.archived;
+        console.log(this.isArchived);
+      });
     });
 
     this.sharedCommunicationService.updateListOfFolders$.subscribe(() => {
