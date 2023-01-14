@@ -51,7 +51,7 @@ export class PackageComponent implements OnInit {
       let counter: number = 1;
       for(let sm of val.packageResponseList) {
         fetch.push({name: sm.name, hasStorage: sm.hasStorage, 
-          hasMetadata: sm.hasMetadata, localDate: sm.localDate, 
+          hasMetadata: sm.hasMetadata, archived: sm.archived, localDate: sm.localDate, 
           title: sm.title, shortDescription: sm.shortDescription, position: counter});
         counter++;
       }
@@ -63,6 +63,7 @@ export class PackageComponent implements OnInit {
   }
 
   onInfo(element) {
+    console.log(element);
     this.info.emit({ order: element.position });
     this.sharedCommunicationService.fromListToMetadata.name = element.name;
   }
@@ -70,6 +71,10 @@ export class PackageComponent implements OnInit {
   onStorage(element) {
     this.storage.emit({ order: element.position });
     this.sharedCommunicationService.fromListToStorage.name = element.name;
+  }
+
+  onDummy(element) {
+    console.log(element)
   }
 
   onCreateStorage(element) {
@@ -120,6 +125,7 @@ interface Row {
   name: string, 
   hasStorage: boolean, 
   hasMetadata: boolean, 
+  archived: boolean,
   localDate: string, 
   title: string,
   shortDescription: string,

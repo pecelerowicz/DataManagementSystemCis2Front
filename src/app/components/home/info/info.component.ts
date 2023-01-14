@@ -25,6 +25,7 @@ export class InfoComponent implements OnInit {
   infoState: InfoState = {
     order: 0,
     infoName: '',
+    isArchived: false,
     isFormDisabled: true,
     hasMetadata: false,
     isDifr: false,
@@ -74,7 +75,11 @@ export class InfoComponent implements OnInit {
     this.myDataService.getInfo(this.infoState.infoName).subscribe(
       val => {
         console.log(val);
+        this.infoState.isArchived = val.archived;
         this.mapResponse(val);
+        console.log("---")
+        console.log(this.infoState)
+        console.log("---")
       }, 
       err => {
         console.log(err);
@@ -129,6 +134,7 @@ export class InfoComponent implements OnInit {
 export interface InfoState {
   order: number,
   infoName: string,
+  isArchived: boolean,
   isFormDisabled: boolean,
   hasMetadata: boolean,
   isDifr: boolean,

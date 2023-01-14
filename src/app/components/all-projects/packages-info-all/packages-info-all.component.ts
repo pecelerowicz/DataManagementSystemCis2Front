@@ -23,6 +23,7 @@ export class PackagesInfoAllComponent implements OnInit {
   infoState: InfoState = {
     order: 0,
     infoName: '',
+    isArchived: false,
     isFormDisabled: true,
     hasMetadata: false,
     isDifr: false,

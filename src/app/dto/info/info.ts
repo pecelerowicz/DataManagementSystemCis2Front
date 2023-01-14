@@ -11,6 +11,7 @@ interface InfoDto {
 }
 
 export interface GetInfoResponse extends InfoDto {
+    archived: boolean;
     getDifrInfoResponse: GetDifrInfoResponse;
     getTestInfoResponse: GetTestInfoResponse;
 }

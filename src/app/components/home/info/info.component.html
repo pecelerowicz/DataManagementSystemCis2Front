@@ -149,7 +149,7 @@
     </div>
 
     <p id="father">
-      <button [matMenuTriggerFor]="metadataMenu" [disabled]="infoState.hasMetadata || !infoState.isFormDisabled" mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+      <button [matMenuTriggerFor]="metadataMenu" [disabled]="infoState.hasMetadata || !infoState.isFormDisabled || infoState.isArchived" mat-button  id="son1"  mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
         <mat-icon>add</mat-icon>
       </button>    
       <mat-menu #metadataMenu="matMenu" yPosition="above" xPosition="before">
@@ -158,7 +158,7 @@
       </mat-menu>
 
 
-      <button *ngIf="infoState.isFormDisabled" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
+      <button *ngIf="infoState.isFormDisabled" [disabled]="infoState.isArchived" [matMenuTriggerFor]="enableMenu" color="primary" mat-button id="son2" mat-mini-fab>
         <mat-icon>mode</mat-icon>
       </button>
       <mat-menu #enableMenu="matMenu" yPosition="above" xPosition="before">
