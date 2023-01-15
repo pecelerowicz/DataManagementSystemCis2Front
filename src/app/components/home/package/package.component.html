@@ -109,7 +109,7 @@
 
         <mat-menu #menuMore="matMenu" matMenuContent>
           <ng-template let-label="label" matMenuContent>
-            <button (click)="onDummy(label)" mat-menu-item>
+            <button (click)="onOpenRenameDialog(label)" mat-menu-item>
               <mat-icon>mode_edit</mat-icon>
               <span>rename</span>
             </button>
@@ -126,7 +126,7 @@
 
         <mat-menu #menuMoreNoInfo="matMenu" matMenuContent>
           <ng-template let-label="label" matMenuContent>
-            <button (click)="onDummy(label)" mat-menu-item>
+            <button (click)="onOpenRenameDialog(label)" mat-menu-item>
               <mat-icon>mode_edit</mat-icon>
               <span>rename</span>
             </button>

@@ -73,6 +73,10 @@ export class PackageComponent implements OnInit {
     this.sharedCommunicationService.fromListToStorage.name = element.name;
   }
 
+  onOpenRenameDialog(element) {
+    this.dialog.open(CreateMetadataDialogComponent, {data: {order: element.position, name: element.name}});
+  }
+
   onDummy(element) {
     console.log(element)
   }
