@@ -9,6 +9,7 @@ import { CreateMetadataDialogComponent } from 'src/app/components/home/package/d
 import { CreatePackageDialogComponent } from './dialogs/create-package-dialog/create-package-dialog.component';
 import { DeletePackageDialogComponent } from './dialogs/delete-package-dialog/delete-package-dialog.component';
 import { MyDataService } from 'src/app/services/my-data.service';
+import { RenamePackageDialogComponent } from './dialogs/rename-package-dialog/rename-package-dialog.component';
 
 export interface DialogData {
   name: string;
@@ -74,7 +75,7 @@ export class PackageComponent implements OnInit {
   }
 
   onOpenRenameDialog(element) {
-    this.dialog.open(CreateMetadataDialogComponent, {data: {order: element.position, name: element.name}});
+    this.dialog.open(RenamePackageDialogComponent, {data: {order: element.position, name: element.name}});
   }
 
   onDummy(element) {

@@ -49,6 +49,7 @@ import { PackagesFolderAllComponent } from './components/all-projects/packages-f
 import { DeleteProjectDialogComponent } from './components/my-projects/projects-list/dialogs/delete-project-dialog/delete-project-dialog.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FilterComponent } from './components/reusable/filter/filter.component';
+import { RenamePackageDialogComponent } from './components/home/package/dialogs/rename-package-dialog/rename-package-dialog.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { FilterComponent } from './components/reusable/filter/filter.component';
     PackagesFolderAllComponent,
     DeleteProjectDialogComponent,
     ChangePasswordComponent,
-    FilterComponent
+    FilterComponent,
+    RenamePackageDialogComponent
   ],
   imports: [
     BrowserModule,

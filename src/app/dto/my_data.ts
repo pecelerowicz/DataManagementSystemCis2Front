@@ -20,6 +20,15 @@ export interface CreatePackageResponse {
     createPackageMessage: string;
 }
 
+export interface RenamePackageRequest {
+    packageOldName: string;
+    packageNewName: string;
+}
+
+export interface RenamePackageResponse {
+    renamePackageMessage: string;
+}
+
 export interface DeletePackageRequest {
     packageName: string;
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreateFolderRequest, CreateFolderResponse, CreatePackageRequest, CreatePackageResponse, CreateStorageRequest, CreateStorageResponse, DeleteItemRequest, DeleteItemResponse, DeletePackageRequest, DeletePackageResponse, GetPackageListResponse, IsArchivedResponse, UploadFileRequest } from '../dto/my_data';
+import { CreateFolderRequest, CreateFolderResponse, CreatePackageRequest, CreatePackageResponse, CreateStorageRequest, CreateStorageResponse, DeleteItemRequest, DeleteItemResponse, DeletePackageRequest, DeletePackageResponse, GetPackageListResponse, IsArchivedResponse, RenamePackageRequest, RenamePackageResponse, UploadFileRequest } from '../dto/my_data';
 import { environmentCustom } from 'src/environments/environment.custom';
 import { CreateInfoRequest, CreateInfoResponse, GetInfoResponse, UpdateInfoRequest, UpdateInfoResponse } from '../dto/info/info'
 import { Node } from '../dto/my_data';
@@ -31,6 +31,10 @@ export class MyDataService {
 
   createPackage(createPackageRequest: CreatePackageRequest): Observable<CreatePackageResponse> {
     return this.http.post<CreatePackageResponse>(this.packageAddressMyData, createPackageRequest);
+  }
+
+  renamePackage(renamePackageRequest: RenamePackageRequest): Observable<RenamePackageResponse> {
+    return this.http.put<RenamePackageResponse>(this.packageAddressMyData, renamePackageRequest);
   }
 
   deletePackage(deletePackageRequest: DeletePackageRequest): Observable<DeletePackageResponse> {
