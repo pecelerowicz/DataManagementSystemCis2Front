@@ -117,7 +117,7 @@
               <mat-icon>archive</mat-icon>
               <span>archive</span>
             </button>
-            <button mat-menu-item>
+            <button (click)="onOpenDeletePackageDialog(label)" mat-menu-item>
               <mat-icon>delete</mat-icon>
               <span>delete</span>
             </button>
@@ -131,7 +131,7 @@
               <span>rename</span>
             </button>
             
-            <button mat-menu-item>
+            <button (click)="onOpenDeletePackageDialog(label)" mat-menu-item>
               <mat-icon>delete</mat-icon>
               <span>delete</span>
             </button>
