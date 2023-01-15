@@ -8,6 +8,7 @@ import { CreateStorageRequest } from 'src/app/dto/my_data';
 import { CreateMetadataDialogComponent } from 'src/app/components/home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
 import { CreatePackageDialogComponent } from './dialogs/create-package-dialog/create-package-dialog.component';
 import { DeletePackageDialogComponent } from './dialogs/delete-package-dialog/delete-package-dialog.component';
+import { ArchivePackageDialogComponent } from './dialogs/archive-package-dialog/archive-package-dialog.component';
 import { MyDataService } from 'src/app/services/my-data.service';
 import { RenamePackageDialogComponent } from './dialogs/rename-package-dialog/rename-package-dialog.component';
 
@@ -107,6 +108,10 @@ export class PackageComponent implements OnInit {
 
   onOpenDeletePackageDialog(element) {
     this.dialog.open(DeletePackageDialogComponent, {data: {name: element.name}});
+  }
+
+  onOpenArchivePackageDialog(element) {
+    this.dialog.open(ArchivePackageDialogComponent, {data: {name: element.name}});
   }
 
   onOpenCreatePackageDialog() {

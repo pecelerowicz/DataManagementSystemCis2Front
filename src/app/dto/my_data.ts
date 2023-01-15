@@ -37,6 +37,14 @@ export interface DeletePackageResponse {
     deleteMessage: string;
 }
 
+export interface ArchivePackageRequest {
+    packageName: string;
+}
+
+export interface ArchivePackageResponse {
+    archivePackageMessage: string;
+}
+
 export interface IsArchivedResponse {
     archived: boolean;
 }
