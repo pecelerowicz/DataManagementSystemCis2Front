@@ -19,24 +19,42 @@
 </mat-menu>
 
 <mat-menu #menu="matMenu">
-    <a mat-menu-item routerLink="/login">
-        <mat-icon>calendar_view_day</mat-icon>
-        <span>my data</span>
+    <a mat-menu-item [matMenuTriggerFor]="generalMenu">
+      <span>general</span>
     </a>
-    <!-- <a mat-menu-item routerLink="/register">
-        <mat-icon>task</mat-icon>
-        <span>My Projects</span>
-    </a> -->
-    <a mat-menu-item routerLink="/search">
-        <mat-icon>menu</mat-icon>
-        <span>all data</span>
+    <a mat-menu-item [matMenuTriggerFor]="xrdMenu">
+      <span>xrd</span>
     </a>
-    <a mat-menu-item routerLink="/my-projects">
-      <mat-icon>view_array</mat-icon>
-      <span>my projects</span>
-    </a>
-    <a mat-menu-item routerLink="/all-projects">
-      <mat-icon>view_column</mat-icon>
-      <span>all projects</span>
-    </a>
+    
+</mat-menu>
+
+<mat-menu #generalMenu="matMenu">
+  <a mat-menu-item routerLink="/login">
+    <mat-icon>calendar_view_day</mat-icon>
+    <span>my data</span>
+</a>
+<a mat-menu-item routerLink="/search">
+    <mat-icon>menu</mat-icon>
+    <span>all data</span>
+</a>
+<a mat-menu-item routerLink="/my-projects">
+  <mat-icon>view_array</mat-icon>
+  <span>my projects</span>
+</a>
+<a mat-menu-item routerLink="/all-projects">
+  <mat-icon>view_column</mat-icon>
+  <span>all projects</span>
+</a>
+</mat-menu>
+
+<mat-menu #xrdMenu="matMenu">
+  <a mat-menu-item>
+    <mat-icon>search</mat-icon>
+    <span>search</span>
+  </a>
+  <a mat-menu-item>
+    <mat-icon>upload</mat-icon>
+    <span>upload</span>
+  </a>
+  
 </mat-menu>
