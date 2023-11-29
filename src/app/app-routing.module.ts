@@ -21,6 +21,7 @@ import { PackagesInfoAllComponent } from './components/all-projects/packages-inf
 import { PackagesFolderComponent } from './components/my-projects/packages-folder/packages-folder.component';
 import { PackagesFolderAllComponent } from './components/all-projects/packages-folder-all/packages-folder-all.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { TemFolderComponent } from './components/tem/tem-folder/tem-folder.component';
 
 const routes: Routes = [
   {
@@ -118,6 +119,10 @@ const routes: Routes = [
         component: PackagesFolderAllComponent
       }
     ]
+  },
+  {
+    path: 'tem-folder',
+    component: TemFolderComponent
   }
 ];
 
