@@ -1,0 +1,58 @@
+h4 {
+    font-weight: 400;
+    padding-bottom: 0;
+    margin-bottom: 6px;
+    margin-top: 35px;
+    padding-left: 1.5%;
+    color: grey;
+  }
+  
+  mat-divider {
+    width: 97%;
+    margin-left: 1.5%;
+    margin-bottom: 20px;
+    margin-top: 0;
+    border-top-color: grey;
+  }
+  
+  #father2 {
+      position: relative;
+      margin: 0rem;
+      padding: 0;
+      height: 1px;
+    }
+    
+    #son2 {
+      top: -5rem;
+      left: -2rem; 
+      float: right;
+    }
+    
+
+
+    .example-tree-invisible {
+      display: none;
+    }
+    
+    .example-tree ul,
+    .example-tree li {
+      margin-top: 0;
+      margin-bottom: 0;
+      list-style-type: none;
+    }
+    
+    /*
+     * This padding sets alignment of the nested nodes.
+     */
+    .example-tree .mat-nested-tree-node div[role=group] {
+      padding-left: 40px;
+    }
+    
+    /*
+     * Padding for leaf nodes.
+     * Leaf nodes need to have padding so as to align with other non-leaf nodes
+     * under the same parent.
+     */
+    .example-tree div[role=group] > .mat-tree-node {
+      padding-left: 40px;
+    }

@@ -53,6 +53,8 @@ import { RenamePackageDialogComponent } from './components/home/package/dialogs/
 import { ArchivePackageDialogComponent } from './components/home/package/dialogs/archive-package-dialog/archive-package-dialog.component';
 import { TemFolderComponent } from './components/tem/tem-folder/tem-folder.component';
 
+import { TemFolderService } from './services/tem-folder.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,6 +114,7 @@ import { TemFolderComponent } from './components/tem/tem-folder/tem-folder.compo
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    TemFolderService
   ],
   bootstrap: [AppComponent],
 })
