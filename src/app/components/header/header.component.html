@@ -22,8 +22,8 @@
     <a mat-menu-item [matMenuTriggerFor]="generalMenu">
       <span>general</span>
     </a>
-    <a mat-menu-item [matMenuTriggerFor]="xrdMenu">
-      <span>xrd</span>
+    <a mat-menu-item [matMenuTriggerFor]="temMenu">
+      <span>tem</span>
     </a>
     
 </mat-menu>
@@ -47,14 +47,9 @@
 </a>
 </mat-menu>
 
-<mat-menu #xrdMenu="matMenu">
-  <a mat-menu-item>
-    <mat-icon>search</mat-icon>
-    <span>search</span>
-  </a>
-  <a mat-menu-item>
-    <mat-icon>upload</mat-icon>
-    <span>upload</span>
-  </a>
-  
+<mat-menu #temMenu="matMenu">
+  <a mat-menu-item routerLink="/tem-folder">
+    <mat-icon>folder</mat-icon>
+    <span>folder</span>
+  </a>  
 </mat-menu>

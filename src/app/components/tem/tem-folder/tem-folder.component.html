@@ -1,0 +1,82 @@
+
+  
+<h4 class="red-text" matSubheader *ngIf="!TEM_FOLDER_STRUCTURE.canDownload">You are not allowed to download the files. Contact the data owner.</h4>
+<mat-divider *ngIf="!TEM_FOLDER_STRUCTURE.canDownload"></mat-divider>
+
+<mat-tree class="internal-container" [dataSource]="dataSource" [treeControl]="treeControl">
+
+  <!-- file -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
+    <button mat-icon-button disabled></button>
+    <button mat-icon-button *ngIf="TEM_FOLDER_STRUCTURE.canDownload" [matMenuTriggerFor]="menu">
+      <mat-icon>insert_drive_file</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="!TEM_FOLDER_STRUCTURE.canDownload">
+      <mat-icon>insert_drive_file</mat-icon>
+    </button>
+    {{ node.name | shorten}}
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngIf="TEM_FOLDER_STRUCTURE.canDownload" (click)="onDownload(node.name)">
+        <mat-icon>download</mat-icon>
+        Download
+      </button>
+      <!-- <button *ngIf="!isArchived" mat-menu-item (click)="onOpenDeleteFolderDialog(node.name)">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button> -->
+    </mat-menu> 
+  </mat-tree-node>
+
+  <!-- empty folder -->
+  <mat-tree-node *matTreeNodeDef="let node; when: isEmptyFolder " matTreeNodePadding >
+   <button mat-icon-button disabled></button>
+   <button [disabled]="isArchived" mat-icon-button>
+   <!-- <button [disabled]="isArchived" mat-icon-button [matMenuTriggerFor]="menu">  -->
+    <mat-icon>folder</mat-icon>
+   </button>
+   {{ node.name | shorten}}
+
+   <!-- <mat-menu #menu="matMenu">
+     <button mat-menu-item (click)="onUpload(node.name)">
+       <mat-icon>upload</mat-icon>
+       Upload
+     </button>
+     <button mat-menu-item (click)="onOpenDeleteFolderDialog(node.name)">
+       <mat-icon>delete</mat-icon>
+       Delete
+     </button>
+     <button mat-menu-item (click)="onOpenCreateSubfolderDialog(node.name)">
+       <mat-icon>create_new_folder</mat-icon>
+       Subfolder
+     </button>
+   </mat-menu> -->
+  </mat-tree-node>
+
+  <!-- folder with content -->
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+   <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+    <mat-icon class="mat-icon-rtl-mirror">{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}</mat-icon>
+   </button>
+   <!-- <button mat-icon-button [matMenuTriggerFor]="menu"> -->
+   <button mat-icon-button>
+     <mat-icon class="mat-icon-rtl-mirror">{{ treeControl.isExpanded(node) ? "folder_open" : "folder" }}</mat-icon>
+   </button>
+   {{ node.name | shorten}}
+    
+   <!-- <mat-menu #menu="matMenu">
+     <button mat-menu-item (click)="onUpload(node.name)">
+       <mat-icon>upload</mat-icon>
+       Upload
+     </button>
+     <button mat-menu-item (click)="onOpenCreateSubfolderDialog(node.name)">
+       <mat-icon>create_new_folder</mat-icon>
+       Subfolder
+     </button>
+     <button mat-menu-item (click)="onOpenDeleteFolderDialog(node.name)">
+       <mat-icon>delete</mat-icon>
+       Delete
+     </button>  
+   </mat-menu> -->
+  </mat-tree-node>
+</mat-tree>
