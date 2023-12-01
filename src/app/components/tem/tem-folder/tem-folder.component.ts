@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from '@angular/material/tree';
 import { Node } from '../../../dto/my_data';
 import { TemFolderService } from 'src/app/services/tem-folder.service';
+import { TemFolderStructure } from 'src/app/dto/my_tem';
  
 
 interface TreeNode {
@@ -18,7 +19,13 @@ interface TreeNode {
   styleUrls: ['./tem-folder.component.css']
 })
 export class TemFolderComponent implements OnInit {
-  TREE_DATA: Node[] = [];
+  TEM_FOLDER_STRUCTURE: TemFolderStructure = {
+    folderStructure: null, 
+    canRead: true, 
+    canDownload: true, 
+    canModifyContent: true, 
+    canModifyAuthorities: true
+  };
 
   // TREE API
   treeControl = new FlatTreeControl<TreeNode>((node) => node.level, (node) => node.expandable);
@@ -47,15 +54,18 @@ export class TemFolderComponent implements OnInit {
   isEmptyFolder = (_: number, node: TreeNode) => node.folder && !node.expandable;
 
   constructor(private temFolderService: TemFolderService) {
-    this.dataSource.data = this.TREE_DATA;
+    this.dataSource.data = [];
   }
 
   ngOnInit(): void {
       this.temFolderService.getTemMainFolder().subscribe((val) => {
-      this.TREE_DATA = val.folderStructure.children
-      this.dataSource.data = this.TREE_DATA;
-      console.log(this.TREE_DATA);
+      this.TEM_FOLDER_STRUCTURE = val;
+      this.dataSource.data = this.TEM_FOLDER_STRUCTURE.folderStructure.children;
     });
+  }
+
+  onDownload(val) {
+    this.temFolderService.downloadTemFile(val);
   }
   
 }
