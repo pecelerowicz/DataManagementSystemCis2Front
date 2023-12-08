@@ -51,7 +51,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { FilterComponent } from './components/reusable/filter/filter.component';
 import { RenamePackageDialogComponent } from './components/home/package/dialogs/rename-package-dialog/rename-package-dialog.component';
 import { ArchivePackageDialogComponent } from './components/home/package/dialogs/archive-package-dialog/archive-package-dialog.component';
-import { TemFolderComponent } from './components/tem/tem-folder/tem-folder.component';
+import { DownloadTemDialog, TemFolderComponent } from './components/tem/tem-folder/tem-folder.component';
 
 import { TemFolderService } from './services/tem-folder.service';
 
@@ -99,7 +99,8 @@ import { TemFolderService } from './services/tem-folder.service';
     FilterComponent,
     RenamePackageDialogComponent,
     ArchivePackageDialogComponent,
-    TemFolderComponent
+    TemFolderComponent,
+    DownloadTemDialog
   ],
   imports: [
     BrowserModule,

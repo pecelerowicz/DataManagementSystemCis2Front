@@ -23,7 +23,7 @@ export class TemFolderService {
         return this.http.get<TemFolderStructure>(this.addressTemMainFolder);
     }
 
-    downloadTemFile(fileNameWithPath: string) {
+    downloadFile(fileNameWithPath: string) {
         let headers = new HttpHeaders();
         headers = headers.set('Accept', 'application/pdf');
         let params = new HttpParams();
@@ -49,6 +49,10 @@ export class TemFolderService {
             
           }
         );
+    }
+
+    downloadZipFolder(folderNameWithPath: string) {
+
     }
     
     openSnackBar(message: string, action: string, duration: number) {

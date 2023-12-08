@@ -22,6 +22,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from "@angular/material/select";
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSlider, MatSliderModule } from '@angular/material/slider';
 
 const material = [
   MatButtonModule,
@@ -46,7 +47,8 @@ const material = [
   MatStepperModule,
   MatRadioModule,
   MatSelectModule,
-  MatChipsModule
+  MatChipsModule,
+  MatSliderModule
 ];
 
 @NgModule({
