@@ -16,6 +16,7 @@ export class TemFolderService {
 
     private addressTemMainFolder: string = environmentCustom.address + '/api/tem/main-folder';
     private addressTemDownloadFile: string = environmentCustom.address + '/api/tem/download-file';
+    private addressTemDownloadZipFolder: string = environmentCustom.address + '/api/tem/download-zip-folder'
     private addressTemGrantAccess: string = environmentCustom.address + '/api/tem/grant-access';    
 
     
@@ -52,7 +53,23 @@ export class TemFolderService {
     }
 
     downloadZipFolder(folderNameWithPath: string) {
+        let headers = new HttpHeaders();
+        headers = headers.set('Accept', 'application/pdf');
+        let params = new HttpParams();
+        params = params.append('folderNameWithPath', folderNameWithPath);
 
+        console.log("----")
+        console.log(folderNameWithPath)
+        console.log("----")
+
+        return this.http.get(this.addressTemDownloadZipFolder, {
+          reportProgress: true,
+          observe: 'events',
+          responseType: 'blob',
+          headers: headers,
+          params: params
+        });
+        
     }
     
     openSnackBar(message: string, action: string, duration: number) {

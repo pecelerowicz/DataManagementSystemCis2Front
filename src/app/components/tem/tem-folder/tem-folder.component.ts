@@ -1,19 +1,17 @@
-import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from '@angular/material/tree';
-import { DeleteItemRequest, Node } from '../../../dto/my_data';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { Node } from '../../../dto/my_data';
 import { TemFolderService } from 'src/app/services/tem-folder.service';
 import { TemFolderStructure } from 'src/app/dto/my_tem';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MyDataService } from 'src/app/services/my-data.service';
-import { DeleteFolderDialog, DialogData } from '../../home/folder/folder.component';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogData } from '../../home/folder/folder.component';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSliderModule } from '@angular/material/slider';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
- 
+import { HttpEventType } from '@angular/common/http';
+import * as fileSaver from 'file-saver';
 
 interface TreeNode {
   expandable: boolean;
@@ -87,14 +85,11 @@ export class TemFolderComponent implements OnInit {
 }
 
 
-
 @Component({
   selector: 'download-tem-dialog',
   template: `
   <h1 mat-dialog-title>Download folder: {{data.name}} {{data.subfolderName}}</h1>
     <div mat-dialog-actions align="center">
-    <button (click)="onDownloadFolder()" color="primary" mat-flat-button mat-dialog-close>Download</button>
-    <button color="primary" mat-flat-button mat-dialog-close>Return</button>
 
     <mat-progress-bar
         class="example-margin"
@@ -132,37 +127,57 @@ export class TemFolderComponent implements OnInit {
 }
   `]
 })
-export class DownloadTemDialog {
+export class DownloadTemDialog implements OnInit {
   public color: ThemePalette = 'primary';
-  public mode: ProgressBarMode = 'determinate';
-  public value = 50;
+  public mode: ProgressBarMode = 'query';
+  public value = 0;
   public bufferValue = 75;
+
+  private firstDownloadEvent: boolean = true;
   
-  constructor(private myDataService: MyDataService,
-              private dialogRef: MatDialogRef<DeleteFolderDialog>,
+  constructor(private dialogRef: MatDialogRef<DownloadTemDialog>,
               public sharedCommunicationService: SharedCommunicationService,
               private _snackBar: MatSnackBar,
+              private temFolderService: TemFolderService,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-  onDownloadFolder() {
-    
-    let deleteItemRequest: DeleteItemRequest = {packageName: this.data.name, itemPathString: this.data.subfolderName};
-    
-    
-    // this.myDataService.deleteItem(deleteItemRequest).subscribe(
-    //   val => {
-    //     this.sharedCommunicationService.updateListOfFolders$.next();
-    //     this.openSnackBar(val.deleteFolderMessage, '');
-    //     this.dialogRef.close();
-    //   }, 
-    //   err => {
-    //     this.openSnackBar("Could not delete package!", err.error.exception);
-    //   }
-    // )
+
+  ngOnInit(): void {
+    this.onDownloadFolder();
+  }
+
+  onDownloadFolder() {  
+    this.openSnackBar("Processing...", "");
+
+    this.temFolderService.downloadZipFolder(this.data.subfolderName)
+      .subscribe(
+        val => {
+          if(val.type == HttpEventType.Response) {
+            let contentDisposition = val.headers.get('content-disposition');
+            let filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
+            fileSaver.saveAs(new File([val.body], filename));
+          
+            this.openSnackBar("Download successful", "");
+            setTimeout(() => {
+              this.dialogRef.close();
+            }, 2000);
+          }
+
+          if(val.type == HttpEventType.DownloadProgress) {
+            if(this.firstDownloadEvent) {
+              this.openSnackBar("Download started...", "");
+              this.firstDownloadEvent = false;
+            }
+            this.mode = "determinate";
+            this.value = Math.round(100 * val.loaded / val.total);
+          }        
+        }
+    )
   }
   
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 6000,
+      duration: 9000,
     });
   }
+  
 }
