@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,9 @@ import { GetSearchListRequest, SearchResponse } from 'src/app/dto/all_data';
 import { AuthService } from 'src/app/services/auth.service';
 import { AllDataService } from 'src/app/services/all-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
+import { ShortenNamePipe } from '../../../pipes/shorten-name.pipe';
+
+
 
 @Component({
   selector: 'app-search-package',
@@ -86,7 +89,6 @@ export class SearchPackageComponent implements OnInit {
       this.dataSource.data = fetch;
       this.dataSource.paginator = this.paginator;
       console.log(fetch)
-
     }, 
     err => {
       console.log(err);

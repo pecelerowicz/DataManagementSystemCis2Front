@@ -21,6 +21,7 @@ import { CreateMetadataDialogComponent } from './components/home/package/dialogs
 import { CreateFolderDialog } from './components/home/folder/folder.component';
 import { DeleteFolderDialog } from './components/home/folder/folder.component';
 import { ShortenPathPipe } from './pipes/shorten-path.pipe';
+import { ShortenNamePipe } from './pipes/shorten-name.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { TestStepComponent } from './components/home/info/test-step/test-step.component';
 import { FolderComponent } from './components/home/folder/folder.component';
@@ -62,6 +63,7 @@ import { TemFolderService } from './services/tem-folder.service';
     PasswordStrengthDirective,
     OnlyOneErrorPipe,
     ShortenPathPipe,
+    ShortenNamePipe,
     HomeComponent,
     InfoComponent,
     UploadComponent,
