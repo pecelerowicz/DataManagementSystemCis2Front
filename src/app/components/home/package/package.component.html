@@ -10,7 +10,7 @@
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>name</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          <td mat-cell [matTooltip]="element.name || ''" [matTooltipPosition]="'above'" *matCellDef="let element">{{ element.name | shortenname: 30}}</td>
         </ng-container>
 
         <ng-container matColumnDef="info">

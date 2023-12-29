@@ -11,6 +11,8 @@ import { DeletePackageDialogComponent } from './dialogs/delete-package-dialog/de
 import { ArchivePackageDialogComponent } from './dialogs/archive-package-dialog/archive-package-dialog.component';
 import { MyDataService } from 'src/app/services/my-data.service';
 import { RenamePackageDialogComponent } from './dialogs/rename-package-dialog/rename-package-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { FormControl } from '@angular/forms';
 
 export interface DialogData {
   name: string;
@@ -35,6 +37,8 @@ export class PackageComponent implements OnInit {
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog,
               private _snackBar: MatSnackBar) {} 
+
+  message = new FormControl('Info about the action Info about the action Info about the action');
 
   ngOnInit(): void {
     this.getPackageList();
@@ -62,6 +66,10 @@ export class PackageComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.filter = this.filterValue.trim()//.toLowerCase();
     })
+  }
+
+  onHover() {
+    console.log("entered");
   }
 
   onInfo(element) {
