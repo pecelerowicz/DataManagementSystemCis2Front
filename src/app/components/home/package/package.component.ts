@@ -11,7 +11,6 @@ import { DeletePackageDialogComponent } from './dialogs/delete-package-dialog/de
 import { ArchivePackageDialogComponent } from './dialogs/archive-package-dialog/archive-package-dialog.component';
 import { MyDataService } from 'src/app/services/my-data.service';
 import { RenamePackageDialogComponent } from './dialogs/rename-package-dialog/rename-package-dialog.component';
-import { MatTooltipModule } from '@angular/material/tooltip'
 import { FormControl } from '@angular/forms';
 
 export interface DialogData {
@@ -64,12 +63,8 @@ export class PackageComponent implements OnInit {
       this.dataSource = new MatTableDataSource();
       this.dataSource.data = fetch;
       this.dataSource.paginator = this.paginator;
-      this.dataSource.filter = this.filterValue.trim()//.toLowerCase();
+      this.dataSource.filter = this.filterValue.trim()
     })
-  }
-
-  onHover() {
-    console.log("entered");
   }
 
   onInfo(element) {

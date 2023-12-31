@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,7 +6,6 @@ import { GetSearchListRequest, SearchResponse } from 'src/app/dto/all_data';
 import { AuthService } from 'src/app/services/auth.service';
 import { AllDataService } from 'src/app/services/all-data.service';
 import { SharedCommunicationService } from 'src/app/services/shared-communication.service';
-import { ShortenNamePipe } from '../../../pipes/shorten-name.pipe';
 
 
 
