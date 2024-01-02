@@ -18,7 +18,7 @@ import { InfoComponent } from './components/home/info/info.component';
 import { UploadComponent } from './components/home/upload/upload.component';
 import { CreatePackageDialogComponent } from './components/home/package/dialogs/create-package-dialog/create-package-dialog.component';
 import { CreateMetadataDialogComponent } from './components/home/package/dialogs/create-metadata-dialog/create-metadata-dialog.component';
-import { CreateFolderDialog } from './components/home/folder/folder.component';
+import { CreateFolderDialog, DownloadDialog } from './components/home/folder/folder.component';
 import { DeleteFolderDialog } from './components/home/folder/folder.component';
 import { ShortenPathPipe } from './pipes/shorten-path.pipe';
 import { ShortenNamePipe } from './pipes/shorten-name.pipe';
@@ -102,7 +102,8 @@ import { TemFolderService } from './services/tem-folder.service';
     RenamePackageDialogComponent,
     ArchivePackageDialogComponent,
     TemFolderComponent,
-    DownloadTemDialog
+    DownloadTemDialog, 
+    DownloadDialog
   ],
   imports: [
     BrowserModule,

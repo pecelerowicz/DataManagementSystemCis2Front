@@ -130,6 +130,23 @@ export class MyDataService {
     );
   }
 
+  downloadFileSimple(packageName: string, fileNameWithPath: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    let params = new HttpParams();
+    params = params.append('packageName', packageName);
+    //params = params.append('folderPath', folderPath);
+    params = params.append('fileNameWithPath', fileNameWithPath)
+
+    return this.http.get(this.baseUrlMyData + "/download", { 
+        reportProgress: true,
+        observe: 'events',
+        responseType: 'blob',
+        headers: headers, 
+        params: params 
+      });
+  }
+
   openSnackBar(message: string, action: string, duration: number) {
     this._snackBar.open(message, action, {duration: duration});
   }

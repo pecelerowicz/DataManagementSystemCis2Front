@@ -10,6 +10,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadService } from 'src/app/services/upload.service';
 import { DeleteItemRequest } from 'src/app/dto/my_data';
 import { MyDataService } from 'src/app/services/my-data.service';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
+import { HttpEventType } from '@angular/common/http';
+import * as fileSaver from 'file-saver';
+
 
 export interface DialogData {
   order: number;
@@ -94,7 +99,8 @@ export class FolderComponent implements OnInit {
   isEmptyFolder = (_: number, node: ExampleFlatNode) => node.folder && !node.expandable;
 
   onDownload(val) {
-    this.myDataService.downloadFile(this.name, val);
+    // this.myDataService.downloadFile(this.name, val);
+    this.dialog.open(DownloadDialog,  {data: {name: this.name, subfolderName: val}});
   }
 
   onUpload(val) {
@@ -114,6 +120,104 @@ export class FolderComponent implements OnInit {
     this.dialog.open(DeleteFolderDialog, {data: {name: this.name, subfolderName: val}})
   }
 }
+
+
+@Component({
+  selector: 'download-dialog',
+  template: `
+  <h1 mat-dialog-title>Download file: {{data.name}} {{data.subfolderName}}</h1>
+    <div mat-dialog-actions align="center">
+
+    <mat-progress-bar
+        class="example-margin"
+        [color]="color"
+        [mode]="mode"
+        [value]="value"
+        [bufferValue]="bufferValue">
+    </mat-progress-bar>
+  </div>
+  `,
+  styles: [`
+  .dialog-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-form-field {
+  width: 300px
+  height: 350px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.mat-dialog-content {
+  padding-bottom: 20px; /* Adjust the value as needed */
+}
+
+.example-margin {
+  margin-top: 30px; /* Adjust the value as needed */
+}
+  `]
+})
+export class DownloadDialog implements OnInit {
+  public color: ThemePalette = 'primary';
+  public mode: ProgressBarMode = 'query';
+  public value = 0;
+  public bufferValue = 75;
+
+
+  private firstDownloadEvent: boolean = true;
+  
+  constructor(private dialogRef: MatDialogRef<DownloadDialog>,
+              public sharedCommunicationService: SharedCommunicationService,
+              private _snackBar: MatSnackBar,
+              private myDataService: MyDataService,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  ngOnInit(): void {
+    this.onDownloadFile();
+  }
+
+  onDownloadFile() {  
+    this.myDataService.downloadFileSimple(this.data.name, this.data.subfolderName)
+    .subscribe(
+      val => {
+        if(val.type == HttpEventType.Response) {
+          let contentDisposition = val.headers.get('content-disposition');
+          let filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
+          fileSaver.saveAs(new File([val.body], filename));
+        
+          this.openSnackBar("Download successful", "");
+          setTimeout(() => {
+            this.dialogRef.close();
+          }, 2000);
+        }
+
+        if(val.type == HttpEventType.DownloadProgress) {
+          if(this.firstDownloadEvent) {
+            this.openSnackBar("Download started...", "");
+            this.firstDownloadEvent = false;
+          }
+          this.mode = "determinate";
+          this.value = Math.round(100 * val.loaded / val.total);
+        }        
+      }
+  )
+  }
+  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 9000,
+    });
+  }
+  
+}
+
 
 @Component({
   selector: 'create-folder-dialog',
