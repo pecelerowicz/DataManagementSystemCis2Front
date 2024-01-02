@@ -100,7 +100,7 @@ export class FolderComponent implements OnInit {
 
   onDownload(val) {
     // this.myDataService.downloadFile(this.name, val);
-    this.dialog.open(DownloadDialog,  {data: {name: this.name, subfolderName: val}});
+    this.dialog.open(DownloadDialog,  {data: {name: this.name, subfolderName: val}, disableClose: true});
   }
 
   onUpload(val) {

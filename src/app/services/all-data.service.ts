@@ -72,6 +72,25 @@ export class AllDataService {
     );
   }
 
+  downloadFileOfUserSimple(userName: string, packageName: string, fileNameWithPath: string) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    let params = new HttpParams();
+    params = params.append('userName', userName);
+    params = params.append('packageName', packageName);
+    params = params.append('fileNameWithPath', fileNameWithPath)
+   
+    this.openSnackBar("Buffering download","It might take up to a few minutes", 100000)
+
+    return this.http.get(this.baseUrlAllData + "/download/user", { 
+        reportProgress: true,
+        observe: 'events',
+        responseType: 'blob',
+        headers: headers, 
+        params: params 
+      });
+  }
+
   openSnackBar(message: string, action: string, duration: number) {
     this._snackBar.open(message, action, {duration: duration});
   }
