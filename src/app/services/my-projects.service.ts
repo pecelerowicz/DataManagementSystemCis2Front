@@ -79,23 +79,23 @@ export class MyProjectsService {
 
     this.openSnackBar("Buffering download","It might take up to a few minutes", 100000)
 
-    this.httpClient.get(this.baseUrl + "/my-projects/download", { 
+    return this.httpClient.get(this.baseUrl + "/my-projects/download", { 
         reportProgress: true,
         observe: 'events',
         responseType: 'blob',
         headers: headers, 
         params: params 
-      })
-      .subscribe(
-      val => {
-        if(val.type == HttpEventType.Response) {
-          let contentDisposition = val.headers.get('content-disposition');
-          let filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
-          fileSaver.saveAs(new File([val.body], filename));
-          this.openSnackBar("Download started", "", 6000);
-        }
-      }
-    );
+      });
+    //   .subscribe(
+    //   val => {
+    //     if(val.type == HttpEventType.Response) {
+    //       let contentDisposition = val.headers.get('content-disposition');
+    //       let filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
+    //       fileSaver.saveAs(new File([val.body], filename));
+    //       this.openSnackBar("Download started", "", 6000);
+    //     }
+    //   }
+    // );
   }
 
   openSnackBar(message: string, action: string, duration: number) {
