@@ -44,7 +44,7 @@
       <div *ngFor="let progressInfo of progressInfos" >
         <span>{{ progressInfo.fileName }}</span>
         
-          <mat-progress-bar mode="determinate" value={{progressInfo.value}}></mat-progress-bar>
+          <mat-progress-bar mode={{progressInfo.mode}} value={{progressInfo.value}}></mat-progress-bar>
 
         
       </div>

@@ -89,6 +89,7 @@ export class MyDataService {
       packageName: this.sharedCommunicationService.passParam.packageName,
       folderRelativePath: this.sharedCommunicationService.passParam.folderPath
     }
+    
     formData.append('file', file);
     formData.append('uploadFileRequest', JSON.stringify(payload));
 

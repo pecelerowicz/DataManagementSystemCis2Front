@@ -97,7 +97,7 @@ export interface CreateStorageResponse {
 
 export interface UploadFileRequest {
     packageName: string;
-    folderRelativePath: string
+    folderRelativePath: string;
 }
 
 export interface Node {
