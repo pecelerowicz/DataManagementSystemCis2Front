@@ -41,6 +41,7 @@ import { MembersComponent } from './components/my-projects/members/members.compo
 import { PackagesComponent } from './components/my-projects/packages/packages.component';
 import { RemovePackageDialogComponent } from './components/my-projects/packages/dialogs/remove-package-dialog/remove-package-dialog.component';
 import { AllProjectsComponent } from './components/all-projects/all-projects.component';
+import { DownloadDialogAllProject } from './components/all-projects/packages-folder-all/packages-folder-all.component';
 import { ProjectListAllComponent } from './components/all-projects/project-list-all/project-list-all.component';
 import { PackagesAllComponent } from './components/all-projects/packages-all/packages-all.component';
 import { MembersAllComponent } from './components/all-projects/members-all/members-all.component';
@@ -91,6 +92,7 @@ import { TemFolderService } from './services/tem-folder.service';
     PackagesComponent,
     RemovePackageDialogComponent,
     AllProjectsComponent,
+    DownloadDialogAllProject,
     ProjectListAllComponent,
     PackagesAllComponent,
     MembersAllComponent,
