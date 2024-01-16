@@ -7,7 +7,6 @@ import { SharedCommunicationService } from '../../../services/shared-communicati
 import { Node } from '../../../dto/my_data';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UploadService } from 'src/app/services/upload.service';
 import { DeleteItemRequest } from 'src/app/dto/my_data';
 import { MyDataService } from 'src/app/services/my-data.service';
 import { ThemePalette } from '@angular/material/core';
@@ -65,7 +64,6 @@ export class FolderComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, 
               private myDataService: MyDataService,
-              private uploadService: UploadService,
               private sharedCommunicationService: SharedCommunicationService,
               private dialog: MatDialog) {}
 

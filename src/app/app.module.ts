@@ -33,6 +33,7 @@ import { SearchPackageComponent } from './components/search/search-package/searc
 import { SearchInfoComponent } from './components/search/search-info/search-info.component';
 import { SearchFolderComponent } from './components/search/search-folder/search-folder.component';
 import { MyProjectsComponent } from './components/my-projects/my-projects.component';
+import { DownloadDialogMyProject } from './components/my-projects/packages-folder/packages-folder.component';
 import { ProjectsListComponent } from './components/my-projects/projects-list/projects-list.component';
 import { CreateProjectDialogComponent } from './components/my-projects/projects-list/dialogs/create-project-dialog/create-project-dialog.component';
 import { DescriptionComponent } from './components/my-projects/description/description.component';
@@ -82,6 +83,7 @@ import { TemFolderService } from './services/tem-folder.service';
     SearchInfoComponent,
     SearchFolderComponent,
     MyProjectsComponent,
+    DownloadDialogMyProject,
     ProjectsListComponent,
     CreateProjectDialogComponent,
     DescriptionComponent,
